@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\TipoProductoRequest;
 use DB;
 
-class TipoProductoController extends Controller
+class TipoProductoController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +24,9 @@ class TipoProductoController extends Controller
 
         if ($request) { 
 
-        $tipoProductos = DB::table('tipoproductos')->orderBy('idTipoProducto','desc')->paginate(8);
+        $tipoProductos = DB::table('tipoProductos')->where('condicion','=','1')->orderBy('idTipoProducto','desc')->paginate(8);
 
-        return view('tipoProductos.index', ['tipoProductos'=>$tipoProductos]);
+        return view('vendor.admin.tipoProductos.index', ['tipoProductos'=>$tipoProductos]);
 
         }
 
@@ -39,7 +39,7 @@ class TipoProductoController extends Controller
      */ 
     public function create()
     { 
-        return view("tipoProductos.create");
+        return view("vendor.admin.tipoProductos.create");
     }
 
     /**
@@ -55,9 +55,10 @@ class TipoProductoController extends Controller
         $tipoProducto->descripcionTipoProducto = $request->get('descripcionTipoProducto');
         $tipoProducto->condicion = '1';
         $tipoProducto->save();
-        
-        return  Redirect::to('tipoProductos');
 
+        $tipoProductos = DB::table('tipoProductos')->orderBy('idTipoProducto','desc');
+        return view('vendor.admin.tipoProductos.index', ['tipoProductos'=>$tipoProductos]);
+        
             }
 
     /**
@@ -67,7 +68,7 @@ class TipoProductoController extends Controller
      */
     public function show($idTipoProducto)
     {
-        return view("tipoProductos.show", ['tipoProducto'=>TipoProducto::findOrFail($idTipoProducto)]);
+        return view("vendor.admin.tipoProductos.show", ['tipoProducto'=>TipoProducto::findOrFail($idTipoProducto)]);
     }
 
     /**
@@ -78,7 +79,7 @@ class TipoProductoController extends Controller
      */
     public function edit($idTipoProducto)
     {
-        return view ('tipoProductos.edit',['tipoProducto'=>TipoProducto::findOrFail($idTipoProducto)]);
+        return view ('vendor.admin.tipoProductos.edit',['tipoProducto'=>TipoProducto::findOrFail($idTipoProducto)]);
     }
 
     /**
@@ -97,7 +98,7 @@ class TipoProductoController extends Controller
         $tipoProducto->descripcionTipoProducto=$request->get('descripcionTipoProducto');
        
         $tipoProducto->update();
-         return redirect('tipoProductos');
+         return redirect('vendor.admin.tipoProductos');
     
  }
 
@@ -113,6 +114,6 @@ class TipoProductoController extends Controller
         $tipoProducto = TipoProducto::findOrFail($idTipoProducto);
         $tipoProducto->condicion='0';
         $tipoProducto->update();
-            return redirect()->route('tipoProductos.index')->with("info", "Se ha elimnado correctamente");
+            return Redirect::to('tipoProductos');
     }
 }

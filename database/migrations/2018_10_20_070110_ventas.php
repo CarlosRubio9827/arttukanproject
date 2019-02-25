@@ -13,7 +13,15 @@ class Ventas extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('ventas', function (Blueprint $table) {
+            $table->increments('idVenta');
+            $table->datetime('fechaHora');
+            $table->decimal('totalVenta', 11, 2);            
+            $table->char('estado', 4);
+            $table->timestamps();
+
+            
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class Ventas extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('ventas');
     }
 }

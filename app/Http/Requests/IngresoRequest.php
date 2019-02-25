@@ -26,7 +26,6 @@ class IngresoRequest extends FormRequest
         return [
             'idProducto'=>'required',
             'cantidad'=>'required',
-            'fechaHora'=>'required',
         ];
     }
 }

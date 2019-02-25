@@ -17,6 +17,8 @@ class Ingresos extends Migration
             $table->increments('idIngreso');
             $table->date('fechaHora');
             $table->char('estado', 4);
+            $table->timestamps();
+
 
 
         });

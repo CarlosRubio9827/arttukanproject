@@ -6,6 +6,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Role;
 
 /**
  * Class RegisterController
@@ -33,7 +34,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('adminlte::auth.register');
+        return view('vendor.adminlte.auth.register');
     }
 
     /**
@@ -62,7 +63,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'nombres' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'terms' => 'required',
@@ -76,11 +77,20 @@ class RegisterController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
+    { 
+
         return User::create([
-            'name' => $data['name'],
+            'nombres' => $data['nombres'],
+            'apellidos' => $data['apellidos'],
             'email' => $data['email'],
+            'tipoDocumento' => $data['tipoDocumento'],
+            'numDocumento' => $data['numDocumento'],
+            'direccion' => $data['direccion'],
+            'telefono' => $data['telefono'],
             'password' => bcrypt($data['password']),
         ]);
+
     }
+
 }
+ 

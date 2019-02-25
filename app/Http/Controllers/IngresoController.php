@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IngresoRequest;
+use App\Http\Requests;
+use App\Ingreso;
+use App\DetalleIngreso;
+use DB;
+use Carbon\Carbon;
+use Response;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
-use App\Http\Requests\IngresoRequest;
-use DB;
-use App\Ingreso;
-use App\DetalleIngreso;
-use Carbon\Carbon;
-use Illuminate\Support\Collection;
+
+
+
 
 class IngresoController extends Controller
 {
@@ -21,13 +26,13 @@ class IngresoController extends Controller
     public function index(Request $request){
 
     	if ($request) {
-    		$ingresos=DB::table('ingresos as i')
+    		$ingresos=DB::table('ingresos as i')->where('estado','=','A')
     		->join('detalleIngresos as di','i.idIngreso','=','di.idIngreso')
     		->select('i.idIngreso','i.fechaHora','i.estado','di.cantidad')
     		->orderBy('i.idIngreso','desc')
     		->groupBy('i.idIngreso','i.fechaHora','i.estado','di.cantidad')
     		->paginate(7);
-    		return view('ingresos.index',['ingresos'=>$ingresos]);
+    		return view('vendor.admin.ingresos.index',['ingresos'=>$ingresos]);
 
     	}}
 
@@ -37,18 +42,19 @@ class IngresoController extends Controller
     		 ->select(DB::raw('CONCAT(p.idProducto," ",p.nombreProducto) as producto'),'p.idProducto')
     		 ->get();
 
-    		return view ('ingresos.create',['productos'=>$productos]);
+    		return view ('vendor.admin.ingresos.create',['productos'=>$productos]);
     	}
 
     	public function store(IngresoRequest $request){
 
   				try {
-  					DB::beginTransaction();
-  					$ingreso=new Ingreso();
-  					$mytime=Carbon::now('America/Bogota');
-  					$ingreso->fechaHora=$mytime->toDateTimeString();
-  					$ingreso->estado='A';
-  					$ingreso->save();
+                      
+					  DB::beginTransaction();
+					  $ingreso=new Ingreso();
+					  $mytime=Carbon::now('America/Bogota');
+					  $ingreso->fechaHora=$mytime->toDateTimeString();
+					  $ingreso->estado='A';
+					  $ingreso->save(); 
 
   					$idProducto = $request->get('idProducto');
   					$cantidad = $request->get('cantidad');
@@ -62,19 +68,20 @@ class IngresoController extends Controller
  						$detalleIngreso->cantidad=$cantidad[$cont];
  						$detalleIngreso->save();
   						$cont=$cont+1;
-
   					}
-
-  					DB::commit();
+					  DB::commit();
+ 
   				} catch (\Exception $e) {
-  					DB::rollback();
+				 
+					DB::rollback();
   				}
+ 
+         return redirect()->route('ingresos.index');
 
-  				return redirect('ingresos');
     	}
 
     	public function show($idIngreso){
-
+ 
     		$ingreso = DB::table('ingresos as i')
     		->join('detalleIngresos as di','i.idIngreso','=','di.idIngreso')
     		->select('i.idIngreso','i.fechaHora','i.estado','di.cantidad')
@@ -83,18 +90,17 @@ class IngresoController extends Controller
     		$detalleIngreso = DB::table('detalleIngresos as di')
     		->join('productos as p','p.idProducto','di.idProducto')
     		->select('p.nombreProducto','di.cantidad')
-    		->where('di.idIngreso','',$idIngreso)->get();
-
-    		return view('ingresos.show',['ingreso'=>$ingreso,'detalleIngreso'=>$detalleIngreso]);
+    		->where('di.idIngreso','=',$idIngreso)->get();
 
     	}
 
     	public function destroy($idIngreso){
 
-    		$ingreso = findOrFail($idIngreso);
+    		$ingreso = Ingreso::findOrFail($idIngreso);
     		$ingreso->estado='C';
     		$ingreso->update();
-    		return view('ingresos.index');
+
+        return Redirect::to('ingresos');
 
     	}
 

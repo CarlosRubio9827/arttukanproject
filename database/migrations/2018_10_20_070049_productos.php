@@ -15,13 +15,16 @@ class Productos extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->increments('idProducto');
+            $table->string('codigoProducto');
             $table->string('nombreProducto');
             $table->string('imagen');
             $table->integer('stock');
+            $table->decimal('precio',11,2);
+            $table->char('estado',2);
             $table->unsignedInteger('idTipoProducto');
             $table->foreign('idTipoProducto')->references('idTipoProducto')->on('tipoProductos');
-            $table->timestamp('created_at')->nullable();
-        });
+            $table->timestamps();
+                    });
     }
 
     /**

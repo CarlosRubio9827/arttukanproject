@@ -18,7 +18,8 @@ class TipoProductos extends Migration
             $table->string('nombreTipoProducto');
             $table->string('descripcionTipoProducto');
             $table->boolean('condicion');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
+
         });
     }
 

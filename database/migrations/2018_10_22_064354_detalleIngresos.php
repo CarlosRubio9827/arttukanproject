@@ -20,7 +20,8 @@ class DetalleIngresos extends Migration
             $table->integer('cantidad');
             $table->foreign('idProducto')->references('idProducto')->on('productos');
             $table->foreign('idIngreso')->references('idIngreso')->on('ingresos');
-           
+            $table->timestamps();
+
         });
     }
  

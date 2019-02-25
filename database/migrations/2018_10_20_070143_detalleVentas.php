@@ -13,7 +13,20 @@ class DetalleVentas extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('detalleVentas', function (Blueprint $table) {
+            $table->increments('idDetalleVenta');
+            $table->unsignedInteger('idVenta');
+            $table->unsignedInteger('idProducto');
+            $table->integer('cantidad');
+            $table->decimal('precioVenta',11,2);
+            $table->foreign('idVenta')->references('idVenta')->on('ventas');
+            $table->foreign('idProducto')->references('idProducto')->on('productos');
+            $table->timestamps();
+
+
+
+            
+        });
     }
 
     /**

@@ -28,12 +28,12 @@ class ProductoController extends Controller
 
         if ($request) {
         
-        $productos = DB::table('productos as p')
-        ->join('tipoproductos as tp','p.idTipoProducto','=','tp.idTipoProducto')->select('p.idProducto','p.nombreProducto','p.stock','tp.nombreTipoProducto as TipoProducto','p.imagen','p.idTipoProducto')
+        $productos = DB::table('productos as p')->where('estado','=','1')
+        ->join('tipoproductos as tp','p.idTipoProducto','=','tp.idTipoProducto')->select('p.idProducto','p.codigoProducto','p.precio','p.nombreProducto','p.stock','tp.nombreTipoProducto as TipoProducto','p.imagen','p.idTipoProducto')
         ->orderBy('p.idProducto','desc')->paginate(8);
 
-        return view('productos.index', ['productos'=>$productos]);
-
+        return view('vendor.admin.productos.index', ['productos'=>$productos]);    
+         
         }
 
     }
@@ -48,7 +48,7 @@ class ProductoController extends Controller
         
         $tipoProductos=DB::table('tipoproductos')->where('condicion','=','1')->get();
 
-        return view("productos.create",['tipoProductos'=>$tipoProductos]);
+        return view("vendor.admin.productos.create",['tipoProductos'=>$tipoProductos]);
 
     }
 
@@ -63,13 +63,19 @@ class ProductoController extends Controller
          }
 
         $producto = new Producto();
+        $producto->codigoProducto = $request->get('codigoProducto');
         $producto->nombreProducto = $request->get('nombreProducto');
         $producto->stock = $request->get('stock');
+        $producto->precio = $request->get('precioProducto');
+        $producto->estado = 1;
         $producto->idTipoProducto = $request->get('idTipoProducto');
         $producto->imagen = $name;
         $producto->save();
 
-            return Redirect::to('productos');
+        return redirect()->route('productos.index');
+       // $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
+        //return view('vendor.admin.productos.index', ['productos'=>$productos]);
+        
           
             }
 
@@ -80,7 +86,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        return view("productos.show", compact('producto'));
+        return view("vendor.admin.productos.show", compact('producto'));
     }
 
     /**
@@ -95,7 +101,7 @@ class ProductoController extends Controller
         $tipoproductos = DB::select('select * from tipoproductos where condicion = :id', ['id' => 1]); 
         
 
-        return view ('productos.edit',['producto'=>$producto,'tipoProductos'=>$tipoproductos]);
+        return view ('vendor.admin.productos.edit',['producto'=>$producto,'tipoProductos'=>$tipoproductos]);
     }
 
     /**
@@ -108,6 +114,7 @@ class ProductoController extends Controller
     public function update(ProductoRequest $request, $idProducto)
     {
         $producto = Producto::findOrFail($idProducto);
+        $producto->codigoProducto=$request->get('codigoProducto');
         
         $producto->nombreProducto = $request->get('nombreProducto');
         $producto->stock = $request->get('stock');
@@ -121,7 +128,10 @@ class ProductoController extends Controller
          }
        
         $producto->update();
-         return redirect('productos');
+
+         $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
+        return view('vendor.admin.productos.index', ['productos'=>$productos]);
+        
      
  }
 
@@ -133,9 +143,15 @@ class ProductoController extends Controller
      */
     public function destroy($idProducto)
     {
-
         $producto = Producto::findOrFail($idProducto);
-        $producto->delete();
-        return redirect()->route('productos.index')->with("info", "Se ha elimnado correctamente");
+        $producto->estado =2;
+        $producto->update(); 
+
+        $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
+        //return view('vendor.admin.productos.index', ['productos'=>$productos]);
+        
+
+        return Redirect::to('productos')->with('message', 'Eliminado satisfactoriamente');
+        //redirect()->route('vendor.admin.productos.index')->with("info", "Se ha elimnado correctamente");
     }
 }

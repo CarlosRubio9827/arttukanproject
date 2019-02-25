@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\VentaRequest;
 use App\Venta;
 use App\DetalleVenta;
 use DB;
 use Carbon\Carbon;
 use Response;
+use Illuminate\Support\Collection;
 
 class VentaController extends Controller
 {
@@ -16,16 +20,21 @@ class VentaController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function index(Request $request)
     {
 
             if ($request) {
-                $ventas = DB::table('ventas as v')->join('detalleventas as dv', 'v.idVenta','=','dv.idVenta')->select('v.idVenta','v.fechaHora','v.totalVenta')->orderBy('v.idVenta','desc')->groupBy('v.idVenta','v.fechaHora');
-                return view('ventas.index',['ventas' =>$ventas]);
+                $ventas = DB::table('ventas as v')->where('estado','=','A')
+                ->join('detalleventas as dv', 'v.idVenta','=','dv.idVenta')
+                ->select('v.idVenta','v.fechaHora','v.estado','v.totalVenta')
+                ->orderBy('v.idVenta','desc')
+                ->groupBy('v.idVenta','v.fechaHora','v.estado','v.totalVenta')
+                ->paginate(8);
+                return view('vendor.admin.ventas.index',['ventas' =>$ventas]);
             }
 
-            }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -34,8 +43,16 @@ class VentaController extends Controller
      */
     public function create()
     {
-       $productos = DB::table('productos')->get();
-       return view('ventas.create',['productos'=>$productos]);
+ 
+       $productos = DB::table('productos as p')
+       ->select(DB::raw('CONCAT(p.idProducto," ",p.nombreProducto) as producto'),'p.idProducto','p.stock','p.precio')
+       ->where('p.stock','>','0')
+       ->groupBy('producto','p.idProducto','p.stock','p.precio')
+       ->get();
+ 
+
+       return view('vendor.admin.ventas.create',['productos'=>$productos]);
+
         } 
 
     /**
@@ -44,16 +61,16 @@ class VentaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VentaRequest $request)
     {
            
            try {
                 DB::beginTransaction();
                 $venta=new Venta;
                 $venta->totalVenta=$request->get('totalVenta');
-                $venta->impuesto=$request->get('impuesto');
                 $mytime = Carbon::now('America/Bogota');
                 $venta->fechaHora=$mytime->toDateTimeString();
+                $venta->estado = 'A';
                 $venta->save();
 
                 $idProducto=$request->get('idProducto');
@@ -78,7 +95,7 @@ class VentaController extends Controller
                DB::rollback();
            }
 
-           return redirect('ventas.index');
+        return redirect()->route('ventas.index');
 
         }
 
@@ -87,13 +104,22 @@ class VentaController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function show($id)
     {
-        $venta=DB::table('ventas as v')->join('detalleventas as dv','v.idVenta','=','dv.idVenta')->select('v.idVenta','v.fechaHora','v.totalVenta')->where('v.idVenta','=',$id)->first();
+        $venta=DB::table('ventas as v')
+        ->join('detalleventas as dv','v.idVenta','=','dv.idVenta')
+        ->select('v.idVenta','v.fechaHora','v.totalVenta','v.estado','v.totalVenta')
+        ->where('v.idVenta','=',$id)
+        ->first();
 
-        $detalle=DB::table('detalleventas as d')->join('productos as p','d.idProducto','=','p.idProducto')->select('p.nombreProducto','d.cantidad','a.precioVenta')->where('d.idVenta','=',$id)->get();
-        return view ('ventas.show',['ventas'=>$venta,'detalleVentas'=>$detalle]);
+        $detalle=DB::table('detalleventas as d')
+        ->join('productos as p','d.idProducto','=','p.idProducto')
+        ->select('p.nombreProducto','d.cantidad','d.precioVenta')
+        ->where('d.idVenta','=',$id)
+        ->get();
+        return view ('vendor.admin.ventas.show',['ventas'=>$venta,'detalleVentas'=>$detalle]);
+           
             }
 
     /**
@@ -113,7 +139,8 @@ class VentaController extends Controller
     public function destroy($id)
     {
         $venta=Venta::findOrFail($id);
-        $venta->delete();
-        return redirect()->route('productos.index')->with("info", "Se ha elimnado correctamente");
+        $venta->estado = 'C';
+        $venta->update();
+        return Redirect::to('ventas');
     }
 }
