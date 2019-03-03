@@ -1,4 +1,4 @@
- @extends("adminlte.layouts.app")
+ @extends("vendor.adminlte.layouts.app")
 
  
  @section('css-view')
@@ -13,13 +13,13 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-group">
                             <label>Fecha Ingreso</label>
-                            <p>{{ $ingreso->fechaHora }}</p>
+                            <p>{{ $ingresos->fechaHora }}</p>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">    
                         <div class="form-group">
                             <label for="cantidad">Estado</label>
-                            <p>{{ $ingreso->estado }}</p>
+                            <p>{{ $ingresos->estado }}</p>
                         </div>
                     </div>
 
@@ -33,12 +33,12 @@
                                     </thead>
  
                                     <tbody>
-                                        @foreach ($detalleIngreso as $detalle)
+                                        @foreach ($detalleIngresos as $detalle)
                                             <tr>
                                                 <td>{{ $detalle->nombreProducto }}</td>
                                                 <td>{{ $detalle->cantidad }}</td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach 
                                     </tbody>
                                 </table>                               
                             </div>

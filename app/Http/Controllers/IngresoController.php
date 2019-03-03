@@ -78,19 +78,22 @@ class IngresoController extends Controller
  
          return redirect()->route('ingresos.index');
 
-    	}
+    	} 
 
-    	public function show($idIngreso){
+    	public function show($id){ 
  
     		$ingreso = DB::table('ingresos as i')
     		->join('detalleIngresos as di','i.idIngreso','=','di.idIngreso')
     		->select('i.idIngreso','i.fechaHora','i.estado','di.cantidad')
-    		->where('i.idIngreso','=',$idIngreso)
+    		->where('i.idIngreso','=',$id)
     		->first();
     		$detalleIngreso = DB::table('detalleIngresos as di')
     		->join('productos as p','p.idProducto','di.idProducto')
     		->select('p.nombreProducto','di.cantidad')
-    		->where('di.idIngreso','=',$idIngreso)->get();
+    		->where('di.idIngreso','=',$id)->get();
+
+        return view("vendor.admin.ingresos.show", ['ingresos'=>$ingreso,'detalleIngresos'=>$detalleIngreso]);
+ 
 
     	}
 
