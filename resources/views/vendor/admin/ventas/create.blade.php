@@ -8,42 +8,51 @@
 
 @endsection()
  
+@section('htmlheader_title')
+    Registrar Venta
+@endsection
+
+@section('contentheader_title')
+       Ventas 
+@endsection
+
 @section("main-content")
+ 
+<div class="card bg-light mb-3" style="max-width: 70rem;" >
 
-  <div class="row">
-    <div class="col-md-6 col-xs-12 col-lg6 col-sm-6">
-        <h3>Nueva venta</h3>
-        
-        @if (count($errors)>0)
+    <div class="card-header">
+		<h4>Registrar Ventas</h4>
+	</div>
+
+	<div class="card-body">	
+        <div class="container-fluid"> 
+            @if (count($errors)>0)
             <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-
-        @endif
+            @endif
+        </div>
     </div>
-  </div>
 
                 {!! Form::open(['route' => 'ventas.store', 'method'=>'POST','autocomplete'=>'off']) !!}
                 {{Form::token()}}
 
                 <div class="row">
-                    <div class="panel panel-primary">
-                        <div class="panel-body">
-                            
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Productos</label>
-                                    <select name="pidProducto" class="form-control selectpicker" id="pidProducto" data-live-search='true'>
-                                                @foreach ($productos as $producto)
-                                        <option value="{{ $producto->idProducto }}_{{ $producto->stock }}_{{ $producto->precio }}">{{ $producto->producto}}</option>
-                                                @endforeach
-                                    </select> 
-                                </div>
+                         
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label>Productos</label>
+                                <select name="pidProducto" class="form-control selectpicker" id="pidProducto" data-live-search='true'>
+                                        @foreach ($productos as $producto)
+                                    <option value="{{ $producto->idProducto }}_{{ $producto->stock }}_{{ $producto->precio }}">{{ $producto->producto}}</option>
+                                        @endforeach
+                                </select> 
                             </div>
+                        </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                             <div class="form-group">
@@ -66,51 +75,51 @@
                             </div>
                         </div>
 
-                    
-
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                            <div class="form-group">
-                                        <br>
-                                <button class="btn btn-primary" id="bt_add" type="button">Agregar al detalle</button>
+                </div>
+                        <div class="panel-body">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                                <button class="btn btn-primary" id="bt_add" type="button" >Agregar al detalle</button>
                             </div>
-                        </div>    
-                    
-                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                <table id="detalles" class="table table-striped table-responsive table-hover table-condensed table-bordered">
-                                    <thead style="background-color: #A9D0F5">
-                                        <th>Opciones</th>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio Venta</th>
-                                    </thead>
-                                    <tfoot>
-                                        <th>Total</th>
-                                        <th></th>
-                                        <th></th>
-                                        <th><h4 id="total">$/. 0.00</h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
-                                    </tfoot>
-                                    <tbody>
+                        </div>     
+                     
+                        <div class="panel-body">
+                            <table  id="detalles" class="table table-bordered" WIDTH="2000">
+                                <thead class="thead-dark">
+                                    <th>Opciones</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Venta</th>
+                                </thead>
+                                <tfoot>
+                                   <th>Total</th>
+                                   <th></th>
+                                    <th></th>
+                                    <th><h4 id="total">$/. 0.00</h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
+                                </tfoot>
+                                <tbody>
                                         
-                                    </tbody>
-                                </table>                               
-                            </div>
-                        
-
+                                </tbody>
+                            </table>                               
                         </div>
-                    </div>
                         
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
+                            <div class="form-group">
 
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
-                        <div class="form-group">
-                            <input  type="hidden" value="{{ csrf_token() }}" name="_token">
-                            <button class="btn btn-primary" type="submit">Guardar</button>
-                            <a href="{{ route('productos.index') }}"><button  class="btn btn-danger" >Cancelar</button></a>
+                                <input  type="hidden" value="{{ csrf_token() }}" name="_token">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                                 </div>
                         </div>
-                    </div>
-            </div>
 
-                    {!! Form::close() !!}       
+                    {!! Form::close() !!}
 
+                    <div class="panel-body" >
+                        <button class="btn btn-danger btn-lg btn-block " type="button" onclick="history.back()">Cancelar</button>
+                    </div>    
+                   
+                    
+                </div>
+
+			    
 
 @section('js-view')
 

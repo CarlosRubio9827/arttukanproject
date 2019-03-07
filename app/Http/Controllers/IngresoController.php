@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 
@@ -89,7 +90,7 @@ class IngresoController extends Controller
     		->first();
     		$detalleIngreso = DB::table('detalleIngresos as di')
     		->join('productos as p','p.idProducto','di.idProducto')
-    		->select('p.nombreProducto','di.cantidad')
+    		->select('p.codigoProducto','p.nombreProducto','di.cantidad')
     		->where('di.idIngreso','=',$id)->get();
 
         return view("vendor.admin.ingresos.show", ['ingresos'=>$ingreso,'detalleIngresos'=>$detalleIngreso]);
@@ -105,7 +106,20 @@ class IngresoController extends Controller
 
         return Redirect::to('ingresos');
 
-    	}
+		}
+		
+		public function pdf()
+		{         
+			/**
+			 * toma en cuenta que para ver los mismos 
+			 * datos debemos hacer la misma consulta
+			**/
+			$ingresos = Ingreso::all(); 
+		
+			$pdf = PDF::loadView( "vendor.admin.ingresos.pdf.ingresos", compact('ingresos'));
+	
+			return $pdf->download('listado.pdf');
+		}
 
-    }
+    } 
 

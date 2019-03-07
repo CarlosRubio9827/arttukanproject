@@ -7,8 +7,25 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
 
 @endsection()
- 
+
+@section('contentheader_title')
+    Detalle de Ingreso
+@endsection
+
+ @section('htmlheader_title')
+     Información de Ingreso
+@endsection
+
 @section("main-content")
+<div class="container" align="center" >
+   
+  <div class="card bg-light mb-3" style="max-width: 50rem;">
+      <div class="card-header">
+        <h4>Ingreso {{ $ingresos->idIngreso }}</h4>
+      </div>
+
+      <div class="card-body">
+
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-group">
@@ -21,34 +38,39 @@
                             <label for="cantidad">Estado</label>
                             <p>{{ $ingresos->estado }}</p>
                         </div>
-                    </div>
-
-                    <div class="panel panel-primary" >
-                        <div class="panel-body">
-                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                <table id="detalles" class="table table-striped table-responsive table-hover table-condensed table-bordered">
-                                    <thead>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                    </thead>
- 
-                                    <tbody>
-                                        @foreach ($detalleIngresos as $detalle)
-                                            <tr>
-                                                <td>{{ $detalle->nombreProducto }}</td>
-                                                <td>{{ $detalle->cantidad }}</td>
-                                            </tr>
-                                        @endforeach 
-                                    </tbody>
-                                </table>                               
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="{{ route('ingresos.index') }}"><button class="btn btn-primary">Volver</button></a>
+                    </div>  
                 </div>
 
+                <div class="panel-body">
+                        <div class="table-responsive">
+                        <table id="detalles" class="table table-striped table-responsive table-hover table-condensed table-bordered">
+                            <thead class="thead-dark">
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                            </thead>
+ 
+                            <tbody>
+                                        @foreach ($detalleIngresos as $detalle)
+                                <tr>
+                                    <td>{{ $detalle->codigoProducto }}</td>
+                                    <td>{{ $detalle->nombreProducto }}</td>
+                                    <td>{{ $detalle->cantidad }}</td>
+                                </tr>
+                                        @endforeach 
+                            </tbody>
+                        </table>                               
+                    </div>
+                </div>
 
+                <div class="panel-body">
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                        <a href="{{ route('ingresos.index') }}"><button class="btn btn-primary">Volver</button></a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
 
 @section('js-view')
 

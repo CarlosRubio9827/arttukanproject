@@ -1,42 +1,39 @@
  @extends("vendor.adminlte.layouts.app")
 
-
-@section('contentheader_title')
-       Tipos De Productos
-@endsection
-
-
 @section('css-view')
 
- <link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
+  <link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
   <link rel="stylesheet" type="text/css" href="{{  asset('css/dataTables.bootstrap.css')  }}"/>
 
 @endsection()
+
+@section('htmlheader_title')
+     Tipos de Producto
+@endsection
+
+@section('contentheader_title')
+       Tipos De Productos <a href="{{ route('tipoProductos.create') }}" class="btn btn-success" > Nuevo</a>
+@endsection
  
  @section("main-content")
  
-<div class="container" align="center">
-  <div class="row"> 
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-           <h3>Listado de Tipo Productos
-               <a href="{{ route('tipoProductos.create') }}" class="btn btn-success" >Nuevo Tipo de Producto</a>
+<div class="container" >
+  
+ <div class="card bg-light mb-3" style="max-width: 95rem;">
+  <div class="card-header">
+    <h4>Registrar Tipo de Producto</h4>
+  </div>
 
-           </h3>
- 
-        </div>
-    </div> 
- 
-    <div class="row">
-        <div class="col-lg-10 col-md-10 col-xs-10 col-sm-8">
+  <div class="card-body">
             <div class="table-responsive">
-                <table id="tipoProductos-dt" class="table table-striped table-bordered table-condensed table-hover">
+                <table id="tipoProductos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
                     <thead>
-                        <th >Id</th>
+                        <th>Id</th>
                         <th>Nombre Tipo Producto</th>
                         <th>Descripcion</th>
                         <th>Opciones</th>
                         {{-- <th>Imagen</th> --}}
-                    </thead>
+                    </thead> 
 
                         @foreach ($tipoProductos as $tipoProducto)
                            <tr> 
@@ -45,11 +42,11 @@
                                 <td>{{$tipoProducto->descripcionTipoProducto}}</td>
                                 <td> 
  
-                               <a href="{{ route('tipoProductos.show', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Ver</button></a>
+                               <a href="{{ route('tipoProductos.show', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
 
-                               <a href="{{ route('tipoProductos.edit', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</button></a>
+                               <a href="{{ route('tipoProductos.edit', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
 
-                               <a href="" data-target="#modal-delete-{{ $tipoProducto->idTipoProducto }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</button></a>                              
+                               <a href="" data-target="#modal-delete-{{ $tipoProducto->idTipoProducto }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
                                @include('vendor.admin.tipoProductos.modal')
 
                                 </td>
@@ -60,9 +57,7 @@
             </div>
             {{ $tipoProductos->render() }}
         </div>
-    </div>          
-
-
+  </div>
 </div>
     
 
@@ -78,7 +73,7 @@ $(document).ready( function () {
 
 oLanguage: {
     "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sLengthMenu":     " Mostrar _MENU_  Registros",
     "sZeroRecords":    "No se encontraron resultados",
     "sEmptyTable":     "Ningún dato disponible en esta tabla",
     "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",

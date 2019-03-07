@@ -56,8 +56,7 @@ class TipoProductoController extends Controller
         $tipoProducto->condicion = '1';
         $tipoProducto->save();
 
-        $tipoProductos = DB::table('tipoProductos')->orderBy('idTipoProducto','desc');
-        return view('vendor.admin.tipoProductos.index', ['tipoProductos'=>$tipoProductos]);
+        return redirect()->route('tipoProductos.index');
         
             }
 

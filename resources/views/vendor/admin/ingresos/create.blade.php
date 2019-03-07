@@ -7,12 +7,25 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
 
 @endsection()
- 
+
+@section('htmlheader_title')
+    Registrar Ingreso
+@endsection 
+
+@section('contentheader_title')
+       Ingresos
+@endsection 
+
 @section("main-content")
 
-  <div class="row">
-    <div class="col-md-6 col-xs-12 col-lg6 col-sm-6">
-        <h3>Nuevo Ingreso</h3>
+  <div class="card bg-light mb-3" style="max-width: 52rem;">
+    <div class="card-header">
+        <h4>Registrar Ingreso</h4>
+    </div>
+
+    <div class="card-body">
+            
+        <div class="container-fluid">
         
         @if (count($errors)>0)
             <div class="alert alert-danger">
@@ -24,17 +37,13 @@
             </div>
 
         @endif
-    </div>
-  </div>
-
+  
                 {!! Form::open(['route' => 'ingresos.store', 'method'=>'POST','autocomplete'=>'off']) !!}
                 {{Form::token()}}
 
                 <div class="row">
-
-                    <div class="panel panel-primary" >
                         <div class="panel-body">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <label>Producto</label>
                                     <select name="pidProducto" class="form-control selectpicker" id="pidProducto" data-live-search='true'>
@@ -46,13 +55,13 @@
                                 <div class="form-group">
                                     <label for="cantidad">Cantidad</label>
                                     <input type="number" name="pcantidad" id="pcantidad" class="form-control" placeholder="cantidad">
+
                                 </div>
                             </div>
-                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                                <div class="form-group">
+
+                            <div class="form-group">
                                 <button class="btn btn-primary" id="bt_add" type="button">Agregar al detalle</button>
-                                </div>
-                             </div>
+                            </div>
 
                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                 <table id="detalles" class="table table-striped table-responsive table-hover table-condensed table-bordered">
@@ -68,7 +77,6 @@
                                 </table>                               
                             </div>
 
-                        </div>
                        
                     </div>
 
@@ -83,7 +91,9 @@
                 </div>
 
                     {!! Form::close() !!}       
-
+        </div>
+      </div>
+    </div>
 
 @section('js-view')
 

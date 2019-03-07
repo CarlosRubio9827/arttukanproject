@@ -5,18 +5,31 @@
 @endsection
 
 @section('css-view')
-
+ 
  <link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
   <link rel="stylesheet" type="text/css" href="{{  asset('css/dataTables.bootstrap.css')  }}"/>
 
 @endsection()
- 
+
+ @section('htmlheader_title')
+    Modificar Producto
+@endsection
+
+@section('contentheader_title')
+       Productos 
+@endsection
+
  @section("main-content")
 	
-  <div class="row">
- 	<div class="col-md-6 col-xs-12 col-lg6 col-sm-6">
- 		<h3>Editar Producto: {{ $producto->nombreProducto }}</h3>
- 		
+ <div class="card bg-light mb-3" style="max-width: 100rem;">
+	<div class="card-header">
+		<h4>Editar Producto </h4>
+	</div>
+
+	<div class="card-body">
+			
+		<div class="container-fluid">
+
  		@if (count($errors)>0)
  			<div class="alert alert-danger">
  			<ul>
@@ -27,12 +40,10 @@
  		    </div>
  		@endif
 
-	</div>
-  </div>
 				{!! Form::model($producto,['method' => 'PATCH', 'route' => ['productos.update',$producto->idProducto],'files'=>'true']) !!}
 				{{ Form::token() }}
 				 
-				 <div class="row">
+				<div class="row">
 
 
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
@@ -95,6 +106,9 @@
                     {!! Form::close() !!}       
 
  
+ 				</div>
+			  </div>
+			</div> 
 			
       
 @endsection

@@ -37,12 +37,12 @@
  <span>{{ trans('Inicio') }}</span></a></li>
             <li class=""><a href="{{ url('pedidos') }}"><i class='fa fa-link'></i> <span>{{ trans('Pedidos') }}</span></a></li>
             <li class=""><a href="{{ url('ingresos') }}"><i class='fa fa-link'></i> <span>{{ trans('Ingresos') }}</span></a></li>
-            <li class=""><a href="{{ url('ventas') }}"><i class='fa fa-link'></i> <span>{{ trans('Ventas') }}</span></a></li>
+            <li class=""><a href="{{ route('ventas.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Ventas') }}</span></a></li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('Productos') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="productos"><i class='fa fa-link'></i> <span>{{ trans('Productos') }}</span></a></li>
-                    <li><a href="tipoProductos"><i class='fa fa-link'></i> <span>{{ trans('Tipos de Productos') }}</span></a></li>
+                    <li><a href="{{ route('productos.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Productos') }}</span></a></li>
+                    <li><a href="{{ route('tipoProductos.index')}}"><i class='fa fa-link'></i> <span>{{ trans('Tipos de Productos') }}</span></a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

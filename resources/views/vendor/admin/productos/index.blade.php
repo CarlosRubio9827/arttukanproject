@@ -1,8 +1,6 @@
  @extends("vendor.adminlte.layouts.app")
 
- @section('htmlheader_title')
-    Productos
-@endsection
+ 
 
 @section('css-view')
 
@@ -11,28 +9,28 @@
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 @endsection()
 
-
-@section('contentheader_title')
+@section('htmlheader_title')
     Productos
+@endsection
+ 
+@section('contentheader_title')
+    Productos <a href="{{ route('productos.create') }}" class="btn btn-success" > Nuevo</a>
 @endsection
 
  @section("main-content") 
  
-
-  <div class="row"> 
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
-           <h3>Listado de Productos
-               <a href="{{ route('productos.create') }}" class="btn btn-success" >Nuevo</a>
-           </h3>
-        </div>
+<div class="container" >
+  
+ <div class="card bg-light mb-3" style="max-width: 95rem;">
+  <div class="card-header">
+    <h4>Registrar Producto</h4>
   </div>
- 
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-10">
+
+  <div class="card-body">
             <div class="table-responsive">
-                <table id="productos-dt" class="table table-striped table-bordered table-condensed table-hover">
+                <table id="productos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
                     <thead>
-                         
+                          
                         <th>Id</th>
                         <th>Código</th>
                         <th>Nombre Producto</th> 
@@ -44,7 +42,7 @@
 
                         {{-- <th>Imagen</th> --}}
                     </thead>
-
+ 
 
                         @foreach ($productos as $producto)
                            
@@ -54,7 +52,7 @@
                                 <td>{{$producto->codigoProducto}}</td>
                                 <td>{{$producto->nombreProducto }}</td>
                                 <td>{{$producto->precio }}</td>
-                                <td>{{$producto->TipoProducto}}</td>
+                                <td>{{$producto->idTipoProducto}} - {{ $producto->TipoProducto }}</td>
                                 <td>{{$producto->stock}}</td>
                                 <td>
                                   <img src="{{ asset('images/'.$producto->imagen) }}" alt="{{ $producto->nombreProducto }}" height="75px" width="75px" class="img-thumbnail">
@@ -62,10 +60,10 @@
 
                                 <td> 
                                   
-                               <a href="{{ route('productos.edit', $producto->idProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</button></a>
+                                    <a href="{{ route('productos.edit', $producto->idProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
 
-                               <a href="" data-target="#modal-delete-{{ $producto->idProducto }}" data-toggle="modal"><button class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</button></a>                              
-                                @include('vendor.admin.productos.modal')
+                                    <a href="" data-target="#modal-delete-{{ $producto->idProducto }}" data-toggle="modal"><button class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
+                                        @include('vendor.admin.productos.modal')
                                 </td>
                                
                            </tr>
@@ -80,7 +78,7 @@
             {{ $productos->render() }}
         </div>
     </div>          
-
+</div>
     
 
 @endsection()
@@ -95,7 +93,7 @@ $(document).ready( function () {
 
 oLanguage: {
     "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sLengthMenu":     "Mostrar _MENU_ Registros",
     "sZeroRecords":    "No se encontraron resultados",
     "sEmptyTable":     "Ningún dato disponible en esta tabla",
     "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",

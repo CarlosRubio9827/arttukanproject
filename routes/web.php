@@ -1,5 +1,5 @@
 <?php
-
+use App\Ingreso;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +20,17 @@ Route::resource("productos","ProductoController");
 Route::resource("ventas","VentaController");
 Route::resource("ingresos","IngresoController");
 Route::resource("pedidos","PedidoController");
+ 
+Route::get('ingresosPdf', function(){
+   
+            $ingresos = App\Ingreso::all(); 
+		
+			$pdf = PDF::loadView( "vendor.admin.ingresos.ingresos-pdf", ['ingresos'=>$ingresos]);
+	
+			return $pdf->download('listadoIngresos.pdf');
+});
 
-
-
+ 
 Route::group(['middleware' => 'auth'], function () {
 
 

@@ -1,5 +1,7 @@
 @extends("vendor.adminlte.layouts.app")
- 
+ @section('htmlheader_title')
+     Editar Tipo Producto
+@endsection
  @section('contentheader_title')
        Editar Tipo Producto
 @endsection

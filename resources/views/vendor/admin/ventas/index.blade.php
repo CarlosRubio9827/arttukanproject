@@ -7,27 +7,26 @@
 
 @endsection()
 
- @section("contentheader_title")
-
-    <div class="row">
-        <div class="col-md-8 col-lg-8 col-xs-12 col-sm-8">
-                @if (Session::has('info'))
-                  <div class="alert alert-info">
-                      <button type="button" class="close" data-dismiss="alert">
-                          <span>&times;</span>
-                      </button>
-                      {{ Session::get('info') }}
-                  </div>
-                @endif
-                    <h3>Listado de Ventas <a href="{{ route('ventas.create') }}" ><button type="button" class="btn btn-success">Nuevo</button></a></h3>
+@section('htmlheader_title')
+    Ventas
+@endsection
  
-        </div>
-    </div>
-                
-        <div class="row">
-           <div class="col-lg-12 col-md-12 col-xs-12 col-sm-10">
-             <div class="table-responsive">
-                <table id="ventas-dt" class="table table-striped table-bordered table-condensed table-hover">
+@section('contentheader_title')
+   Ventas <a href="{{ route('ventas.create') }}" class="btn btn-success" > Nuevo</a>
+@endsection
+
+ @section("main-content") 
+ 
+<div class="container" >
+  
+ <div class="card bg-light mb-3" style="max-width: 80rem;">
+  <div class="card-header">
+    <h4>Registrar Venta</h4>
+  </div>
+
+    <div class="card-body">
+            <div class="table-responsive">
+                <table id="ventas-dt" class="table table-striped table-bordered table-condensed table-hover" width="750">
                     <thead>
                         <th>Id</th>
                         <th>Fecha</th>
@@ -42,8 +41,8 @@
                                 <td>{{$venta->totalVenta }}</td>
                                 <td>{{$venta->estado}}</td>
                                 <td> 
-                                   <a href="{{ route('ventas.show', $venta->idVenta)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Detalles</button></a>
-                                   <a href="" data-target="#modal-delete-{{ $venta->idVenta }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Anular Venta</button></a>
+                                   <a href="{{ route('ventas.show', $venta->idVenta)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                   <a href="" data-target="#modal-delete-{{ $venta->idVenta }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
                                    @include('vendor.admin.ventas.modal')
                                 </td>
                            </tr>
@@ -51,8 +50,9 @@
                 </table>
             </div>
             {{ $ventas->render() }}
-        </div>
-    </div>          
+    </div>
+   </div> 
+  </div>         
 
 @endsection()
 

@@ -1,5 +1,10 @@
 @extends("vendor.adminlte.layouts.app")
  
+
+@section('htmlheader_title')
+     Tipo Producto
+@endsection
+
  @section("main-content")
 
 

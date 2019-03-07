@@ -5,7 +5,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-select.min') }}">
-
+ 
 @section('htmlheader')
     @include('vendor.adminlte.layouts.partials.htmlheader')
 @show

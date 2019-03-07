@@ -1,5 +1,7 @@
 @extends("adminlte.layouts.app")
- 
+ @section('htmlheader_title')
+     Producto
+@endsection
  @section("main-content")
 
 
