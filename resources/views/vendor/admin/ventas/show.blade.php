@@ -18,65 +18,77 @@
 
  
 @section("main-content")
-<div class="container" align="center" >
-   
-  <div class="card bg-light mb-3" style="max-width: 50rem;">
-      <div class="card-header">
-        <h4>Venta {{ $ventas->idVenta }}</h4>
-      </div>
 
-      <div class="card-body">
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Fecha Venta</label>
-                            <p>{{ $ventas->fechaHora }}</p>
-                        </div>
+<section class="content">
+        <!-- Your Page Content Here -->
+    <div class="container-fluid spark-screen">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <!-- Default box -->
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Venta {{ $ventas->idVenta }}</h3>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">    
-                        <div class="form-group">
-                            <label for="cantidad">Estado</label>
-                            <p>{{ $ventas->estado }}</p>
-                        </div>
-                    </div>
-                </div>   
+                    <div class="box-body">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label>Fecha Venta</label>
+                                    <p>{{ $ventas->fechaHora }}</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">    
+                                <div class="form-group">
+                                    <label for="cantidad">Estado</label>
+                                    <p>{{ $ventas->estado }}</p>
+                                </div>
+                            </div>
+                        </div>   
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table id="detalles" class="table table-striped table-responsive table-hover table-condensed table-bordered">
-                                    <thead class="thead-dark">
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio venta</th>
-                                        <th>Sub Total</th>
-                                    </thead>
-                                    <tfoot>
-                                        <th><h4>Total Venta</h4></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th><h4 id="total">{{ $ventas->totalVenta }}</h4></th>
-                                    </tfoot>
-                                    <tbody>
-                                        @foreach ($detalleVentas as $detalle)
-                                            <tr>
-                                                <td>{{ $detalle->nombreProducto }}</td>
-                                                <td>{{ $detalle->cantidad }}</td>
-                                                <td>{{ $detalle->precioVenta }}</td>
-                                                <td>{{ $detalle->cantidad*$detalle->precioVenta }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>                               
+                                    <table id="detalles" class="table table-striped table-responsive table-hover table-condensed table-bordered">
+                                        <thead class="thead-dark">
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio venta</th>
+                                            <th>Sub Total</th>
+                                        </thead>
+                                        <tfoot>
+                                            <th><h4>Total Venta</h4></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th><h4 id="total">{{ $ventas->totalVenta }}</h4></th>
+                                        </tfoot>
+                                        <tbody>
+                                                        @foreach ($detalleVentas as $detalle)
+                                                            <tr>
+                                                                <td>{{ $detalle->nombreProducto }}</td>
+                                                                <td>{{ $detalle->cantidad }}</td>
+                                                                <td>{{ $detalle->precioVenta }}</td>
+                                                                <td>{{ $detalle->cantidad*$detalle->precioVenta }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                        </tbody>
+                                    </table>                               
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" align="center">
                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                <a href="{{ route('ventas.index') }}"><button class="btn btn-primary">Volver</button></a>
+                                                <a href="{{ route('ventas.index') }}"><button class="btn btn-primary">Volver</button></a>
                             </div>
                         </div>
-        </div> 
+                    </div>
+                </div>
+                    <!-- /.box-body -->
+            </div>
+                <!-- /.box -->
+        </div>
     </div>
-</div>
+</section><!-- /.content -->        
+
+
 
 
 

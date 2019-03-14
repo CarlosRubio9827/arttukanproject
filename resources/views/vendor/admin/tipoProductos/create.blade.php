@@ -5,59 +5,67 @@
 @endsection
 
 @section('contentheader_title')
-       Tipos De Producto
+      Registrar Tipo De Producto
 @endsection
 
 @section("main-content")
 
-<div class="card bg-light mb-3" style="max-width: 100rem;">
-	<div class="card-header">
-		<h4>Registrar Tipo de Producto</h4>
-	</div>
+<section class="content">
+            <!-- Your Page Content Here -->
+    <div class="container-fluid spark-screen">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title"> Tipo de Productos </h3>
+					</div>
+					<div class="box-body">
+						
+						<div class="container-fluid">
+		 
+						@if (count($errors)>0)
+							<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+							</div> 
+						@endif
+							{!! Form::open(['route' => 'tipoProductos.store','method'=>'POST']) !!}
 
-	<div class="card-body">
-			
-		<div class="container-fluid">
-	
- 		@if (count($errors)>0)
- 			<div class="alert alert-danger">
- 			<ul>
- 				@foreach ($errors->all() as $error)
- 				<li>{{ $error }}</li>
- 				@endforeach
- 			</ul>
- 		    </div> 
- 		@endif
-				{!! Form::open(['route' => 'tipoProductos.store','method'=>'POST']) !!}
+							{{Form::token()}}
+								
+							<div class="form-group">
+								{!! Form::label('nombreTipoProducto', 'Nombre Tipo Producto') !!}
+								{!! Form::text('nombreTipoProducto', null, ['class' => 'form-control']) !!}
+							</div>
 
-				{{Form::token()}}
-				   
-				<div class="form-group">
-					{!! Form::label('nombreTipoProducto', 'Nombre Tipo Producto') !!}
-					{!! Form::text('nombreTipoProducto', null, ['class' => 'form-control']) !!}
-				</div>
+							<div class="form-group">
+								{!! Form::label('descripcionTipoProducto', 'Descripcion') !!}
+								{!! Form::text('descripcionTipoProducto', null, ['class' => 'form-control']) !!}
+							</div>
+						
+							<div class="form-group">
+								
+								{!! Form::submit('Guardar',['class' => 'btn btn-primary']) !!}
+  
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+								<button class="btn btn-danger" type="button" onclick="history.back()">Cancelar</button>
+					
+							</div>
 
-				<div class="form-group">
-					{!! Form::label('descripcionTipoProducto', 'Descripcion') !!}
-					{!! Form::text('descripcionTipoProducto', null, ['class' => 'form-control']) !!}
-				</div>
-			
-				<div class="form-group">
-					{!! Form::submit('Guardar',['class' => 'btn btn-primary']) !!} 
-					<a href="{{ route('tipoProductos.index') }}"><button  class="btn btn-danger" >Cancelar</button></a>
-				</div>
+								{!! Form::close() !!}  
+						</div>
+                    </div>
+					<!-- /.box-body -->
+	            </div>
+				<!-- /.box -->
+            </div>
+        </div>
+    </div>
+</section><!-- /.content -->        
 
-                    {!! Form::close() !!}  
-
- 	</div>
- </div>
-	
-
-</div>
-
-	
-
- 
-			
       
 @endsection

@@ -10,13 +10,12 @@
         <div class="wrapper">
 
             <div class="content-wrapper">
-
                 <section class="content">
                     @yield('main-content')
                 </section>
             </div>
 
-        </div>
+        </div> 
 
  <script type="text/javascript" src="{{ asset('js/bootstrap-select.min') }}"></script>
 

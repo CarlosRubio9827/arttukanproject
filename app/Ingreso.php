@@ -11,6 +11,6 @@ class Ingreso extends Model
      protected $primaryKey = 'idIngreso'; 
      protected $fillable = [
     	'fechaHora',
-    	'estado'
+    	'estado' 
     ];
 }

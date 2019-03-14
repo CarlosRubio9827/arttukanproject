@@ -10,10 +10,23 @@ use App\Ingreso;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => 'auth'], function () {
+    //    Route::get('/link1', function ()    {
+//        // Uses Auth Middleware
+//    });
+ 
+    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
+    #adminlte_routes
+});
 
 Route::get('/', function () {
     return view('vendor.adminlte.home');
 });
+Route::get('/bienvenido', function(){
+return view('vendor.adminlte.welcome');
+});
+
+Route::get('sugerencias', "SugerenciaController@store")->name('sugerencias');
 
 Route::resource('tipoProductos',"TipoProductoController");
 Route::resource("productos","ProductoController");
@@ -22,22 +35,35 @@ Route::resource("ingresos","IngresoController");
 Route::resource("pedidos","PedidoController");
  
 Route::get('ingresosPdf', function(){
-   
+                        
             $ingresos = App\Ingreso::all(); 
-		
-			$pdf = PDF::loadView( "vendor.admin.ingresos.ingresos-pdf", ['ingresos'=>$ingresos]);
-	
-			return $pdf->download('listadoIngresos.pdf');
-});
+            $pdf = PDF::loadView( "vendor.admin.ingresos.ingresos-pdf",['ingresos'=>$ingresos]);
+            
+            return $pdf->download('listadoIngresospdf');
+})->name('ingresos.pdf');
 
- 
-Route::group(['middleware' => 'auth'], function () {
+Route::get('ventasPdf', function(){
+                        
+            $ventas = App\Venta::all(); 
+            $pdf = PDF::loadView( "vendor.admin.ventas.ventas-pdf",['ventas'=>$ventas]);
+            
+            return $pdf->download('listadoVentas.pdf');
+})->name('ventas.pdf');
+
+Route::get('tiposProductosPdf', function(){
+                        
+    $tiposProductos = App\TipoProducto::all(); 
+    $pdf = PDF::loadView( "vendor.admin.tipoProductos.tiposProductos-pdf",['tiposProductos'=>$tiposProductos]);
+    
+    return $pdf->download('listadoTiposProducto.pdf');
+})->name('tiposProductos.pdf');
+
+Route::get('productosPdf', function(){
+                        
+    $productos = App\Producto::all(); 
+    $pdf = PDF::loadView( "vendor.admin.productos.productos-pdf",['productos'=>$productos]);
+    
+    return $pdf->download('listadoProductos.pdf');
+})->name('productos.pdf');
 
 
-    //    Route::get('/link1', function ()    {
-//        // Uses Auth Middleware
-//    });
- 
-    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
-    #adminlte_routes
-});

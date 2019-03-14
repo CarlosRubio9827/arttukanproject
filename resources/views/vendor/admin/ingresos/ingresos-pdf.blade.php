@@ -1,9 +1,5 @@
-@extends("vendor.adminlte.layouts.pdf")
 
-
- 
-@section('main-content')
-
+    
 <table  class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
                     
                     <thead>    
@@ -26,4 +22,4 @@
 
                 </table>
 
-@endsection
+

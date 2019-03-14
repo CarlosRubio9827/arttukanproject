@@ -2,11 +2,9 @@
 
  
 
-@section('css-view')
+@section('css-view') 
 
- <link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
-  <link rel="stylesheet" type="text/css" href="{{  asset('css/dataTables.bootstrap.css')  }}"/>
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
 @endsection()
 
 @section('htmlheader_title')
@@ -14,71 +12,77 @@
 @endsection
  
 @section('contentheader_title')
-    Productos <a href="{{ route('productos.create') }}" class="btn btn-success" > Nuevo</a>
+ 
 @endsection
 
  @section("main-content") 
+
  
-<div class="container" >
-  
- <div class="card bg-light mb-3" style="max-width: 95rem;">
-  <div class="card-header">
-    <h4>Registrar Producto</h4>
-  </div>
+ <section class="content">
+        <!-- Your Page Content Here -->
+    <div class="container-fluid spark-screen">
+        <div class="row">
+            <div class="col-md-12 col-md-offset ">
 
-  <div class="card-body">
-            <div class="table-responsive">
-                <table id="productos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
-                    <thead>
-                          
-                        <th>Id</th>
-                        <th>Código</th>
-                        <th>Nombre Producto</th> 
-                        <th>Precio</th>
-                        <th>Tipo Producto</th>
-                        <th>Stock</th>
-                        <th>Imagen</th>
-                        <th>Opciones</th>
-
-                        {{-- <th>Imagen</th> --}}
-                    </thead>
- 
-
-                        @foreach ($productos as $producto)
-                           
-                           <tr>  
-
-                                <td>{{$producto->idProducto}}</td>
-                                <td>{{$producto->codigoProducto}}</td>
-                                <td>{{$producto->nombreProducto }}</td>
-                                <td>{{$producto->precio }}</td>
-                                <td>{{$producto->idTipoProducto}} - {{ $producto->TipoProducto }}</td>
-                                <td>{{$producto->stock}}</td>
-                                <td>
-                                  <img src="{{ asset('images/'.$producto->imagen) }}" alt="{{ $producto->nombreProducto }}" height="75px" width="75px" class="img-thumbnail">
-                                </td>
-
-                                <td> 
-                                  
-                                    <a href="{{ route('productos.edit', $producto->idProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-
-                                    <a href="" data-target="#modal-delete-{{ $producto->idProducto }}" data-toggle="modal"><button class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
-                                        @include('vendor.admin.productos.modal')
-                                </td>
-                               
-                           </tr>
- 
-                           
-
-                        @endforeach
-
-                </table>
-
+            <!-- Default box -->
+                <div class="box box-warning" style="width: 950px";>
+                    <div class="box-header with-border">
+                        <b>Productos</b> <a href="{{ route('productos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a>         
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Exportar
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                          <li><a href="{{ route('productos.pdf') }}">PDF</a></li>
+                          <li><a href="#">Excel</a></li>
+                      </ul>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                                <table id="productos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
+                                    <thead>
+                                          
+                                        <th>Id</th>
+                                        <th>Código</th>
+                                        <th>Nombre Producto</th> 
+                                        <th>Precio</th>
+                                        <th>Tipo Producto</th>
+                                        <th>Stock</th>
+                                        <th>Imagen</th>
+                                        <th>Opciones</th>
+                
+                                        {{-- <th>Imagen</th> --}}
+                                    </thead>
+                 
+                                        @foreach ($productos as $producto)
+                                           <tr>  
+                                                <td style="text-align:center;">{{$producto->idProducto}}</td>
+                                                <td style="text-align:center;">{{$producto->codigoProducto}}</td>
+                                                <td style="text-align:center;">{{$producto->nombreProducto }}</td>
+                                                <td style="text-align:center;">{{$producto->precio }}</td> 
+                                                <td style="text-align:center;">{{$producto->idTipoProducto}} - {{ $producto->tipoProducto }}</td>
+                                                <td style="text-align:center;">{{$producto->stock}}</td>
+                                                <td> 
+                                                  <img src="{{ asset('images/'.$producto->imagen) }}" alt="{{ $producto->nombreProducto }}" height="75px" width="75px" class="img-thumbnail">
+                                                </td>
+                                                <td style="text-align:center;">    
+                                                    <a href="{{ route('productos.edit', $producto->idProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                                    <a href="" data-target="#modal-delete-{{ $producto->idProducto }}" data-toggle="modal"><button class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
+                                                        @include('vendor.admin.productos.modal')
+                                                </td>
+                                           </tr>
+                                        @endforeach
+                                </table>
+                            </div>
+                            {{ $productos->render() }}
+                    </div>
+                <!-- /.box-body -->
+                </div>
+            <!-- /.box -->
             </div>
-            {{ $productos->render() }}
         </div>
-    </div>          
-</div>
+    </div>
+</section><!-- /.content -->        
     
 
 @endsection()

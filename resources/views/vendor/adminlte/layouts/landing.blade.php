@@ -23,7 +23,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <meta name="twitter:site" content="@acachawiki" />
     <meta name="twitter:creator" content="@acacha1" />
 
-    <title>{{ trans('adminlte_lang::message.landingdescriptionpratt') }}</title>
+    <title>ArtTukan - Bienvenido</title>
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('/css/all-landing.css') }}" rel="stylesheet">
@@ -45,14 +45,14 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><b>adminlte-laravel</b></a>
+                <a class="navbar-brand" href="#"><b>Art</b>Tukan</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#home" class="smoothScroll">{{ trans('adminlte_lang::message.home') }}</a></li>
+                    <li class="active"><a href="#home" class="smoothScroll">Inicio</a></li>
                     <li><a href="#desc" class="smoothScroll">{{ trans('adminlte_lang::message.description') }}</a></li>
-                    <li><a href="#showcase" class="smoothScroll">{{ trans('adminlte_lang::message.showcase') }}</a></li>
-                    <li><a href="#contact" class="smoothScroll">{{ trans('adminlte_lang::message.contact') }}</a></li>
+                    <li><a href="#quienesSomos" class="smoothScroll">¿Quiénes Somos?</a></li>
+                    <li><a href="#contact" class="smoothScroll">Contacto</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
@@ -66,36 +66,57 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         </div>
     </div>
 
+<!-----------------------------Inicio de Home------------------------>
 
     <section id="home" name="home"></section>
-    <div id="headerwrap">
-        <div class="container">
-            <div class="row centered">
-                <div class="col-lg-12">
-                    <h1>Acacha <b><a href="https://github.com/acacha/adminlte-laravel">adminlte-laravel</a></b></h1>
-                    <h3>A <a href="https://laravel.com/">Laravel</a> {{ trans('adminlte_lang::message.laravelpackage') }}
-                        scaffolding/boilerplate {{ trans('adminlte_lang::message.to') }} <a href="https://almsaeedstudio.com/preview">AdminLTE</a> {{ trans('adminlte_lang::message.templatewith') }}
-                        <a href="http://getbootstrap.com/">Bootstrap</a> 3.0 {{ trans('adminlte_lang::message.and') }} <a href="http://blacktie.co/demo/pratt/">Pratt</a> Landing page</h3>
-                    <h3><a href="{{ url('/register') }}" class="btn btn-lg btn-success">{{ trans('adminlte_lang::message.gedstarted') }}</a></h3>
-                </div>
-                <div class="col-lg-2">
-                    <h5>{{ trans('adminlte_lang::message.amazing') }}</h5>
-                    <p>{{ trans('adminlte_lang::message.basedadminlte') }}</p>
-                    <img class="hidden-xs hidden-sm hidden-md" src="{{ asset('/img/arrow1.png') }}">
-                </div>
-                <div class="col-lg-8">
-                    <img class="img-responsive" src="{{ asset('/img/app-bg.png') }}" alt="">
-                </div>
-                <div class="col-lg-2">
-                    <br>
-                    <img class="hidden-xs hidden-sm hidden-md" src="{{ asset('/img/arrow2.png') }}">
-                    <h5>{{ trans('adminlte_lang::message.awesomepackaged') }}</h5>
-                    <p>... {{ trans('adminlte_lang::message.by') }} <a href="http://acacha.org/sergitur">Sergi Tur Badenas</a> {{ trans('adminlte_lang::message.at') }} <a href="http://acacha.org">acacha.org</a> {{ trans('adminlte_lang::message.readytouse') }}</p>
-                </div>
-            </div>
-        </div> <!--/ .container -->
-    </div><!--/ #headerwrap -->
+    <div class="row">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+      
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active" >
 
+          <img class="center-block" src="{{asset('img/thor.jpg') }}" alt="..."  width="560"/>
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+          <div class="item">
+            <img class="center-block" src="{{asset('img/ironman.jpg')}}" alt="..." width="560"/>
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+          <div class="item"> 
+            <img class="center-block" src="{{asset('img/venom.jpg')}}" alt="..." width="560"/>
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+          ...
+        </div>
+      
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Anterior</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Siguiente</span>
+        </a>
+      </div>
+      
+    </div>
+
+
+<!-----------------------Final de home----------------------------------->
 
     <section id="desc" name="desc"></section>
     <!-- INTRO WRAP -->
@@ -203,75 +224,81 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         </div><!--/ .container -->
     </div><!--/ #features -->
 
+<!----------------Quienes Somos---------------->
 
-    <section id="showcase" name="showcase"></section>
+    <section id="quienesSomos" name="quienesSomos"></section>
     <div id="showcase">
         <div class="container">
             <div class="row">
-                <h1 class="centered">{{ trans('adminlte_lang::message.screenshots') }}</h1>
-                <br>
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div id="carousel-example-generic" class="carousel slide">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="{{ asset('/img/item-01.png') }}" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="{{ asset('/img/item-02.png') }}" alt="">
-                            </div>
-                        </div>
-                    </div>
+                 <div class="col-md-12">
+                        <b><h1>Politica de Calidad</h1></b>
+                        <h4>
+                            <b>
+                                    En ART TUKAN ofrecemos a nuestros clientes bolsos, prendas de vestir y suvenirs con diseños exclusivos étnicos contemporáneos y arte en general, diferentes a los diseños étnicos tradicionales, con texturas, materiales naturales y telas a utilizar en cada diseño que permitan llevar nuestra cultura a otro nivel, donde un bolso o prenda de vestir de ART TUKAN se pueda utilizar en cualquier situación del día demostrando nuestra cultura, raíces colombianas y del mundo. Uniendo la artesanía con la confesión industrial, con materiales y procesos que ayuden al medio ambiente. Gracias a la gran variedad de estampados y diseños, ART TUKAN ofrece productos para un amplio espectro de edades, estilos y personalidades.
+                            </b>
+                        </h4>          
                 </div>
+                <div class="col-md-12">
+                    <b><h1>Misión</h1></b>
+                    <h3>
+                        <b>
+                                En ART TUKAN trabajamos para ayudar a nuestros clientes a ser originales y auténticos con sus prendas de vestir de estilos exclusivos, étnicos contemporáneos y arte en general, nuestra misión es brindar apoyo a nuestros clientes en el proceso de selección de su diseño.
+                        </b> 
+                    </h3>
+                </div>
+                <div class="col-md-12">
+                        <b><h1>Visión</h1></b>
+                        <h3>
+                            <b>
+                                    Ofrecer un concepto innovador que combine los estilos étnicos, el arte en general y tu toque de estilo propio, que te harán vestir con un estilo único.
+                            </b>
+                        </h3>
+                    </div>
             </div>
-            <br>
-            <br>
-            <br>
+           
         </div><!-- /container -->
     </div>
 
+    <!--------------Contacto------------------->
 
     <section id="contact" name="contact"></section>
     <div id="footerwrap">
         <div class="container">
             <div class="col-lg-5">
-                <h3>{{ trans('adminlte_lang::message.address') }}</h3>
+                <h3>Direccion</h3>
                 <p>
-                    Av. Greenville 987,<br/>
-                    New York,<br/>
-                    90873<br/>
-                    United States
+                    Calle 30 # 13-41 Barrio La Colombina,<br/>
+                    Palmira - Valled del Cauca,<br/>
+                        <br/>
+                    Colombia
                 </p>
             </div>
 
             <div class="col-lg-7">
-                <h3>{{ trans('adminlte_lang::message.dropus') }}</h3>
+                <h3>Escribenos</h3>
                 <br>
-                <form role="form" action="#" method="post" enctype="plain">
+                <form role="form" action="sugerencias" method="get" enctype="plain">
                     <div class="form-group">
-                        <label for="name1">{{ trans('adminlte_lang::message.yourname') }}</label>
-                        <input type="name" name="Name" class="form-control" id="name1" placeholder="{{ trans('adminlte_lang::message.yourname') }}">
+                        <label for="name1">Nombres</label>
+                        <input type="name" name="Name" class="form-control" id="nombres" placeholder="Tu mombre y apellido">
                     </div>
                     <div class="form-group">
-                        <label for="email1">{{ trans('adminlte_lang::message.emailaddress') }}</label>
-                        <input type="email" name="Mail" class="form-control" id="email1" placeholder="{{ trans('adminlte_lang::message.enteremail') }}">
+                        <label for="email1">Correo Electronico</label>
+                        <input type="email" name="Mail" class="form-control" id="email" placeholder="Correo Electronico">
                     </div>
                     <div class="form-group">
-                        <label>{{ trans('adminlte_lang::message.yourtext') }}</label>
-                        <textarea class="form-control" name="Message" rows="3"></textarea>
+                        <label>Tu Texto</label>
+                        <textarea placeholder="Sugerencia...." class="form-control" name="sugerencias" rows="3"></textarea>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-large btn-success">{{ trans('adminlte_lang::message.submit') }}</button>
+                    <button type="submit" class="btn btn-large btn-success">Enviar</button>
+                    {{ csrf_field('patch') }}
                 </form>
             </div>
         </div>
-    </div>
+    </div> 
+
+
     <div id="c">
         <div class="container">
             <p>
@@ -296,6 +323,9 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     $('.carousel').carousel({
         interval: 3500
     })
+
+
+
 </script>
 </body>
 </html>

@@ -97,7 +97,7 @@ class TipoProductoController extends Controller
         $tipoProducto->descripcionTipoProducto=$request->get('descripcionTipoProducto');
        
         $tipoProducto->update();
-         return redirect('vendor.admin.tipoProductos');
+        return Redirect::to('tipoProductos');
     
  }
 

@@ -3,8 +3,6 @@
 
  @section('css-view')
 
-<link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
-<link rel="stylesheet" type="text/css" href="{{  asset('css/dataTables.bootstrap.css')  }}"/>
 
 @endsection()
 
@@ -13,61 +11,88 @@
 @endsection
  
 @section('contentheader_title')
-    Ingresos <a href="{{ route('ingresos.create') }}" class="btn btn-success" > Nuevo</a>
+
 @endsection
 
+
+
  @section("main-content")
- <a href="{{ url('ingresosPdf') }}" class="btn btn-sm btn-primary">
-            Descargar productos en PDF
-        </a>
  
-  <div class="container" >
-  
-  <div class="card bg-light mb-3" style="max-width: 95rem;">
-  <div class="card-header">
-    <h4>Registrar Ingreso</h4>
-  </div>
-
-  <div class="card-body">
-
-             <div class="table-responsive">
-                <table id="ingresos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
-                    <thead>
-                         
-                        <th>Id</th>
-                        <th>Fecha - Hora</th> 
-                        <th>Estado</th>
-                        <th>Opciones</th>
-
-                    </thead> 
-
-                        @foreach ($ingresos as $ingreso)
-                           
-                           <tr> 
+ <section class="content">
+            <!-- Your Page Content Here -->
+        <div class="container-fluid spark-screen">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
  
-                                <td>{{$ingreso->idIngreso}}</td>
-                                <td>{{$ingreso->fechaHora }}</td>
-                                <td>{{$ingreso->estado}}</td>
+				<!-- Default box -->
+				<div class="box box-danger">
+					<div class="box-header with-border">
+                            <b>Ingresos</b> <a href="{{ route('ingresos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
+                             
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              Exportar
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="{{ route('ingresos.pdf') }}">PDF</a></li>
+                                        <li><a href="#">Excel</a></li>
+                                    </ul>
+                    </div>
+
+					<div class="box-body">
+ 
+                    <div class="table-responsive">
+                        <table id="ingresos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="700">
+                            <thead>
                                 
-                                <td> 
-                                  
-                               <a href="{{ route('ingresos.show', $ingreso->idIngreso)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                <th>Id</th>
+                                <th>Fecha - Hora</th> 
+                                <th>Estado</th>
+                                <th>Opciones</th>
 
-                               <a href="" data-target="#modal-delete-{{ $ingreso->idIngreso }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
-                              @include('vendor.admin.ingresos.modal')
-                                </td>
-                               
-                           </tr>
+                            </thead> 
 
-                           
-                        @endforeach
+                                @foreach ($ingresos as $ingreso)
+                                
+                                <tr> 
+         
+                                        <td style="text-align:center;">{{$ingreso->idIngreso}}</td>
+                                        <td style="text-align:center;">{{$ingreso->fechaHora }}</td>
+                                        <td style="text-align:center;">{{$ingreso->estado}}</td>
+                                        
+                                        <td style="text-align:center;"> 
+                                        
+                                    <a href="{{ route('ingresos.show', $ingreso->idIngreso)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
 
-                </table>
+                                    <a href="" data-target="#modal-delete-{{ $ingreso->idIngreso }}" data-toggle="modal">
+                                    <button class="btn btn-danger">
+                                    <i class="fa fa-trash-o" aria-hidden="true">
+                                    </i>
+                                    </button>
+                                    </a>     
 
-            </div>
-            {{ $ingresos->render() }}
-        </div>
-    </div>          
+                                    @include('vendor.admin.ingresos.modal')
+                                        </td>
+                                    
+                                </tr>
+
+                                
+                                @endforeach
+
+                        </table>
+
+                    </div>
+                    {{ $ingresos->render() }}
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+
+			</div>
+		</div>
+	</div>
+        </section><!-- /.content -->        
 
 
 @endsection()

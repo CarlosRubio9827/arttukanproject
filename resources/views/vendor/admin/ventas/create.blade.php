@@ -11,113 +11,131 @@
 @section('htmlheader_title')
     Registrar Venta
 @endsection
-
+ 
 @section('contentheader_title')
-       Ventas 
+        
 @endsection
 
 @section("main-content")
+
+
  
-<div class="card bg-light mb-3" style="max-width: 70rem;" >
-
-    <div class="card-header">
-		<h4>Registrar Ventas</h4>
-	</div>
-
-	<div class="card-body">	
-        <div class="container-fluid"> 
-            @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-        </div>
-    </div>
-
-                {!! Form::open(['route' => 'ventas.store', 'method'=>'POST','autocomplete'=>'off']) !!}
-                {{Form::token()}}
-
-                <div class="row">
-                         
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label>Productos</label>
-                                <select name="pidProducto" class="form-control selectpicker" id="pidProducto" data-live-search='true'>
-                                        @foreach ($productos as $producto)
-                                    <option value="{{ $producto->idProducto }}_{{ $producto->stock }}_{{ $producto->precio }}">{{ $producto->producto}}</option>
-                                        @endforeach
-                                </select> 
+<section class="content">
+        <!-- Your Page Content Here -->
+    <div class="container-fluid spark-screen">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <!-- Default box -->
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Ventas </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="container-fluid"> 
+                                    @if (count($errors)>0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                            @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                            @endforeach
+                                </ul>
                             </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                            <div class="form-group">
-                                <label for="cantidad">Cantidad</label>
-                                <input type="number" name="pcantidad" id="pcantidad" class="form-control" placeholder="Cantidad">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                            <div class="form-group">
-                                <label for="stock">Stock</label>
-                                <input type="number" disabled name="pstock" id="pstock" class="form-control" placeholder="Stock">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                            <div class="form-group">
-                                <label for="precioVenta">Precio Venta</label>
-                                <input type="number" disabled name="pprecioVenta" id="pprecioVenta" class="form-control" placeholder="Precio Venta">
-                            </div>
-                        </div>
-
-                </div>
-                        <div class="panel-body">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-                                <button class="btn btn-primary" id="bt_add" type="button" >Agregar al detalle</button>
-                            </div>
-                        </div>     
-                     
-                        <div class="panel-body">
-                            <table  id="detalles" class="table table-bordered" WIDTH="2000">
-                                <thead class="thead-dark">
-                                    <th>Opciones</th>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Venta</th>
-                                </thead>
-                                <tfoot>
-                                   <th>Total</th>
-                                   <th></th>
-                                    <th></th>
-                                    <th><h4 id="total">$/. 0.00</h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
-                                </tfoot>
-                                <tbody>
-                                        
-                                </tbody>
-                            </table>                               
-                        </div>
+                                    @endif
                         
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
-                            <div class="form-group">
+                        
+                                        {!! Form::open(['route' => 'ventas.store', 'method'=>'POST','autocomplete'=>'off']) !!}
+                                        {{Form::token()}}
+                        
+                                        <div class="row">
+                                            <div class="panel-body"> 
+                                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Productos</label>
+                                                        <select name="pidProducto" class="form-control selectpicker" id="pidProducto" data-live-search='true'>
+                                                            <option value="1" >Seleccione producto</option>    
+                                                            @foreach ($productos as $producto)
+                                                            <option value="{{ $producto->idProducto }}_{{ $producto->stock }}_{{ $producto->precio }}">{{ $producto->producto}}</option>
+                                                                @endforeach
+                                                        </select> 
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                                                    <div class="form-group">
+                                                        <label for="cantidad">Cantidad</label>
+                                                        <input type="number" min="1" max="" name="pcantidad" id="pcantidad" class="form-control" placeholder="Cantidad">
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                                                    <div class="form-group">
+                                                        <label for="stock">Stock</label>
+                                                        <input type="number" disabled name="pstock" id="pstock" class="form-control" placeholder="Stock">
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                                                    <div class="form-group">
+                                                        <label for="precioVenta">Precio Venta</label>
+                                                        <input type="number" disabled name="pprecioVenta" id="pprecioVenta" class="form-control" placeholder="Precio Venta">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                <input  type="hidden" value="{{ csrf_token() }}" name="_token">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
-                                 </div>
-                        </div>
-
-                    {!! Form::close() !!}
-
-                    <div class="panel-body" >
-                        <button class="btn btn-danger btn-lg btn-block " type="button" onclick="history.back()">Cancelar</button>
+                                                <div class="panel-body">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                                                        <button class="btn btn-primary" id="bt_add" type="button" >Agregar al detalle</button>
+                                                    </div>
+                                                </div>     
+                                             
+                                                <div class="panel-body">
+                                                    <table  id="detalles" class="table table-bordered" WIDTH="2000">
+                                                        <thead class="thead-dark">
+                                                            <th>Opciones</th>
+                                                            <th>Producto</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Precio Venta</th>
+                                                        </thead>
+                                                        <tfoot>
+                                                           <th>Total</th>
+                                                           <th></th>
+                                                            <th></th>
+                                                            <th><h4 id="total">$/. 0.00</h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
+                                                        </tfoot>
+                                                        <tbody>
+                                                                
+                                                        </tbody>
+                                                    </table>                               
+                                                </div>
+                                                 
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
+                                                    <div class="form-group">
+                                                        <input  type="hidden" value="{{ csrf_token() }}" name="_token">
+                                                        <button class="btn btn-primary" type="submit">Guardar</button>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                        
+                                            {!! Form::close() !!}
+                                        </div>
+                        
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                            <div class="form-group">
+                                                <input  type="hidden" value="{{ csrf_token() }}" name="_token">
+                                                <button class="btn btn-danger btn-md btn-block " type="button" onclick="history.back()">Cancelar</button>
+                                            </div>
+                                        </div>
                     </div>    
-                   
-                    
                 </div>
+                <!-- /.box-body -->
+            </div>
+                <!-- /.box -->
+        </div>
+</section><!-- /.content -->        
+
+
+
 
 			    
 
@@ -129,9 +147,14 @@
 <script> 
 
     $(document).ready(function(){
+
         $('#bt_add').click(function(){
             agregar();
         });
+     
+
+
+      
     });
 
     var cont=0;
@@ -139,16 +162,17 @@
     total = 0;
     subtotal=[];
 
+
+
     $('#guardar').hide();
 
-    $('#pidProducto').change(mostrarValores());
-
-    function mostrarValores(){
+    $('#pidProducto').change(function(){
         datosProductos=document.getElementById('pidProducto').value.split('_');
         $('#pprecioVenta').val(datosProductos[2]);
         $('#pstock').val(datosProductos[1]);
-    }
- 
+        });
+
+
     function agregar(){
 
 
@@ -212,5 +236,5 @@
 
 @endsection()
 
+@endsection()
 
-@endsection

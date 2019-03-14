@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
 
 @endsection()
-
+ 
 @section('contentheader_title')
     Detalle de Ingreso
 @endsection
@@ -16,17 +16,24 @@
      Información de Ingreso
 @endsection
 
-@section("main-content")
-<div class="container" align="center" >
-   
-  <div class="card bg-light mb-3" style="max-width: 50rem;">
-      <div class="card-header">
-        <h4>Ingreso {{ $ingresos->idIngreso }}</h4>
-      </div>
+@section("main-content") 
 
-      <div class="card-body">
 
-                <div class="row">
+<section class="content">
+            <!-- Your Page Content Here -->
+    <div class="container-fluid spark-screen">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Ingreso {{ $ingresos->idIngreso }}</h3>
+
+						
+					</div>
+					<div class="box-body">
+                    <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-group">
                             <label>Fecha Ingreso</label>
@@ -63,14 +70,23 @@
                     </div>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" align="center">
                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                         <a href="{{ route('ingresos.index') }}"><button class="btn btn-primary">Volver</button></a>
                     </div>
                 </div> 
-            </div>
-        </div>
-    </div>
+
+                   
+
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+
+			</div>
+		</div>
+	</div>
+</section><!-- /.content -->        
 
 @section('js-view')
 

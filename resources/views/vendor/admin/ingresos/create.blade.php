@@ -13,30 +13,36 @@
 @endsection 
 
 @section('contentheader_title')
-       Ingresos
+       
 @endsection 
 
 @section("main-content")
+ 
+<section class="content">
+            <!-- Your Page Content Here -->
+        <div class="container-fluid spark-screen">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
 
-  <div class="card bg-light mb-3" style="max-width: 52rem;">
-    <div class="card-header">
-        <h4>Registrar Ingreso</h4>
-    </div>
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title"> Ingresos </h3>
+					</div>
+				<div class="box-body">
 
-    <div class="card-body">
-            
-        <div class="container-fluid">
+                    <div class="container-fluid">
         
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            </div>
+                        @if (count($errors)>0)
+                            <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            </div>
 
-        @endif
+                        @endif
   
                 {!! Form::open(['route' => 'ingresos.store', 'method'=>'POST','autocomplete'=>'off']) !!}
                 {{Form::token()}}
@@ -76,24 +82,43 @@
                                     </tbody>
                                 </table>                               
                             </div>
-
-                       
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
-                        <div class="form-group">
-                            <input  type="hidden" value="{{ csrf_token() }}" name="_token">
-                        <button class="btn btn-primary" type="submit">Guardar</button>
-                        <a href="{{ route('productos.index') }}"><button  class="btn btn-danger" >Cancelar</button></a>
                         </div>
-                    </div>
 
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
+                            <div class="form-group">
+                                <input  type="hidden" value="{{ csrf_token() }}" name="_token">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </div>
+
+                    </div> 
+
+                        {!! Form::close() !!}       
                 </div>
 
-                    {!! Form::close() !!}       
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="form-group">
+                        <input  type="hidden" value="{{ csrf_token() }}" name="_token">
+                        <button class="btn btn-danger btn-md btn-block " type="button" onclick="history.back()">Volver</button>
+                    </div>
+                </div>
+
+            </div>
+
+                        
+                    </div>
+					<!-- /.box-body -->
+	            </div>
+				<!-- /.box -->
+            </div>
         </div>
-      </div>
     </div>
+</section><!-- /.content -->        
+
+
+
+
+    
 
 @section('js-view')
 

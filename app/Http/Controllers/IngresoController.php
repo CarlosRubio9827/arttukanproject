@@ -94,7 +94,6 @@ class IngresoController extends Controller
     		->where('di.idIngreso','=',$id)->get();
 
         return view("vendor.admin.ingresos.show", ['ingresos'=>$ingreso,'detalleIngresos'=>$detalleIngreso]);
- 
 
     	}
 
@@ -119,6 +118,7 @@ class IngresoController extends Controller
 			$pdf = PDF::loadView( "vendor.admin.ingresos.pdf.ingresos", compact('ingresos'));
 	
 			return $pdf->download('listado.pdf');
+			
 		}
 
     } 

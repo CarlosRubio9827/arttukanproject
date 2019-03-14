@@ -21,18 +21,21 @@ class ProductoController extends Controller
      */
     public function __construct(){
 
-    }
+    } 
                  
     public function index(Request $request)
     { 
 
         if ($request) {
         
-        $productos = DB::table('productos as p')->where('estado','=','1')
-        ->join('tipoproductos as tp','p.idTipoProducto','=','tp.idTipoProducto')->select('p.idProducto','p.codigoProducto','p.precio','p.nombreProducto','p.stock','tp.nombreTipoProducto as TipoProducto','p.imagen','p.idTipoProducto')
-        ->orderBy('p.idProducto','desc')->paginate(8);
+        $productos = DB::table('productos as p')
+        ->where('estado','=','1')
+        ->join('tipoproductos as tp','p.idTipoProducto','=','tp.idTipoProducto')
+        ->select('p.idProducto','p.codigoProducto','p.precio','p.nombreProducto','p.stock','tp.nombreTipoProducto as tipoProducto','p.imagen','p.idTipoProducto')
+        ->orderBy('p.idProducto','desc')
+        ->paginate(8);
 
-        return view('vendor.admin.productos.index', ['productos'=>$productos]);    
+        return view('vendor.admin.productos.index', ['productos'=>$productos]);   
          
         }
 

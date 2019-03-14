@@ -2,64 +2,76 @@
 
 @section('css-view')
 
-  <link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
-  <link rel="stylesheet" type="text/css" href="{{  asset('css/dataTables.bootstrap.css')  }}"/>
-
 @endsection()
-
+ 
 @section('htmlheader_title')
      Tipos de Producto
 @endsection
 
 @section('contentheader_title')
-       Tipos De Productos <a href="{{ route('tipoProductos.create') }}" class="btn btn-success" > Nuevo</a>
-@endsection
  
+@endsection
+  
  @section("main-content")
  
-<div class="container" >
+
+ <section class="content">
+            <!-- Your Page Content Here -->
+    <div class="container-fluid spark-screen">
+		<div class="row">
+			<div class="col-md-12 col-md-offset ">
+
+				<!-- Default box -->
+				<div class="box box-primary" style="width: 900px";>
+					<div class="box-header with-border">
+                       <b>Tipos de Producto</b> <a href="{{ route('tipoProductos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Exportar
+                      <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{{ route('tiposProductos.pdf') }}">PDF</a></li>
+                            <li><a href="#">Excel</a></li>
+                        </ul>
+                    </div>
+					<div class="box-body">
   
- <div class="card bg-light mb-3" style="max-width: 95rem;">
-  <div class="card-header">
-    <h4>Registrar Tipo de Producto</h4>
-  </div>
+                        <div class="table-responsive">
+                            <table id="tipoProductos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
+                                <thead>
+                                    <th>Id</th>
+                                    <th>Nombre Tipo Producto</th>
+                                    <th>Descripcion</th>
+                                    <th>Opciones</th>
+                                    {{-- <th>Imagen</th> --}}
+                                </thead> 
+                                    @foreach ($tipoProductos as $tipoProducto)
+                                    <tr> 
+                                        <td style="text-align:center;">{{$tipoProducto->idTipoProducto}}</td>
+                                        <td style="text-align:center;">{{$tipoProducto->nombreTipoProducto }}</td>
+                                        <td style="text-align:center;">{{$tipoProducto->descripcionTipoProducto}}</td>
+                                        <td style="text-align:center;"> 
+            
+                                        <a href="{{ route('tipoProductos.show', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
 
-  <div class="card-body">
-            <div class="table-responsive">
-                <table id="tipoProductos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
-                    <thead>
-                        <th>Id</th>
-                        <th>Nombre Tipo Producto</th>
-                        <th>Descripcion</th>
-                        <th>Opciones</th>
-                        {{-- <th>Imagen</th> --}}
-                    </thead> 
+                                        <a href="{{ route('tipoProductos.edit', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
 
-                        @foreach ($tipoProductos as $tipoProducto)
-                           <tr> 
-                                <td>{{$tipoProducto->idTipoProducto}}</td>
-                                <td>{{$tipoProducto->nombreTipoProducto }}</td>
-                                <td>{{$tipoProducto->descripcionTipoProducto}}</td>
-                                <td> 
- 
-                               <a href="{{ route('tipoProductos.show', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-
-                               <a href="{{ route('tipoProductos.edit', $tipoProducto->idTipoProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-
-                               <a href="" data-target="#modal-delete-{{ $tipoProducto->idTipoProducto }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
-                               @include('vendor.admin.tipoProductos.modal')
-
-                                </td>
-                               
-                           </tr> 
-                        @endforeach
-                </table>
-            </div>
-            {{ $tipoProductos->render() }}
-        </div>
-  </div>
-</div>
-    
+                                        <a href="" data-target="#modal-delete-{{ $tipoProducto->idTipoProducto }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
+                                        @include('vendor.admin.tipoProductos.modal')
+                                        </td>
+                                    </tr> 
+                                    @endforeach
+                            </table>
+                        </div>
+                    {{ $tipoProductos->render() }}
+                </div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+		</div>
+	</div>
+</section><!-- /.content -->        
 
 @endsection()
 
