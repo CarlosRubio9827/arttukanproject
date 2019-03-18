@@ -42,12 +42,23 @@
                             </div>
                                     @endif
                         
-                        
                                         {!! Form::open(['route' => 'ventas.store', 'method'=>'POST','autocomplete'=>'off']) !!}
                                         {{Form::token()}}
                         
                                         <div class="row">
                                             <div class="panel-body"> 
+                                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                            <div class="form-group">
+                                                                <label>Clientes</label>
+                                                                <select name="idCliente" class="form-control selectpicker" id="idCliente" data-live-search='true'>
+                                                                    <option value="1" >Seleccione Cliente</option>    
+                                                                    @foreach ($clientes as $cliente)
+                                                                <option value="{{ $cliente->id }}">{{$cliente->numDocumento}} - {{ $cliente->nombres}} {{$cliente->apellidos}}</option>
+                                                                        @endforeach
+                                                                </select> 
+                                                            </div>
+                                                        </div>
+
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                     <div class="form-group">
                                                         <label>Productos</label>
@@ -76,18 +87,20 @@
                         
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                                                     <div class="form-group">
-                                                        <label for="precioVenta">Precio Venta</label>
+                                                        <label for="precioVenta">Precio Producto</label>
                                                         <input type="number" disabled name="pprecioVenta" id="pprecioVenta" class="form-control" placeholder="Precio Venta">
                                                     </div>
                                                 </div>
-                                            </div>
-
+                                           
                                                 <div class="panel-body">
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                                                        <br>
                                                         <button class="btn btn-primary" id="bt_add" type="button" >Agregar al detalle</button>
                                                     </div>
-                                                </div>     
-                                             
+                                                </div>
+
+                                              </div>
+
                                                 <div class="panel-body">
                                                     <table  id="detalles" class="table table-bordered" WIDTH="2000">
                                                         <thead class="thead-dark">
@@ -145,38 +158,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
 
 <script> 
-
+ 
     $(document).ready(function(){
 
         $('#bt_add').click(function(){
             agregar();
+
         });
-     
-
-
       
     });
 
     var cont=0;
-
     total = 0;
     subtotal=[];
-
-
 
     $('#guardar').hide();
 
     $('#pidProducto').change(function(){
         datosProductos=document.getElementById('pidProducto').value.split('_');
-        $('#pprecioVenta').val(datosProductos[2]);
         $('#pstock').val(datosProductos[1]);
-        });
-
+        $('#pprecioVenta').val(datosProductos[2]);
+                });
 
     function agregar(){
-
-
+ 
         datosProductos=document.getElementById('pidProducto').value.split('_');
+        alert(datosProductos);
         idProducto=datosProductos[0]
         producto=$('#pidProducto option:selected').text();
 
@@ -186,15 +193,18 @@
 
         stock=$('#pstock').val();
 
-
         if (idProducto != "" && cantidad != "" && cantidad > 0  && precioVenta != "") {
 
             subtotal[cont]=(cantidad*precioVenta);
             total =total+subtotal[cont];
 
-
             if (stock>=cantidad) {
-            var fila='<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idProducto[]" value="'+idProducto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td><td><input type="number" name="precioVenta[]" value="'+precioVenta+'"></td></tr>';
+            var fila='<tr class="selected" id="fila'
+            +cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont
+            +');">X</button></td><td><input  type="hidden" name="idProducto[]" value="'+idProducto
+            +'">'+producto+'</td><td><input   type="number" name="cantidad[]" value="'+cantidad
+            +'"></td><td><input   type="number" name="precioVenta[]" value="'+precioVenta+'"></td></tr>';
+            
             cont++;
             limpiar();
             $('#total').html("S/. "+total );

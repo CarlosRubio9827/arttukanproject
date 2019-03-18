@@ -123,6 +123,31 @@
 
 
             </div>
+            <div class="row">
+                    <div class="col-md-6">
+                            <div class="box  box-dafault">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Clientes</h3>
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="box-body no-padding">
+                                    <a href="{{ route('clientes.index')}}">       
+                                        <td>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <button type="button" class="btn btn-block btn-primary btn-lg">Mostrar clientes <i class="fa fa-clipboard-check"></i>
+                                                    </button>
+                                                </div>
+                                            </div>     
+                                        </td>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+            </div>
 
              
 

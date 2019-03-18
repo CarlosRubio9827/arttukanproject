@@ -68,7 +68,7 @@ class RegisterController extends Controller
             'password' => 'required|min:6|confirmed',
             'terms' => 'required',
         ]);
-    }
+    } 
 
     /**
      * Create a new user instance after a valid registration.
@@ -83,6 +83,7 @@ class RegisterController extends Controller
             'nombres' => $data['nombres'],
             'apellidos' => $data['apellidos'],
             'email' => $data['email'],
+            'estado'=> '1',
             'tipoDocumento' => $data['tipoDocumento'],
             'numDocumento' => $data['numDocumento'],
             'direccion' => $data['direccion'],
@@ -91,6 +92,6 @@ class RegisterController extends Controller
         ]);
 
     }
-
+ 
 }
  

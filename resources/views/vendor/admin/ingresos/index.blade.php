@@ -53,9 +53,7 @@
                             </thead> 
 
                                 @foreach ($ingresos as $ingreso)
-                                
                                 <tr> 
-         
                                         <td style="text-align:center;">{{$ingreso->idIngreso}}</td>
                                         <td style="text-align:center;">{{$ingreso->fechaHora }}</td>
                                         <td style="text-align:center;">{{$ingreso->estado}}</td>

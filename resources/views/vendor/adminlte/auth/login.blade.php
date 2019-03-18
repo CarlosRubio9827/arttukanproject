@@ -22,7 +22,7 @@
                 </ul>
             </div>
         @endif
-
+ 
         <div class="login-box-body">
         <p class="login-box-msg"> Inicia sesión para ingresar al sistema </p>
         <form action="{{ url('/login') }}" method="post">

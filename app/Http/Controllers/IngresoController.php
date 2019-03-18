@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Barryvdh\DomPDF\Facade as PDF;
 
-
+ 
 
 
 class IngresoController extends Controller

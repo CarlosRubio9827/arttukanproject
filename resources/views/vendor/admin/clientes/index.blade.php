@@ -5,7 +5,7 @@
 @endsection()
 
 @section('htmlheader_title')
-    Ventas
+    clientes
 @endsection
  
 @section('contentheader_title')
@@ -13,57 +13,57 @@
 @endsection
 
  @section("main-content") 
- 
- 
 
-
-<section class="content">
+ 
+ <section class="content">
     <!-- Your Page Content Here -->
     <div class="container-fluid spark-screen">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-
-                <!-- Default box -->
-                <div class="box box-success">
+            <div class="col-md-12 col-md-offset">
+ 
+                <!-- Default box --> 
+                <div class="box box-success" >
                     <div class="box-header with-border">
-                        <b>Ventas</b> <a href="{{ route('ventas.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
+                        <b>Clientes</b> <a href="{{ route('clientes.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Exportar
                           <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a href="{{ route('ventas.pdf') }}">PDF</a></li>
+                          <li><a href="{{ route('clientes.pdf') }}">PDF</a></li>
                           <li><a href="#">Excel</a></li>
                       </ul>
                     </div> 
-                    <div class="box-body">
+                    <div class="box-body" >
                         <div class="table-responsive">
-                            <table id="ventas-dt" class="table table-striped table-bordered table-condensed table-hover" width="750">
+                            <table id="clientes-dt" class="table table-striped table-bordered table-condensed table-hover" >
                                 <thead>
-                                    <th>Id</th>
-                                    <th>Fecha</th>
-                                    <th>Cliente</th>
-                                    <th>Total</th> 
-                                    <th>Estado</th> 
+                                    <th>Nuip</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th> 
+                                    <th>Email</th> 
+                                    <th>Telefono</th>
                                     <th>Opciones</th>
+
                                 </thead>
-                                    @foreach ($ventas as $venta)
+                                    @foreach ($clientes as $cliente)
                                 <tr> 
-                                    <td>{{$venta->idVenta}}</td>
-                                    <td>{{$venta->fechaHora }}</td>
-                                <td>{{$venta->nombres}} {{$venta->apellidos}}</td>
-                                    <td>{{$venta->totalVenta }}</td>
-                                <td>{{$venta->estado}}</td>
+                                    <td>{{$cliente->numDocumento}}</td>
+                                    <td>{{$cliente->nombres }}</td>
+                                    <td>{{$cliente->apellidos }}</td>
+                                    <td>{{$cliente->email}}</td>
+                                    <td>{{$cliente->telefono}}</td>
+
                                     <td> 
-                                        <a href="{{ route('ventas.show', $venta->idVenta)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                        <a href="" data-target="#modal-delete-{{ $venta->idVenta }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
-                                            @include('vendor.admin.ventas.modal')
+                                        <a href="{{ route('clientes.show', $cliente->id)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                        <a href="" data-target="#modal-delete-{{ $cliente->id }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
+                                            @include('vendor.admin.clientes.modal')
                                     </td>
                                 </tr>
                                      @endforeach
                             </table>
                         </div>
-                                {{ $ventas->render() }}
+                                {{ $clientes->render() }}
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -72,12 +72,6 @@
         </div>
     </div>
 </section><!-- /.content -->        
-
-
-
-
-
- 
 
  @endsection()
 
@@ -88,7 +82,7 @@
  <script type="text/javascript" src="{{  asset('js/dataTables.bootstrap.js')  }}"></script>
 <script>
 $(document).ready( function () {
-    $('#ventas-dt').DataTable({   
+    $('#clientes-dt').DataTable({   
 
 oLanguage: {
     "sProcessing":     "Procesando...",

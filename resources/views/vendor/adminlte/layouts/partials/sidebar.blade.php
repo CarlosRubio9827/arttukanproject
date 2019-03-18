@@ -18,10 +18,10 @@
                 </div>
             </div>
         @endif
-
+ 
      
         <!-- /.search form -->
-
+ 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">Menú</li>
@@ -38,6 +38,8 @@
                     <li><a href="{{ route('tipoProductos.index')}}"><i class='fa fa-link'></i> <span>{{ trans('Tipos de Productos') }}</span></a></li>
                 </ul>
             </li>
+        <li class=""><a href="{{route('clientes.index')}}"><i class='fa fa-link'></i> <span>{{ trans('Clientes') }}</span></a></li>
+
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

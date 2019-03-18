@@ -20,11 +20,12 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', function () {
-    return view('vendor.adminlte.home');
+    return view('vendor.adminlte.layouts.landing');
 });
 Route::get('/bienvenido', function(){
 return view('vendor.adminlte.welcome');
 });
+
 
 Route::get('sugerencias', "SugerenciaController@store")->name('sugerencias');
 
@@ -33,6 +34,7 @@ Route::resource("productos","ProductoController");
 Route::resource("ventas","VentaController");
 Route::resource("ingresos","IngresoController");
 Route::resource("pedidos","PedidoController");
+Route::resource('clientes','ClienteController');
  
 Route::get('ingresosPdf', function(){
                         
@@ -65,5 +67,13 @@ Route::get('productosPdf', function(){
     
     return $pdf->download('listadoProductos.pdf');
 })->name('productos.pdf');
+
+Route::get('clientesPdf', function(){
+                        
+    $clientes = App\Cliente::all(); 
+    $pdf = PDF::loadView( "vendor.admin.clientes.clientes-pdf",['clientes'=>$clientes]);
+    
+    return $pdf->download('listadoClientes.pdf');
+})->name('clientes.pdf');
 
 

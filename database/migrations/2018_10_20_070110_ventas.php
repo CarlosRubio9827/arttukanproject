@@ -16,13 +16,13 @@ class Ventas extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->increments('idVenta');
             $table->datetime('fechaHora');
-            $table->decimal('totalVenta', 11, 2);            
+            $table->decimal('totalVenta', 11, 2);
+            $table->unsignedInteger('idCliente');            
             $table->char('estado', 4);
-            $table->timestamps();
-
-            
+            $table->foreign('idCliente')->references('id')->on('users');
+            $table->timestamps();       
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.
