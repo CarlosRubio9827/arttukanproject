@@ -47,7 +47,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><b>Art</b>Tukan</a>
+            <a class="navbar-brand" href="#"><b>Art</b>Tukan</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -84,24 +84,25 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         <div class="carousel-inner" role="listbox">
           <div class="item active" >
 
-          <img class="center-block" src="{{asset('img/thor.jpg') }}" alt="..."  width="560"/>
+          <img class="center-block" src="{{asset('img/productos/0001.jpg') }}" alt="..."   />
             <div class="carousel-caption">
               ...
             </div>
           </div>
           <div class="item">
-            <img class="center-block" src="{{asset('img/ironman.jpg')}}" alt="..." width="560"/>
+            <img class="center-block" src="{{asset('img/productos/0012.jpg')}}" alt="..."  />
             <div class="carousel-caption">
               ...
             </div>
           </div>
           <div class="item"> 
-            <img class="center-block" src="{{asset('img/venom.jpg')}}" alt="..." width="560"/>
+            <img class="center-block" src="{{asset('img/productos/productos.jpg')}}" alt="..."  />
             <div class="carousel-caption">
               ...
             </div>
           </div>
           ...
+         
         </div>
       
         <!-- Controls -->
@@ -126,33 +127,197 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
     <!-- INTRO WRAP -->
     <div id="intro">
         <div class="container">
-            <div class="col-xs-4 col-md-4 col-lg-4">
-                
-                <h4>Price Card</h4>
+
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                 <div class="card card-price">
-                  <div class="card-img">
-                    <a href="#">
-                      <img src="http://placeimg.com/640/320/nature/grayscale" class="img-responsive">
-                      <div class="card-caption">
-                        <span class="h2">Big Item</span>
-                        <p>100% silk</p>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <div class="price">$20 <small>each</small></div>
-                    <div class="lead">Wrap yourself in luxury</div>
-                    <ul class="details">
-                      <li>A stitch in time saves nine.</li>
-                      <li>All good things come to those who wait.</li>
-                      <li><b>Shipping:</b> $10 in USA, $15 outside USA</li>
-                    </ul>
-                    <a href="#" class="btn btn-primary btn-lg btn-block buy-now">
-                      Buy now <span class="glyphicon glyphicon-triangle-right"></span>
-                    </a>
-                  </div>
+                    <div class="card-img">
+                        <a href="#">
+                        <img src="{{asset('img/productos/bolsas2.jpg')}}" class="img-responsive">
+                        <div class="card-caption">
+                        </div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="price">$20.000 <small>Cada uno</small></div>
+                        <div class="lead"><strong>Bolsas</strong></div>
+                            <ul class="details">
+                                <li>Nuestras bolsas son de diferente aplicación, 
+                                    fabricadas con y sin fuelle.</li>                                    
+                            </ul>
+                            <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                            La quiero <span class="glyphicon glyphicon-triangle-right"></span>
+                            </a>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                
+                    <h4></h4>
+                    <div class="card card-price">
+                        <div class="card-img">
+                            <a href="#">
+                            <img src="{{asset('img/productos/busos.jpg')}}" class="img-responsive">
+                        </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="price">$25.000 <small>Desde</small></div>
+                            <div class="lead"><strong>Busos</strong></div>
+                                <ul class="details">
+                                <li>Elaborados en burda pesada poliéster algodón perchada.
+                                       Ideal para un look clásico y relajado.
+                                    </li>
+                                </ul>
+                                <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                                La quiero <span class="glyphicon glyphicon-triangle-right"></span>
+                                </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                
+                        <h4></h4>
+                        <div class="card card-price">
+                            <div class="card-img">
+                                <a href="#">
+                                <img src="{{asset('img/productos/maletines.jpg')}}" class="img-responsive">
+                            </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="price">$35.000 <small>Desde</small></div>
+                                <div class="lead"><strong>Maletines</strong></div>
+                                    <ul class="details">
+                                    <li>
+                                        Diseños casuales de textura lisa a un tono, detalles alusivos a la marca que generan contraste y finas costuras visibles. 
+                                    </li>
+                                    </ul>
+                                    <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                                    La quiero <span class="glyphicon glyphicon-triangle-right"></span>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                
+                        <h4></h4>
+                        <div class="card card-price">
+                            <div class="card-img">
+                                <a href="#">
+                                <img src="{{asset('img/productos/mugs.jpg')}}" class="img-responsive">
+                            </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="price"> $8.000    <br><small> Cada uno</small></div>
+                                <div class="lead"><strong>Mugs</strong></div>
+                                    <ul class="details">
+                                    <li>
+                                            Reduce el uso de recipientes plásticos en tu oficina y/o hogar y lleva contigo uno de los mugs fabricados en ArtTukan.
+                                    </li>
+                                    </ul>
+                                    <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                                    La quiero <span class="glyphicon glyphicon-triangle-right"></span>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                
+                        <h4></h4>
+                        <div class="card card-price">
+                            <div class="card-img">
+                                <a href="#">
+                                <img src="{{asset('img/productos/tulas.jpg')}}" class="img-responsive">
+                            </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="price">$30.000 <small>Cada una</small></div>
+                                <div class="lead"><strong>Tulas</strong></div>
+                                    <ul class="details">
+                                    <li>
+                                            Perfectas para ir al Gym y realizar tus actividades deportivas. 
+                                    </li>
+                                    </ul>
+                                    <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                                    La quiero <span class="glyphicon glyphicon-triangle-right"></span>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                
+                        <h4></h4>
+                        <div class="card card-price">
+                            <div class="card-img">
+                                <a href="#">
+                                <img src="{{asset('img/productos/blusas.jpg')}}" class="img-responsive">
+                            </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="price">$20.000 <small>Desde</small></div>
+                                <div class="lead"><strong>Blusas</strong></div>
+                                    <ul class="details">
+                                    <li>
+                                            Tendencias de moda más relevantes para esta temporada en blusas de jean, manga larga, manga corta y mucho más.
+                                    </li>
+                                    </ul>
+                                    <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                                    La quiero <span class="glyphicon glyphicon-triangle-right"></span>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                
+                        <h4></h4>
+                        <div class="card card-price">
+                            <div class="card-img">
+                                <a href="#">
+                                <img src="{{asset('img/productos/gorras.jpg')}}" class="img-responsive">
+                            </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="price">$10.000 <small>Cada una</small></div>
+                                <div class="lead"><strong>Gorras</strong></div>
+                                    <ul class="details">
+                                    <li>
+                                            Las mejores gorras están en ArtTukan. Elije tu modelo favorito y consiguelo ahora mismo para que tu look sea mas relajado
+                                    </li>
+                                    </ul>
+                                    <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                                    La quiero <span class="glyphicon glyphicon-triangle-right"></span>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                
+                        <h4></h4>
+                        <div class="card card-price">
+                            <div class="card-img">
+                                <a href="#">
+                                <img src="{{asset('img/productos/sublimacion.jpg')}}" class="img-responsive">
+                            </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="price">$20.000 <br><small>Por metro</small></div>
+                                <div class="lead"><strong>Sublimación</strong></div>
+                                    <ul class="details">
+                                    <li>
+                                            La sublimación digital aplicada a la moda nos permite en Color & Diseño brindar a nuestros clientes diseños únicos.
+                                    </li> 
+                                    </ul>
+                                <a href="{{url('/login')}}" class="btn btn-primary btn-lg btn-block buy-now">
+                                    Saber más <span class="glyphicon glyphicon-triangle-right"></span>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
 
         </div>
             <br>
@@ -172,24 +337,22 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                         <b><h1>Politica de Calidad</h1></b>
                         <h4>
                             <b>
-                                    En ART TUKAN ofrecemos a nuestros clientes bolsos, prendas de vestir y suvenirs con diseños exclusivos étnicos contemporáneos y arte en general, diferentes a los diseños étnicos tradicionales, con texturas, materiales naturales y telas a utilizar en cada diseño que permitan llevar nuestra cultura a otro nivel, donde un bolso o prenda de vestir de ART TUKAN se pueda utilizar en cualquier situación del día demostrando nuestra cultura, raíces colombianas y del mundo. Uniendo la artesanía con la confesión industrial, con materiales y procesos que ayuden al medio ambiente. Gracias a la gran variedad de estampados y diseños, ART TUKAN ofrece productos para un amplio espectro de edades, estilos y personalidades.
+                                En ART TUKAN ofrecemos a nuestros clientes bolsos, prendas de vestir y suvenirs con diseños exclusivos étnicos contemporáneos y arte en general, diferentes a los diseños étnicos tradicionales, con texturas, materiales naturales y telas a utilizar en cada diseño que permitan llevar nuestra cultura a otro nivel, donde un bolso o prenda de vestir de ART TUKAN se pueda utilizar en cualquier situación del día demostrando nuestra cultura, raíces colombianas y del mundo. Uniendo la artesanía con la confesión industrial, con materiales y procesos que ayuden al medio ambiente. Gracias a la gran variedad de estampados y diseños, ART TUKAN ofrece productos para un amplio espectro de edades, estilos y personalidades.
                             </b>
                         </h4>          
                 </div>
-                <div class="col-md-12">
-                    <b><h1>Misión</h1></b>
+                <div class="col-md-12 col-xl-12">
+                    <strong><b><h1>Misión</h1></b></strong>
                     <h3>
                         <b>
-                                En ART TUKAN trabajamos para ayudar a nuestros clientes a ser originales y auténticos con sus prendas de vestir de estilos exclusivos, étnicos contemporáneos y arte en general, nuestra misión es brindar apoyo a nuestros clientes en el proceso de selección de su diseño.
-                        </b> 
+                        ART TUKAN S.A.S es una empresa orgullosamente Colombiana dedicada al diseño, confección y venta de bolsos y prendas de vestir con diseños de arte en general y  étnicos contemporáneos pensando en la mujer y hombre actual. Empleando en nuestros productos los mejores procesos con altos estándares de calidad y buen servicio, mejorando cada día en la satisfacción de nuestro cliente en diseño, medio ambiente, oportunidad de entrega, optimizando el recurso humano, físico y tecnológico, además contribuimos socialmente al desarrollo de la región en la generación de empleos a la comunidad y cabezas de familia generando los resultados económicos que permitan prosperidad a la sociedad, estabilidad a nuestros colaboradores. Actuando dentro de los principios éticos y normas legalmente aceptadas.                        </b> 
                     </h3>
                 </div>
-                <div class="col-md-12">
-                        <b><h1>Visión</h1></b>
+                <div class="col-md-12 col-xl-12">
+                        <strong><b><h1>Visión</h1></b></strong>
                         <h3>
                             <b>
-                                    Ofrecer un concepto innovador que combine los estilos étnicos, el arte en general y tu toque de estilo propio, que te harán vestir con un estilo único.
-                            </b>
+                            Posicionarnos en el mercado Valle caucano, en el año 2.021 como una empresas líder en la confección y comercialización prendas de vestir y bolsos existentes en la región, Será una empresa reconocida regionalmente por su cumplimiento, calidad, diseño y servicio al cliente, con una infraestructura organizacional orientada al mercado, ofreciendo innovación permanente a través de la investigación y creación de nuevos productos.                            </b>
                         </h3>
                     </div>
             </div>
@@ -262,11 +425,11 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <a href="https://www.instagram.com/arttukancolombia/?hl=es-lam">  
+                            <a target="_blank" href="https://www.instagram.com/arttukancolombia/?hl=es-lam">  
                                 <i  class="fab fa-instagram"></i>
                             </a>
 
-                            <a href="https://es-la.facebook.com/arttukancolombia/">
+                            <a target="_blank" href="https://es-la.facebook.com/arttukancolombia/">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                         </div>

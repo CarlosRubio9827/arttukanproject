@@ -72,7 +72,7 @@ class ClienteController extends Controller
         DB::table('role_user')->insert(
             ['user_id' => $idCliente, 'role_id' => 2]
         ); 
- 
+  
         return redirect()->route('clientes.index');
        // $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
         //return view('vendor.admin.productos.index', ['productos'=>$productos]);

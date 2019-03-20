@@ -10832,7 +10832,7 @@ a:focus {
 /* button groups */
 .btn-group-vertical .btn.btn-flat:first-of-type,
 .btn-group-vertical .btn.btn-flat:last-of-type {
-  border-radius: 0;
+  border-radius: 2px;
 }
 .icheck > label {
   padding-left: 0;
@@ -11716,7 +11716,7 @@ a:focus {
 .btn.btn-flat {
   border-radius: 0;
   box-shadow: none;
-  border-width: 1px;
+  border-width: 2px;
 }
 .btn:active {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -12722,11 +12722,11 @@ table.text-center th {
 }
 .login-page,
 .register-page {
-  background: #d2d6de;
+  background: #2750a1;
 }
 .login-box,
 .register-box {
-  width: 360px;
+  width: 660px;
   margin: 7% auto;
 }
 @media (max-width: 768px) {
@@ -12738,10 +12738,14 @@ table.text-center th {
 }
 .login-box-body,
 .register-box-body {
-  background: #fff;
+  background: rgb(255, 255, 255);
   padding: 10px;
   border-top: 10;
-  color: #666;
+  color: rgb(49, 61, 68);
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 0 1rem;
+  margin: 1rem;
 }
 .login-box-body .form-control-feedback,
 .register-box-body .form-control-feedback {
@@ -16638,7 +16642,7 @@ pre code {
   }
 }
 @media (min-width: 992px) {
-  .container {
+  .container { 
     width: 970px;
   }
 }
@@ -21930,3 +21934,103 @@ button.toast-close-button {
  .card-price .buy-now{ text-transform: uppercase; }
  .card-price table .price{ font-size: 1.2em; font-weight: 700; text-align: left; }
  .card-price table .note{ color: #666; font-size: 0.8em; }
+
+    
+ .form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+    font-weight: normal;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: 20px;
+    padding: 40px 0px 20px 0px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+.profile-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.need-help
+{
+    margin-top: 10px;
+}
+.new-account
+{
+    display: block;
+    margin-top: 10px;
+}
+
+#fondoLogin{
+  background-color: rgb(168, 182, 199); 
+  height: 690px;
+}
+
+#footerwrap {
+  background-color: #2f2f2f;
+  color: white;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  text-align: left;
+}
+
+#c {
+  background: #222222;
+  padding-top: 15px;
+  text-align: center;
+}
+
+#c p {
+  color: white
+}

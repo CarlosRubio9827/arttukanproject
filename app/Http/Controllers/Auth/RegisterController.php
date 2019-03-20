@@ -1,12 +1,19 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use App\Cliente;
+use App\Http\Requests;
+use App\Http\Requests\ClienteRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Role;
+use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\HttpFoundation\Request;
+use DB;
+use Illuminate\Support\Facades\Event;
 
 /**
  * Class RegisterController
@@ -73,25 +80,35 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  request  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $request)
     { 
 
-        return User::create([
-            'nombres' => $data['nombres'],
-            'apellidos' => $data['apellidos'],
-            'email' => $data['email'],
-            'estado'=> '1',
-            'tipoDocumento' => $data['tipoDocumento'],
-            'numDocumento' => $data['numDocumento'],
-            'direccion' => $data['direccion'],
-            'telefono' => $data['telefono'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-    }
+            $cliente = new User();
+        
+            $cliente->nombres = $request['nombres'];
+            $cliente->apellidos = $request['apellidos'];
+            $cliente->email = $request['email'];
+            $cliente->tipoDocumento = $request['tipoDocumento'];
+            $cliente->numDocumento = $request['numDocumento'];
+            $cliente->telefono = $request['telefono'];
+            $cliente->direccion = $request['direccion'];
+            $cliente->password = bcrypt($request['password']);
+            $cliente->estado = '1';
+            
+            $cliente->save();
+            $idCliente=$cliente->id;
+     
+            DB::table('role_user')->insert(
+                ['user_id' => $idCliente, 'role_id' => 2]
+            ); 
+      
+       
+            return $cliente;
+  
+          }
  
 }
  
