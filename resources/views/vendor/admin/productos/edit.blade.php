@@ -93,8 +93,8 @@
 						   
 											   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 												   <div class="form-group">
-													   <label for="stock">Stock</label>
-													   <input type="number" name="stock" required value="{{ $producto->stock }}"class='form-control'>
+													   <label for="stock">Precio</label>
+													   <input type="number" name="precio" required value="{{ $producto->precio }}"class='form-control'>
 												   </div>
 											   </div>
 						   
@@ -106,7 +106,22 @@
 														   <img src="{{ asset('images/'.$producto->imagen) }}"  height="75px" width="75px" class="img-thumbnail">
 													   @endif
 												   </div>
-											   </div>
+												 </div>
+
+												 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+													<div class="form-group">
+														<label for="stock">Stock</label>
+														<input type="number" name="stock" required value="{{ $producto->stock }}"class='form-control'>
+													</div>
+												</div>
+
+												 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+													<div class="form-group">
+														<label for="descripcion">Descripcion</label>
+														<textarea name="descripcion" required value="{{ $producto->descripcion }}"class='form-control form-group-lg' placeholder="Descripcion" rows="1" cols="50">		
+														</textarea>
+													</div>
+												</div>
 						   
 											   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 													<div class="form-group">

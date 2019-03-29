@@ -181,6 +181,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Alexo\LaravelPayU\LaravelPayUServiceProvider::class,
     ],
 
     /*

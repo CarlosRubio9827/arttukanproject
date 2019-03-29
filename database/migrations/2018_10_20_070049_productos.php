@@ -17,6 +17,7 @@ class Productos extends Migration
             $table->increments('idProducto');
             $table->string('codigoProducto');
             $table->string('nombreProducto');
+            $table->string('descripcion');
             $table->string('imagen');
             $table->integer('stock');
             $table->decimal('precio',11,2);

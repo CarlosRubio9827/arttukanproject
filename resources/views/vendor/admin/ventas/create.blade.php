@@ -74,7 +74,7 @@
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                                                     <div class="form-group">
                                                         <label for="cantidad">Cantidad</label>
-                                                        <input type="number" min="1" max="" name="pcantidad" id="pcantidad" class="form-control" placeholder="Cantidad">
+                                                        <input type="text"  name="pcantidad" id="pcantidad" class="input-number form-control" placeholder="Cantidad">
                                                     </div>
                                                 </div>
                         
@@ -156,6 +156,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+<script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
 
 <script> 
  
@@ -163,9 +164,17 @@
 
         $('#bt_add').click(function(){
             agregar();
-
         });
-      
+
+        $('.input-number').on('input', function () { 
+        this.value = this.value.replace(/[^0-9]/g,'');
+        });
+        
+      $('#pidProducto').change(function(){
+        datosProductos=document.getElementById('pidProducto').value.split('_');
+        $('#pstock').val(datosProductos[1]);
+        $('#pprecioVenta').val(datosProductos[2]);
+                });
     });
 
     var cont=0;
@@ -174,31 +183,29 @@
 
     $('#guardar').hide();
 
-    $('#pidProducto').change(function(){
-        datosProductos=document.getElementById('pidProducto').value.split('_');
-        $('#pstock').val(datosProductos[1]);
-        $('#pprecioVenta').val(datosProductos[2]);
-                });
+    
 
     function agregar(){
  
         datosProductos=document.getElementById('pidProducto').value.split('_');
-        alert(datosProductos);
         idProducto=datosProductos[0]
         producto=$('#pidProducto option:selected').text();
 
         cantidad=$('#pcantidad').val();
+        var cantidadNum = parseInt(cantidad);
+        
 
         precioVenta=$('#pprecioVenta').val();
-
+        var precioVentaNum = parseInt(precioVenta);
         stock=$('#pstock').val();
+        var stockNum = parseInt(stock);
 
-        if (idProducto != "" && cantidad != "" && cantidad > 0  && precioVenta != "") {
+        if (idProducto != "" && cantidad != "") {
 
-            subtotal[cont]=(cantidad*precioVenta);
+            subtotal[cont]=(cantidadNum*precioVentaNum);
             total =total+subtotal[cont];
 
-            if (stock>=cantidad) {
+            if (cantidadNum<=stockNum) {
             var fila='<tr class="selected" id="fila'
             +cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont
             +');">X</button></td><td><input  type="hidden" name="idProducto[]" value="'+idProducto
@@ -214,6 +221,7 @@
     
             }else{
                 alert("La cantidad a vender supera el limite");
+                
             }
             
         }else{

@@ -78,7 +78,7 @@ class TipoProductoController extends Controller
      */
     public function edit($idTipoProducto)
     {
-        return view ('vendor.admin.tipoProductos.edit',['tipoProducto'=>TipoProducto::findOrFail($idTipoProducto)]);
+          return view ('vendor.admin.tipoProductos.edit',['tipoProducto'=>TipoProducto::findOrFail($idTipoProducto)]);
     }
 
     /**

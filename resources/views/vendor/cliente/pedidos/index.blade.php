@@ -1,4 +1,4 @@
- @extends("adminlte.layouts.app")
+ @extends("vendor.adminlte.layouts.app")
 
  @section('css-view')
 
@@ -7,9 +7,20 @@
 
 @endsection()
 
- @section("contentheader_title")
+@section('htmlheader_title')
+    Mis Pedidos
+@endsection
 
-    <div class="row">
+ @section("contentheader_title")
+<div class="text-center">
+    <p>Lista de mis pedidos</p>
+</div>
+ @endsection()
+
+ @section('main-content')
+
+ <div class="row">
+     
         <div class="col-md-8 col-lg-8 col-xs-12 col-sm-8">
                 @if (Session::has('info'))
                   <div class="alert alert-info">
@@ -19,7 +30,6 @@
                       {{ Session::get('info') }}
                   </div>
                 @endif
-                    <h3>Listado de Ventas <a href="{{ route('ventas.create') }}" ><button type="button" class="btn btn-success">Nuevo</button></a></h3>
                    
         </div>
     </div>
@@ -35,26 +45,27 @@
                         <th>Estado</th>
                         <th>Opciones</th>
                     </thead>
-                        @foreach ($ventas as $venta)
-                           <tr> 
-                                <td>{{$venta->idVenta}}</td>
+                        @foreach ($pedidos as $venta)
+                            <tr> 
+                                <td>{{$venta->idPedido}}</td>
                                 <td>{{$venta->fechaHora }}</td>
-                                <td>{{$venta->totalVenta }}</td>
+                                <td>{{$venta->totalPedido }}</td>
                                 <td>{{$venta->estado}}</td>
                                 <td> 
-                                   <a href="{{ route('ventas.show', $venta->idVenta)  }}"><button class="btn btn-primary">Detalles</button></a>
-                                   <a href="" data-target="#modal-delete-{{ $venta->idVenta }}" data-toggle="modal"><button class="btn btn-danger">Anular Venta</button></a>
+                                   <a href="{{ route('ventas.show', $venta->idPedido)  }}"><button class="btn btn-primary">Detalles</button></a>
                                 </td>
-                           </tr>
-                           @include('ventas.modal')
+                            </tr>
                         @endforeach
                 </table>
             </div>
-            {{ $ventas->render() }}
+            {{ $pedidos->render() }}
         </div>
-    </div>          
+    </div>
+     
+ @endsection
 
-@endsection()
+              
+
 
 
 

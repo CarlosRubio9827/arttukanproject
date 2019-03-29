@@ -1,74 +1,47 @@
  @extends("vendor.adminlte.layouts.app")
 
-@section('css-view')
+ 
 
- <link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
-  <link rel="stylesheet" type="text/css" href="{{  asset('css/dataTables.bootstrap.css')  }}"/>
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+@section('css-view') 
+
+
 @endsection()
 
+@section('htmlheader_title')
+    Catalogo de Productos
+@endsection
+ 
+@section('contentheader_title')
+ 
+ 
+    <div class="text-center">
+        <a href="{{route('mostrar-carrito')}}" class="btn btn-primary"> <img width="35px" src="{{asset('img/iconos/icons8-carrito-de-compras-50.png')}}" alt=""> Ver mi carrito </a>
+    </div>
+        
+@endsection
+
  @section("main-content") 
- 
 
-  <div class="row"> 
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
-           <h3>Listado de Productos
-               <a href="{{ route('productos.create') }}" class="btn btn-success" >Nuevo</a>
-           </h3>
-        </div>
-  </div>
- 
-    <div class="row">
-        <div class="col-lg-10 col-md-10 col-xs-10 col-sm-8">
-            <div class="table-responsive">
-                <table id="productos-dt" class="table table-striped table-bordered table-condensed table-hover">
-                    <thead>
-                         
-                        <th>Id</th>
-                        <th>Nombre Producto</th> 
-                        <th>Precio</th>
-                        <th>Tipo Producto</th>
-                        <th>Stock</th>
-                        <th>Imagen</th>
-                        <th>Opciones</th>
-
-                        {{-- <th>Imagen</th> --}}
-                    </thead>
-
-                        @foreach ($productos as $producto)
-                           
-                           <tr> 
-
-                                <td>{{$producto->idProducto}}</td>
-                                <td>{{$producto->nombreProducto }}</td>
-                                <td>{{ $producto->precio }}</td>
-                                <td>{{$producto->TipoProducto}}</td>
-                                <td>{{$producto->stock}}</td>
-                                <td>
-                                  <img src="{{ asset('images/'.$producto->imagen) }}" alt="{{ $producto->nombreProducto }}" height="75px" width="75px" class="img-thumbnail">
-                                </td>
-
-                                <td> 
-                                  
-                               <a href="{{ route('productos.edit', $producto->idProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</button></a>
-
-                               <a href="" data-target="#modal-delete-{{ $producto->idProducto }}" data-toggle="modal"><button class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</button></a>                              
-
-                                </td>
-                               
-                           </tr>
-
-                           @include('vendor.admin.productos.modal')
-
-                        @endforeach
-
-                </table>
-
+<div class="container text-center">
+    <div class="row" id="productos">
+        @foreach ($productos as $producto)
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="producto white-panel">
+                <h3>{{$producto->nombreProducto}}</h3><hr>
+                <img src="{{asset('images/'.$producto->imagen)}}" alt="Imagen del Producto" width="130px" height="170px">
+                <div class="producto-info panel">
+                    <p>{{$producto->descripcion}}</p>
+                    <p><span class="label label-success">Precio: ${{ number_format($producto->precio)}}</span></p>
+                    <p>
+                        <a class="btn btn-warning" href="{{route('agregar-producto',$producto->idProducto)}}"><i class="fa fa-shopping-cart"></i> La quiero</a>
+                        <a class="btn btn-primary" href="{{route('productos.show', $producto->idProducto)}}"><i class="fa fa-chevron-circle-right"> Ver mas</i></a>
+                    </p>
+                </div>  
             </div>
-            {{ $productos->render() }}
         </div>
-    </div>          
-
+        @endforeach
+    </div>
+</div>
     
 
 @endsection()
@@ -77,36 +50,20 @@
 
  <script type="text/javascript" src="{{  asset('js/datatables.js')  }}"></script>
  <script type="text/javascript" src="{{  asset('js/dataTables.bootstrap.js')  }}"></script>
-<script>
+ 
+ <script>
+  
 $(document).ready( function () {
-    $('#productos-dt').DataTable({   
 
-oLanguage: {
-    "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar _MENU_ registros",
-    "sZeroRecords":    "No se encontraron resultados",
-    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix":    "",
-    "sSearch":         "Buscar:",
-    "sUrl":            "",
-    "sInfoThousands":  ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-        "sFirst":    "Primero",
-        "sLast":     "Último",
-        "sNext":     "Siguiente",
-        "sPrevious": "Anterior"
-    },
-    "oAria": {
-        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
-}
-   } );
-    
+    $('#productos').pinterest_grid({
+     no_columns: 4,
+     padding_x: 10,
+     padding_y: 10,
+     margin_bottom: 50,
+     single_column_breakpoint: 700
+     });
+     });
+
 } );
 </script>
 @endsection()

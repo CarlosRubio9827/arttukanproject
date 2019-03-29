@@ -11,7 +11,7 @@ class Producto extends Model
 	    protected $primaryKey = 'idProducto'; 
 	    public $timestamps=false;
         protected $fillable = [
-    	'nombreProducto','stock','idTipoProducto','image'
+    	'nombreProducto','stock','idTipoProducto','descripcion'
 
     ];
   

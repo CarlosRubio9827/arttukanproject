@@ -14,10 +14,10 @@ use DB;
 use Carbon\Carbon;
 
 use Zizaco\Entrust\EntrustFacade as Entrust;
-
+use Spatie\Permission\Traits\HasRoles;
 use Response;
 use Illuminate\Support\Collection;
-use Spatie\Permission\Traits\HasRoles;
+
 use Illuminate\Auth\Events\Login;
 
 class VentaController extends Controller
@@ -32,7 +32,6 @@ class VentaController extends Controller
 
     if(Entrust::hasRole('admin')){
 
-      
             $ventas = DB::table('ventas as v')
             ->join('detalleventas as dv', 'v.idVenta','=','dv.idVenta')
             ->join('users as u','v.idCliente','=','u.id')
@@ -40,14 +39,13 @@ class VentaController extends Controller
             ->orderBy('v.idVenta','desc')
             ->groupBy('v.idVenta','v.fechaHora','v.estado','v.totalVenta','v.idCliente','u.nombres','u.apellidos')
             ->paginate(8); 
-            
-
-
-
+        
             return view('vendor.admin.ventas.index',['ventas' =>$ventas]);
               
+    }else if(Entrust::hasRole('cliente')){
+        return view('vendor.adminlte.home')->with('message', 'Pro favor inicia sesion');
     }else{
-        Redirect::to('vendor.adminlte.auth.login')->with('message', 'Pro favor inicia sesion');
+        return view ('vendor.adminlte.welcome');
     }
     }
 

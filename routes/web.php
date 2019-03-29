@@ -33,7 +33,9 @@ Route::resource('tipoProductos',"TipoProductoController");
 Route::resource("productos","ProductoController");
 Route::resource("ventas","VentaController");
 Route::resource("ingresos","IngresoController");
-Route::resource("pedidos","PedidoController");
+Route::resource("servicios","ServicioController");
+
+
 Route::resource('clientes','ClienteController');
  
 Route::get('ingresosPdf', function(){
@@ -76,4 +78,72 @@ Route::get('clientesPdf', function(){
     return $pdf->download('listadoClientes.pdf');
 })->name('clientes.pdf');
 
+// - Inicio Rutas Carritos ---------------------------------------------- //
+
+Route::bind('producto', function($idProducto){
+  return App\Producto::where('idProducto', $idProducto)->first();
+});
+
+//ruta mostrar carrito
+Route:: get('carrito/show',[
+    'as'=>'mostrar-carrito',
+    'uses'=>'CarritoController@show'
+    ]);
+
+//ruta agregar producto carrito
+Route:: get('carrito/add/{producto}',[
+'as'=>'agregar-producto',
+'uses'=>'CarritoController@add'
+]);
+
+//ruta eliminar producto carrito
+Route:: get('carrito/delete/{producto}',[
+'as'=>'eliminar-producto',
+'uses'=>'CarritoController@delete'
+]);
+
+
+//ruta vaciar producto carrito
+Route:: get('carrito/trash',[
+'as'=>'vaciar-carrito',
+'uses'=>'CarritoController@trash'
+]);
+
+
+//ruta actualizar producto carrito
+Route:: get('carrito/update/{producto}/{cantidad?}',[
+'as'=>'actualizar-producto',
+'uses'=>'CarritoController@update'
+]);
+
+
+//ruta detalle producto
+Route:: get('producto/{id}',[
+'as'=>'detalle-producto',
+'uses'=>'ProductoController@show'
+]);
+
+//ruta detalle pedido
+Route:: get('detalle',[ 
+'middleware' => 'auth',
+'as'=>'detalle-pedido',
+'uses'=>'CarritoController@detalle'
+]);
+
+//ruta mostrar productos
+Route:: get('catalogo',[
+'as'=>'catalogo',
+'uses'=>'ProductoController@index']);
+
+//- Fin Rutas Carrito -------------------------------------------//
+
+//Rutas Pagos-----------------------//
+ 
+Route::get('pagos/respuestasPago',[
+    'uses'=>'PagoController@respuestaPago'
+]);
+
+//Rutas Pedidos-----------------//
+
+Route::resource("pedidos","PedidoController");
 

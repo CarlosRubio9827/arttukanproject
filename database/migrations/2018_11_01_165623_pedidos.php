@@ -13,9 +13,19 @@ class Pedidos extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('pedidos', function (Blueprint $table) {
+            $table->increments('idPedido');
+            $table->datetime('fechaHora');
+            $table->decimal('totalPedido', 11, 2);
+            $table->unsignedInteger('idCliente');            
+            $table->char('estado', 4);
+            $table->unsignedInteger('idPag');
+            $table->foreign('idPag')->references('idPago')->on('pagos')->onDelete('cascade');
+            $table->foreign('idCliente')->references('id')->on('users');
+            $table->timestamps();       
+        });
     }
-
+ 
     /**
      * Reverse the migrations.
      *
@@ -23,6 +33,6 @@ class Pedidos extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('ventas');
     }
 }

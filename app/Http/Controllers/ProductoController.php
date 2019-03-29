@@ -11,6 +11,8 @@ use App\Http\Requests\ProductoRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use DB;
+use Zizaco\Entrust\EntrustFacade as Entrust;
+use Spatie\Permission\Traits\HasRoles;
 
 class ProductoController extends Controller
 {
@@ -31,12 +33,20 @@ class ProductoController extends Controller
         $productos = DB::table('productos as p')
         ->where('estado','=','1')
         ->join('tipoproductos as tp','p.idTipoProducto','=','tp.idTipoProducto')
-        ->select('p.idProducto','p.codigoProducto','p.precio','p.nombreProducto','p.stock','tp.nombreTipoProducto as tipoProducto','p.imagen','p.idTipoProducto')
+        ->select('p.idProducto','p.codigoProducto','p.descripcion','p.precio','p.nombreProducto','p.stock','tp.nombreTipoProducto as tipoProducto','p.imagen','p.idTipoProducto')
         ->orderBy('p.idProducto','desc')
         ->paginate(8);
 
-        return view('vendor.admin.productos.index', ['productos'=>$productos]);   
+        if(Entrust::hasRole('admin')){
+
+            return view('vendor.admin.productos.index', ['productos'=>$productos]);   
          
+        }else if(Entrust::hasRole('cliente')){
+            return view('vendor.cliente.productos.index', ['productos'=>$productos]);
+        }else{
+            return view('vendor.adminlte.auth.login');
+        }
+
         }
 
     }
@@ -58,21 +68,25 @@ class ProductoController extends Controller
     
     public function store(ProductoRequest $request)
     { 
-         
-         if ($request->hasFile('image')) {
-              $file = $request->file('image');
-              $name = time().$file->getClientOriginalName();
-              $file->move(public_path().'/images',$name);
-         }
-
+        
         $producto = new Producto();
         $producto->codigoProducto = $request->get('codigoProducto');
         $producto->nombreProducto = $request->get('nombreProducto');
+        $producto->descripcion = $request->get('descripcion');
         $producto->stock = $request->get('stock');
         $producto->precio = $request->get('precioProducto');
         $producto->estado = 1;
         $producto->idTipoProducto = $request->get('idTipoProducto');
-        $producto->imagen = $name;
+        
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/images',$name);
+            $producto->imagen = $name;
+        }else{
+            $producto->imagen = "sin imagen";
+        }
+
         $producto->save();
 
         return redirect()->route('productos.index');
@@ -89,7 +103,14 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        return view("vendor.admin.productos.show", compact('producto'));
+        if (Entrust::hasRole('admin')) {
+            return view("vendor.admin.productos.show", compact('producto'));
+        } else if(Entrust::hasRole('cliente')){
+            return view('vendor.cliente.productos.show', compact('producto'));
+        }else{
+            return view('vendor.adminlte.auth.login');
+        }
+        
     }
 
     /**
@@ -100,9 +121,11 @@ class ProductoController extends Controller
      */
     public function edit($idProducto)
     {
-        $producto=Producto::findOrFail($idProducto);
+        $id = $idProducto->idProducto;
+      
+        $producto = Producto::findOrFail($id);
+
         $tipoproductos = DB::select('select * from tipoproductos where condicion = :id', ['id' => 1]); 
-        
 
         return view ('vendor.admin.productos.edit',['producto'=>$producto,'tipoProductos'=>$tipoproductos]);
     }
@@ -116,11 +139,17 @@ class ProductoController extends Controller
      */
     public function update(ProductoRequest $request, $idProducto)
     {
-        $producto = Producto::findOrFail($idProducto);
+        $id = $idProducto->idProducto;
+
+
+        $producto = Producto::findOrFail($id);
+
         $producto->codigoProducto=$request->get('codigoProducto');
         
         $producto->nombreProducto = $request->get('nombreProducto');
         $producto->stock = $request->get('stock');
+        $producto->precio = $request->get('precio');
+        $producto->descripcion = $request->get('descripcion');
         $producto->idTipoProducto = $request->get('idTipoProducto');
 
         if ($request->hasFile('image')) {
@@ -128,13 +157,17 @@ class ProductoController extends Controller
               $name = time().$file->getClientOriginalName();
               $file->move(public_path().'/images',$name); 
               $producto->imagen = $name;
+         }else{
+             $producto->imagen = "Producto sin imagen";
          }
        
         $producto->update();
 
-         $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
-        return view('vendor.admin.productos.index', ['productos'=>$productos]);
-        
+        //$productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
+
+        //return view('vendor.admin.productos.index', ['productos'=>$productos]);
+        return Redirect::to('productos');
+
      
  }
 
@@ -152,7 +185,6 @@ class ProductoController extends Controller
 
         $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
         //return view('vendor.admin.productos.index', ['productos'=>$productos]);
-        
 
         return Redirect::to('productos')->with('message', 'Eliminado satisfactoriamente');
         //redirect()->route('vendor.admin.productos.index')->with("info", "Se ha elimnado correctamente");

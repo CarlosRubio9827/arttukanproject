@@ -9,18 +9,18 @@
     <p>APOYA</p>
 	<div class="container" >
 		<div class="row" >
-	    	<div  class="col-lg-3">
-	    		<img src="{{ asset('images/logotipo_sena-negro-150x150.png') }}" width="100" height="100">
+	    	<div  class="col-lg-3 col-md-3 col-sm-6">
+	    		<img src="{{ asset('img/logotipo_sena-negro-150x150.png') }}" width="100" height="100">
 			</div>
-			<div class="col-lg-3">
-				<img src="{{ asset('images/nacional-150x150.png') }}" width="100" height="100">				
+			<div class="col-lg-3 col-md-3 col-sm-6">
+				<img src="{{ asset('img/nacional-150x150.png') }}" width="100" height="100">				
 			</div>
 			
-			<div class="col-lg-3">
-				<img src="{{ asset('images/Logo_FE_color_trans.png') }}" width="100" height="100">	
+			<div class="col-lg-3 col-md-3 col-sm-6">
+				<img src="{{ asset('img/Logo_FE_color_trans.png') }}" width="100" height="100">	
 			</div>
-			<div class="col-lg-3">
-				<img src="{{ asset('images/logo-fonade2-150x150.png') }}" width="100" height="100">	
+			<div class="col-lg-3 col-md-3 col-sm-6">
+				<img src="{{ asset('img/logo-fonade2-150x150.png') }}" width="100" height="100">	
 			</div>
 	    
 	</div>

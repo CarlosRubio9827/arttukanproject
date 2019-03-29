@@ -12,7 +12,7 @@
   			</div>
 
   			<div class="modal-body">
-  				<p>Confirme si desea eliminar la categoria</p>
+  				<p>Confirme si desea eliminar el producto</p>
   			</div>
 
   			<div class="modal-footer">
@@ -21,7 +21,7 @@
   			</div>
 
   		</div>
-  		</div>
+  		</div> 
 
   		{{ Form::Close() }}
 

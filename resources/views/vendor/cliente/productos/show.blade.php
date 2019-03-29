@@ -1,47 +1,70 @@
-@extends("adminlte.layouts.app")
+@extends("vendor.adminlte.layouts.app")
+
+@section('htmlheader_title')
+     Producto
+@endsection
+
+@section('contentheader_title')
  
- @section("main-content")
+@endsection
 
+@section("main-content")
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading" align="center">Información Del Producto
-					
-					<table class="table table-hover">
-                		<head>
-                			<tr>
-                		    	<td><b>ID</b></td>
-                		    		<td>{{ $producto->idProducto }}</td>
-                			</tr>
-                            <tr>
-                                <td><b>Nombre</b></td>
-                                    <td>{{ $producto->nombreProducto }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Stock</b></td>
-                                    <td>{{ $producto->stock }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Precio</b></td>
-                                    <td>{{ $producto->precio }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Imagen</b></td>
-                                    <td><img src="images/{{ $producto->imagen }}" width="100" height="100" alt="{{ $producto->nombreProducto }}" class="img-thumbnail"></td>y
-                            </tr>
-                			<tr>
-                			 	<td><a href="{{ route('productos.edit', $producto->idProducto) }}" class="btn btn-primary pull-right">Editar</a></td>
-                                <td><a href="{{ route('productos.index') }}" class="btn btn-primary pull-left">Volver</a></td>
-                			</tr>
-                		</head>
-                		
-                	</table>
-
-                </div>
- 			 </div>
-        </div>
+<div class="container text-center">
+    <div class="page-header">
+        <h1> <i class="fa fa-shopping-cart"></i> Detalle del Producto</h1>
     </div>
 </div>
+<hr>
+
+<div class="row text-center">
+
+    <div class="col-md-6">
+        <div class="producto-block">
+            <img src="{{asset('images/'.$producto->imagen)}}" alt="Imagen del producto" >
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="producto-block">
+            <h3>{{$producto->nombreProducto}}</h3>
+            <div class="prodcuto-info panel">
+                <p>{{$producto->descripcion}}</p>
+                <h3><span class="label label-success">Precio: $ {{number_format($producto->precio)}}
+                    </span>
+                </h3>
+                <p>
+                    <hr>
+                    <a href="{{route('agregar-producto',$producto->idProducto)}}" class="btn btn-warning btn-block"><i class="fa fa-shopping-cart"> La quiero</i></a>
+                </p>
+            </div>
+        </div>         
+    </div>
+    <hr>
+    <br>
+    <div class="col-md-12">
+        <p><a class="btn btn-primary" href="{{route('catalogo')}}">
+        <i class="fa fa-chevron-circle-left"> Volver</i></a></p>
+    </div>
+        
+</div>
+
+
+
+    
+
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+        $('#demo').pinterest_grid({
+        no_columns: 4,
+        padding_x: 10,
+        padding_y: 10,
+        margin_bottom: 50,
+        single_column_breakpoint: 700
+        });
+        });
+        </script>
+        
+    @endsection
 @endsection

@@ -12,7 +12,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- 
 BODY TAG OPTIONS:
-=================
+================= 
 Apply one or more of the following classes to get the
 desired effect
 |---------------------------------------------------------|
@@ -49,6 +49,7 @@ desired effect
         <section class="content">
             <!-- Your Page Content Here -->
             @yield('main-content')
+            
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
@@ -59,9 +60,12 @@ desired effect
 </div><!-- ./wrapper -->
 </div>
 @section('scripts')
-    @include('vendor.adminlte.layouts.partials.scripts')
-    <script type="text/javascript" src="{{ asset('js/bootstrap-select.min') }}"></script>
 
+
+    @include('vendor.adminlte.layouts.partials.scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+    <script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
 @show
 
 

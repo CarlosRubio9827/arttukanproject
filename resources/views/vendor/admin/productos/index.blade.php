@@ -60,12 +60,13 @@
                                                 <td style="text-align:center;">{{$producto->codigoProducto}}</td>
                                                 <td style="text-align:center;">{{$producto->nombreProducto }}</td>
                                                 <td style="text-align:center;">{{$producto->precio }}</td> 
-                                                <td style="text-align:center;">{{$producto->idTipoProducto}} - {{ $producto->tipoProducto }}</td>
+                                                <td style="text-align:center;">{{$producto->idTipoProducto}} </td>
                                                 <td style="text-align:center;">{{$producto->stock}}</td>
                                                 <td> 
                                                   <img src="{{ asset('images/'.$producto->imagen) }}" alt="{{ $producto->nombreProducto }}" height="75px" width="75px" class="img-thumbnail">
                                                 </td>
-                                                <td style="text-align:center;">    
+                                                <td style="text-align:center;">   
+                                                    <a href="{{route('productos.show',  $producto->idProducto)}}"><button class="btn btn-primary"><i class="fa fa-eye"></i></button></a> 
                                                     <a href="{{ route('productos.edit', $producto->idProducto)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
                                                     <a href="" data-target="#modal-delete-{{ $producto->idProducto }}" data-toggle="modal"><button class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
                                                         @include('vendor.admin.productos.modal')

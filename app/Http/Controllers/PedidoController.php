@@ -23,15 +23,17 @@ class PedidoController extends Controller
      */ 
     public function index(Request $request)
     {
+        $idUser = auth()->id();
 
             if ($request) {
-                $ventas = DB::table('ventas as v')
-                ->join('detalleventas as dv', 'v.idVenta','=','dv.idVenta')
-                ->select('v.idVenta','v.fechaHora','v.estado','v.totalVenta')
-                ->orderBy('v.idVenta','desc')
-                ->groupBy('v.idVenta','v.fechaHora','v.estado','v.totalVenta')
-                ->paginate(8);
-                return view('vendor.admin.ventas.index',['ventas' =>$ventas]);
+                $pedidos = DB::table('pedidos as p')
+                ->join('detallepedidos as dp', 'p.idPedido','=','dp.idPedido')
+                ->select('p.idPedido','p.fechaHora','p.estado','p.totalPedido','p.idCliente')
+                ->where('p.idCliente','=',$idUser)
+                ->orderBy('p.idPedido','asc')
+                ->groupBy('p.idPedido','p.fechaHora','p.estado','p.totalPedido','p.idCliente')
+                ->paginate(10);
+                return view('vendor.cliente.pedidos.index',['pedidos' =>$pedidos]);
             }
 
     }
@@ -50,7 +52,7 @@ class PedidoController extends Controller
        ->groupBy('producto','p.idProducto','p.stock','p.precio')
        ->get();
 
-       return view('vendor.admin.ventas.create',['productos'=>$productos]);
+       return view('vendor.admin.pedidos.create',['productos'=>$productos]);
 
         } 
 
@@ -60,30 +62,30 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VentaRequest $request)
+    public function store(PedidoRequest $request)
     {
            
            try {
                 DB::beginTransaction();
-                $venta=new Venta;
-                $venta->totalVenta=$request->get('totalVenta');
+                $Pedido=new Pedido;
+                $Pedido->totalPedido=$request->get('totalPedido');
                 $mytime = Carbon::now('America/Bogota');
-                $venta->fechaHora=$mytime->toDateTimeString();
-                $venta->estado = 'A';
-                $venta->save();
+                $Pedido->fechaHora=$mytime->toDateTimeString();
+                $Pedido->estado = 'A';
+                $Pedido->save();
 
                 $idProducto=$request->get('idProducto');
                 $cantidad=$request->get('cantidad');
-                $precioVenta=$request->get('precioVenta');
+                $precioPedido=$request->get('precioPedido');
 
                 $cont = 0;
 
                 while ($cont < count($idProducto)) {
-                       $detalle = new DetalleVenta();
-                       $detalle->idVenta=$venta->idVenta;
+                       $detalle = new DetallePedido();
+                       $detalle->idPedido=$Pedido->idPedido;
                        $detalle->idProducto=$idProducto[$cont];
                        $detalle->cantidad=$cantidad[$cont];
-                       $detalle->precioVenta=$precioVenta[$cont];
+                       $detalle->precioPedido=$precioPedido[$cont];
                        $detalle->save();
                        $cont=$cont+1;
                 }
@@ -94,7 +96,7 @@ class PedidoController extends Controller
                DB::rollback();
            }
 
-           return redirect('vendor.admin.ventas');
+           return redirect('vendor.admin.pedidos');
 
         }
 
@@ -106,18 +108,18 @@ class PedidoController extends Controller
      */ 
     public function show($id)
     {
-        $venta=DB::table('ventas as v')
-        ->join('detalleventas as dv','v.idVenta','=','dv.idVenta')
-        ->select('v.idVenta','v.fechaHora','v.totalVenta','v.estado','v.totalVenta')
-        ->where('v.idVenta','=',$id)
+        $Pedido=DB::table('pedidos as v')
+        ->join('detallepedidos as dv','v.idPedido','=','dv.idPedido')
+        ->select('v.idPedido','v.fechaHora','v.totalPedido','v.estado','v.totalPedido')
+        ->where('v.idPedido','=',$id)
         ->first();
 
-        $detalle=DB::table('detalleventas as d')
+        $detalle=DB::table('detallepedidos as d')
         ->join('productos as p','d.idProducto','=','p.idProducto')
-        ->select('p.nombreProducto','d.cantidad','d.precioVenta')
-        ->where('d.idVenta','=',$id)
+        ->select('p.nombreProducto','d.cantidad','d.precioPedido')
+        ->where('d.idPedido','=',$id)
         ->get();
-        return view ('vendor.admin.ventas.show',['ventas'=>$venta,'detalleVentas'=>$detalle]);
+        return view ('vendor.admin.pedidos.show',['pedidos'=>$Pedido,'detallepedidos'=>$detalle]);
            
             }
 
@@ -137,9 +139,9 @@ class PedidoController extends Controller
      */
     public function destroy($id)
     {
-        $venta=Venta::findOrFail($id);
-        $venta->estado = 'C';
-        $venta->update();
+        $Pedido=Pedido::findOrFail($id);
+        $Pedido->estado = 'C';
+        $Pedido->update();
         return redirect()->route('vendor.admin.productos.index');
     }
      

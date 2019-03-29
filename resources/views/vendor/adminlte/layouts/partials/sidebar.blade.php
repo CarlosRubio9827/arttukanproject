@@ -18,7 +18,7 @@
                 </div>
             </div>
         @endif
- 
+  
      
         <!-- /.search form -->
  
@@ -26,20 +26,30 @@
         <ul class="sidebar-menu">
             <li class="header">Menú</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class=""><a href="{{ url('home') }}"><i class="fa fa-home" aria-hidden="true"></i>
- <span>{{ trans('Inicio') }}</span></a></li>
-            <li class=""><a href="{{ url('pedidos') }}"><i class='fa fa-link'></i> <span>{{ trans('Pedidos') }}</span></a></li>
-            <li class=""><a href="{{ url('ingresos') }}"><i class='fa fa-link'></i> <span>{{ trans('Ingresos') }}</span></a></li>
-            <li class=""><a href="{{ route('ventas.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Ventas') }}</span></a></li>
+        <li class=""><a href="{{ url('home') }}"><img width="20px" src="{{asset('img/iconos/icons8-casa-26.png')}}" alt="">
+            <span>{{ trans('Inicio') }}</span></a></li>
+            @if (Entrust::hasRole('admin'))
+        <li class=""><a href="{{ url('pedidos') }}"><img width="20px" src="{{asset('img/iconos/icons8-historial-de-pedidos-100.png')}}" alt=""> <span>{{ trans('Pedidos') }}</span></a></li>
+            <li class=""><a href="{{ url('ingresos') }}"><img width="20px" src="{{asset('img/iconos/icons8-historial-de-pedidos-100.png')}}" alt=""> <span>{{ trans('Ingresos') }}</span></a></li>
+        <li class=""><a href="{{ route('ventas.index') }}"><img width="20px" src="{{asset('img/iconos/icons8-superventas-100.png')}}"> <span>{{ trans('Ventas') }}</span></a></li>
             <li class="treeview">
-                <a href="#"><i class='fa fa-link'></i> <span>{{ trans('Productos') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><span>{{ trans('Productos') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('productos.index') }}"><i class='fa fa-link'></i> <span>{{ trans('Productos') }}</span></a></li>
-                    <li><a href="{{ route('tipoProductos.index')}}"><i class='fa fa-link'></i> <span>{{ trans('Tipos de Productos') }}</span></a></li>
+                    <li><a href="{{ route('productos.index') }}"> <img width="20px" src="{{asset('img/iconos/icons8-caja-128.png')}}"><span>{{ trans('Productos') }}</span></a></li>
+                    <li><a href="{{ route('tipoProductos.index')}}"><img width="20px" src="{{asset('img/iconos/icons8-categorizar-52.png')}}"><span>{{ trans('Tipos de Productos') }}</span></a></li>
                 </ul>
             </li>
-        <li class=""><a href="{{route('clientes.index')}}"><i class='fa fa-link'></i> <span>{{ trans('Clientes') }}</span></a></li>
-
+             <li class=""><a href="{{route('servicios.index')}}"><img width="20px" src="{{asset('img/iconos/icons8-servicios-80.png')}}"> <span>{{ trans('Servicios') }}</span></a></li>
+            <li class=""><a href="{{route('clientes.index')}}"><img width="20px" src="{{asset('img/iconos/icons8-gestión-de-clientes-100.png')}}"> <span>{{ trans('Clientes') }}</span></a></li>
+            @endif()
+            @if (Entrust::hasRole('cliente'))
+            
+        <li><a href="{{route('catalogo')}}"><img width="20px" src="{{asset('img/iconos/icons8-caja-128.png')}}" alt=""> <span>{{ trans('Catálogo') }}</span></a></li>
+        <li><a href=""><img width="20px" src="{{asset('img/iconos/icons8-servicios-80.png')}}" alt=""> <span>{{ trans('Servicios') }}</span></a></li>
+        <li><a href="{{route('pedidos.index')}}"><img width="20px" src="{{asset('img/iconos/icons8-historial-de-pedidos-100.png')}}" alt=""> <span>{{ trans('Mis Pedidos') }}</span></a></li>    
+            
+            @endif()
+            
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

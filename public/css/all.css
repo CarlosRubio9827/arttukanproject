@@ -7955,6 +7955,7 @@
 .skin-blue-light .content-wrapper,
 .skin-blue-light .main-footer {
   border-left: 1px solid #d2d6de;
+
 }
 .skin-blue-light .user-panel > .info,
 .skin-blue-light .user-panel > .info > a {
@@ -9663,12 +9664,13 @@ body.hold-transition .main-header .logo {
 }
 /* Content */
 .content {
-  min-height: 250px;
+  min-height: 548px;
   padding: 15px;
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  max-height: auto;
 }
 /* H1 - H6 font */
 h1,
@@ -21841,17 +21843,29 @@ button.toast-close-button {
  * version 2018.10.30
  * https://codepen.io/jstneg/pen/EVKYZj
  */
- .card{ background-color: #fff; border: 1px solid transparent; border-radius: 6px; }
+ .card{ 
+  background-color: #fff; 
+  border: 1px solid transparent;
+  border-radius: 6px; 
+  }
  .card > .card-link{ color: #333; }
- .card > .card-link:hover{  text-decoration: none; }
- .card > .card-link .card-img img{ border-radius: 6px 6px 0 0; }
- .card .card-img{ position: relative; padding: 0; display: table; }
+ .card > .card-link:hover{
+  text-decoration: none;
+  }
+ .card > .card-link .card-img img{ 
+   border-radius: 6px 6px 0 0; 
+  }
+ .card .card-img{ 
+  position: relative;
+  padding: 0;
+  display: table;
+  }
  .card .card-img .card-caption{
    position: absolute;
    right: 0;
    bottom: 16px;
    left: 0;
- }
+  }
  .card .card-body{ display: table; width: 100%; padding: 12px; }
  .card .card-header{ border-radius: 6px 6px 0 0; padding: 8px; }
  .card .card-footer{ border-radius: 0 0 6px 6px; padding: 8px; }
@@ -22034,3 +22048,61 @@ button.toast-close-button {
 #c p {
   color: white
 }
+
+/*--Grid Pinterest*/
+#productos {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+  }
+  
+  .white-panel {
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+  padding: 5px;
+  margin-top:20px;
+  max-height: 600px;
+  }
+  .white-panel h1 {
+  font-size: 1em;
+  }
+  .white-panel h1 a {
+  color: #A92733;
+  }
+  .white-panel:hover {
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  }
+/*Fin grid Pinterest*/
+
+.producto-block
+{
+  background : #fff;
+  border-radius: 1em;
+  padding: 1em;
+  max-width: auto;
+}
+.producto-block img{
+height: 280px;
+}
+.table-carrito
+{
+background: #fff;
+border-radius: 1em;
+margin-bottom:30px;
+padding: 1em;
+}
+.table-carrito img
+{
+width: 50px;
+border-radius: 1em;
+margin-bottom:30px;
+padding: 1em;
+}
+
+
+
+ 

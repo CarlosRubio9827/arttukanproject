@@ -15,7 +15,7 @@
         
 @endsection
 
-@section("main-content")
+@section("main-content") 
 
 
 
@@ -87,14 +87,23 @@
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="imagen">Imagen</label>
+										<label for="imagen">Imagen </label>
 											{!! Form::file('image',['class'=>'form-control']) !!}
 									</div> 
 								</div>
+
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+									<div class="form-group">
+										<label for="descripcion">Descripcion</label>
+										<textarea name="descripcion" required value="{{ old('descripcion') }}"class='form-control form-group-lg' placeholder="Descripcion" rows="1" cols="50">		
+										</textarea>
+									</div>
+								</div>
+								
 								<br>
 							
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
-									<div class="form-group">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+									<div class="form-group text-center" >
 										<button class="btn btn-primary" type="submit">Guardar</button>
 										<a href="{{ route('productos.index') }}"><button  class="btn btn-danger" >Cancelar</button></a>
 									</div>
