@@ -40,7 +40,7 @@
                                 </tr>
                                 <tr>
                                     <td><b>Precio</b></td>
-                                    <td>{{ $servicio->precio}}</td>
+                                    <td>$ {{number_format($servicio->precio)}}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Descripcion</b></td>
@@ -48,7 +48,7 @@
                                 </tr>
                                 <tr>
                                     <td><b>Imagen</b></td>
-                                        <td><img src="images/{{ $servicio->imagen }}" width="100" height="100" alt="{{ $servicio->nombre }}" class="img-thumbnail"></td>y
+                                        <td><img src="{{ asset('images/'.$servicio->imagen) }}" width="100" height="100" alt="{{ $servicio->nombre }}" class="img-thumbnail"></td>y
                                 </tr>
                                 <tr>
                                     <td><a href="{{ route('servicios.edit', $servicio->idServicio) }}" class="btn btn-primary pull-right">Editar</a></td>

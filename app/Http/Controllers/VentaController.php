@@ -22,16 +22,10 @@ use Illuminate\Auth\Events\Login;
 
 class VentaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */ 
     public function index(Request $request)
 {  
-
-    if(Entrust::hasRole('admin')){
-
+ 
+        if(Entrust::hasRole('admin')){
             $ventas = DB::table('ventas as v')
             ->join('detalleventas as dv', 'v.idVenta','=','dv.idVenta')
             ->join('users as u','v.idCliente','=','u.id')

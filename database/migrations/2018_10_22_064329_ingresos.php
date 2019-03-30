@@ -15,10 +15,10 @@ class Ingresos extends Migration
     {
         Schema::create('ingresos', function (Blueprint $table) {
             $table->increments('idIngreso');
-            $table->date('fechaHora');
+            $table->datetime('fechaHora');
             $table->char('estado', 4);
             $table->timestamps();
-
+ 
 
 
         });

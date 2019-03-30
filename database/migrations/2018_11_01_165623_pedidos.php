@@ -18,7 +18,7 @@ class Pedidos extends Migration
             $table->datetime('fechaHora');
             $table->decimal('totalPedido', 11, 2);
             $table->unsignedInteger('idCliente');            
-            $table->char('estado', 4);
+            $table->string('estado');
             $table->unsignedInteger('idPag');
             $table->foreign('idPag')->references('idPago')->on('pagos')->onDelete('cascade');
             $table->foreign('idCliente')->references('id')->on('users');

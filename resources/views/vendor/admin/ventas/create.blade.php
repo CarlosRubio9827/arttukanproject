@@ -47,17 +47,17 @@
                         
                                         <div class="row">
                                             <div class="panel-body"> 
-                                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                                            <div class="form-group">
-                                                                <label>Clientes</label>
-                                                                <select name="idCliente" class="form-control selectpicker" id="idCliente" data-live-search='true'>
-                                                                    <option value="1" >Seleccione Cliente</option>    
-                                                                    @foreach ($clientes as $cliente)
-                                                                <option value="{{ $cliente->id }}">{{$cliente->numDocumento}} - {{ $cliente->nombres}} {{$cliente->apellidos}}</option>
-                                                                        @endforeach
-                                                                </select> 
-                                                            </div>
-                                                        </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Clientes</label>
+                                                        <select name="idCliente" class="form-control selectpicker" id="idCliente" data-live-search='true'>
+                                                            <option value="1" >Seleccione Cliente</option>    
+                                                                @foreach ($clientes as $cliente)
+                                                            <option value="{{ $cliente->id }}">{{$cliente->numDocumento}} - {{ $cliente->nombres}} {{$cliente->apellidos}}</option>
+                                                                @endforeach
+                                                        </select> 
+                                                    </div>
+                                                </div>
 
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                     <div class="form-group">
@@ -77,7 +77,7 @@
                                                         <input type="text"  name="pcantidad" id="pcantidad" class="input-number form-control" placeholder="Cantidad">
                                                     </div>
                                                 </div>
-                        
+                         
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                                                     <div class="form-group">
                                                         <label for="stock">Stock</label>
@@ -113,7 +113,7 @@
                                                            <th>Total</th>
                                                            <th></th>
                                                             <th></th>
-                                                            <th><h4 id="total">$/. 0.00</h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
+                                                            <th><h4 id="total">$</h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
                                                         </tfoot>
                                                         <tbody>
                                                                 
@@ -148,15 +148,10 @@
 </section><!-- /.content -->        
 
 
-
-
-			    
-
 @section('js-view')
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
-<script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.js"></script>
+
 
 <script> 
  
@@ -214,7 +209,7 @@
             
             cont++;
             limpiar();
-            $('#total').html("S/. "+total );
+            $('#total').html("$ "+total );
             $('#totalVenta').val(total);
             evaluar();
             $('#detalles').append(fila);

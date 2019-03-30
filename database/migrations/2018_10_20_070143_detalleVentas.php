@@ -22,7 +22,7 @@ class DetalleVentas extends Migration
             $table->foreign('idVenta')->references('idVenta')->on('ventas')->onDelete('cascade');
             $table->foreign('idProducto')->references('idProducto')->on('productos')->onDelete('cascade');
             $table->timestamps();
- 
+  
         });
     }
 

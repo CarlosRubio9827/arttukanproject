@@ -195,7 +195,28 @@
                                         </a>
                                     </div>
                                 </div>
+                        </div>
+
+                        <div class="col-md-6">
+                                <div class="box  box-default">
+                                    <div class="box-header with-border">
+                                        <img width="90px" src="{{ asset('img/iconos/icons8-servicios-80.png') }}" alt="">
+                                    </div>
+                                    <div class="box-body no-padding">
+                                        <a href="{{ route('servicios.index')}}">       
+                                            <td>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <button type="button" class="btn btn-block btn-primary btn-lg">Servicios <i class="fa fa-clipboard-check"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>     
+                                            </td>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
+
             </div>
                 
             @endif

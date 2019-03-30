@@ -13,6 +13,8 @@ use DB;
 use Carbon\Carbon;
 use Response;
 use Illuminate\Support\Collection;
+use Zizaco\Entrust\EntrustFacade as Entrust;
+use Spatie\Permission\Traits\HasRoles;
 
 class PedidoController extends Controller
 {
@@ -23,7 +25,9 @@ class PedidoController extends Controller
      */ 
     public function index(Request $request)
     {
-        $idUser = auth()->id();
+
+        if(Entrust::hasRole('cliente')){
+            $idUser = auth()->id();
 
             if ($request) {
                 $pedidos = DB::table('pedidos as p')
@@ -36,6 +40,19 @@ class PedidoController extends Controller
                 return view('vendor.cliente.pedidos.index',['pedidos' =>$pedidos]);
             }
 
+        }else if(Entrust::hasRole('admin')){
+            if ($request) {
+                $pedidos = DB::table('pedidos as p')
+                ->join('detallepedidos as dp', 'p.idPedido','=','dp.idPedido')
+                ->select('p.idPedido','p.fechaHora','p.estado','p.totalPedido','p.idCliente')
+                ->orderBy('p.idPedido','asc')
+                ->groupBy('p.idPedido','p.fechaHora','p.estado','p.totalPedido','p.idCliente')
+                ->paginate(10);
+                return view('vendor.cliente.pedidos.index',['pedidos' =>$pedidos]);
+            }
+        }
+
+        
     }
 
     /**
@@ -108,18 +125,19 @@ class PedidoController extends Controller
      */ 
     public function show($id)
     {
-        $Pedido=DB::table('pedidos as v')
-        ->join('detallepedidos as dv','v.idPedido','=','dv.idPedido')
-        ->select('v.idPedido','v.fechaHora','v.totalPedido','v.estado','v.totalPedido')
-        ->where('v.idPedido','=',$id)
+        $pedido=DB::table('pedidos as p')
+        ->join('detallepedidos as dv','p.idPedido','=','dv.idPedido')
+        ->join('users as u', 'u.id','=','p.idCliente')
+        ->select('p.idPedido','p.fechaHora','p.totalPedido','p.estado','p.totalPedido','p.idCliente','u.nombres','u.apellidos','u.numDocumento')
+        ->where('p.idPedido','=',$id)
         ->first();
 
         $detalle=DB::table('detallepedidos as d')
         ->join('productos as p','d.idProducto','=','p.idProducto')
-        ->select('p.nombreProducto','d.cantidad','d.precioPedido')
+        ->select('p.nombreProducto','p.precio','d.cantidad','d.precioPedido')
         ->where('d.idPedido','=',$id)
         ->get();
-        return view ('vendor.admin.pedidos.show',['pedidos'=>$Pedido,'detallepedidos'=>$detalle]);
+        return view ('vendor.cliente.pedidos.show',['pedido'=>$pedido,'detallePedidos'=>$detalle]);
            
             }
 

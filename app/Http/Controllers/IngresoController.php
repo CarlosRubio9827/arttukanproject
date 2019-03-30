@@ -15,24 +15,23 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Barryvdh\DomPDF\Facade as PDF;
 
- 
-
-
 class IngresoController extends Controller
 {
     public function __construct(){
 
-    }
+    } 
 
     public function index(Request $request){
 
     	if ($request) {
-    		$ingresos=DB::table('ingresos as i')->where('estado','=','A')
+				$ingresos=DB::table('ingresos as i')
+				->where('estado','=','A')
     		->join('detalleIngresos as di','i.idIngreso','=','di.idIngreso')
-    		->select('i.idIngreso','i.fechaHora','i.estado','di.cantidad')
+    		->select('i.idIngreso','i.fechaHora','i.estado')
     		->orderBy('i.idIngreso','desc')
-    		->groupBy('i.idIngreso','i.fechaHora','i.estado','di.cantidad')
-    		->paginate(7);
+    		->groupBy('i.idIngreso','i.fechaHora','i.estado')
+				->paginate(8);
+				
     		return view('vendor.admin.ingresos.index',['ingresos'=>$ingresos]);
 
     	}}
@@ -53,7 +52,7 @@ class IngresoController extends Controller
 					  DB::beginTransaction();
 					  $ingreso=new Ingreso();
 					  $mytime=Carbon::now('America/Bogota');
-					  $ingreso->fechaHora=$mytime->toDateTimeString();
+						$ingreso->fechaHora=$mytime->toDateTimeString();
 					  $ingreso->estado='A';
 					  $ingreso->save(); 
 

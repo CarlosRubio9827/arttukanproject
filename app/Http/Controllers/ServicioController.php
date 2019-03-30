@@ -113,7 +113,7 @@ class ServicioController extends Controller
 
         return view ('vendor.admin.servicios.edit',['servicio'=>$servicio]);
     }
-
+ 
     /**
      * Update the specified resource in storage.
      *
@@ -129,6 +129,7 @@ class ServicioController extends Controller
         $servicio->nombre = $request->get('nombre');
         $servicio->descripcion = $request->get('descripcion');
         $servicio->precio = $request->get('precio');
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $name = time().$file->getClientOriginalName();

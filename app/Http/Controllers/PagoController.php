@@ -46,7 +46,7 @@ public function respuestaPago()
           $pedido->idcliente=$usuario->id;
           $pedido->idPag=$pago->idPago;
           $pedido->totalPedido=$totalPedido;
-          $pedido->estado = 'A';
+          $pedido->estado = 'Pendiente';
           $pedido->save();
            
           foreach ($cart as $itemProducto)

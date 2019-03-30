@@ -33,14 +33,17 @@
                    
         </div>
     </div>
-                
-        <div class="row">
-           <div class="col-lg-12 col-md-12 col-xs-12 col-sm-10">
-             <div class="table-responsive">
+    @if(count($pedidos))
+ <div class="box box-success">
+     <div class="box-header with-border">
+        Pedidos
+     </div>
+     <div class="box-body">
+          <div class="table-responsive">
                 <table id="ventas-dt" class="table table-striped table-bordered table-condensed table-hover">
                     <thead>
                         <th>Id</th>
-                        <th>Fecha</th>
+                        <th>Fecha - Hora</th>
                         <th>Total</th> 
                         <th>Estado</th>
                         <th>Opciones</th>
@@ -49,18 +52,28 @@
                             <tr> 
                                 <td>{{$venta->idPedido}}</td>
                                 <td>{{$venta->fechaHora }}</td>
-                                <td>{{$venta->totalPedido }}</td>
+                                <td>${{number_format($venta->totalPedido) }}</td>
                                 <td>{{$venta->estado}}</td>
                                 <td> 
-                                   <a href="{{ route('ventas.show', $venta->idPedido)  }}"><button class="btn btn-primary">Detalles</button></a>
+                                   <a href="{{ route('pedidos.show', $venta->idPedido)  }}"><button class="btn btn-primary">Detalles</button></a>
                                 </td>
                             </tr>
                         @endforeach
                 </table>
             </div>
             {{ $pedidos->render() }}
-        </div>
+     </div>
+ </div>
+         
+
+    @else
+	<div class="card card-nav-tabs text-center">
+        <div class="card-body">
+      <h1 style="color:#000">Actualmente no tienes pedidos</h1>
+        </div> 
     </div>
+
+@endif
      
  @endsection
 

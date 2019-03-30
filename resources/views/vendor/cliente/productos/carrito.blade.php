@@ -97,12 +97,13 @@
 		@else 
 
 		<div class="card card-nav-tabs text-center">
-				  <div class="card-header card-header-primary">
-				    Carrito de cotizaciones
-				  </div>
+				  
 				  <div class="card-body">
 				<h1 style="color:#000">No se han selecionado productos.</h1>
-				  </div>
+				<a href="{{route('catalogo')}}" class="btn btn-primary btn-sm"><i class="fa fa-chevron-circle-left"></i> Volver </a>
+
+					</div>
+					
 				
 		</div>
 

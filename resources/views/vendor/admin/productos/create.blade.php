@@ -63,7 +63,7 @@
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
 										<label for="precioProducto">Precio Producto</label>
-										<input type="text" name="precioProducto" required value="{{ old('precioProducto') }}"class='form-control' placeholder="Precio Producto">
+										<input class="input-number form-control" type="number" min="1" name="precioProducto" required value="{{ old('precioProducto') }}"  placeholder="Precio Producto">
 									</div>
 								</div>
 							
@@ -81,7 +81,7 @@
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
 										<label for="stock">Stock</label>
-										<input type="number" name="stock" required value="{{ old('stock') }}"class='form-control' placeholder="Stock">
+										<input class="input-number form-control" type="number" min="1" name="stock" required value="{{ old('stock') }}"  placeholder="Stock">
 									</div>
 								</div>
 							
@@ -131,5 +131,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
 
+
+<script>
+
+	$(document).ready(function() {
+		
+		$('.input-number').on('input', function () { 
+			this.value = this.value.replace(/[^0-9]/g,'');
+			});
+
+		});
+
+</script>
 
 @endsection
