@@ -12,12 +12,10 @@ use App\Venta;
 use App\DetalleVenta;
 use DB;
 use Carbon\Carbon;
-
 use Zizaco\Entrust\EntrustFacade as Entrust;
 use Spatie\Permission\Traits\HasRoles;
 use Response;
 use Illuminate\Support\Collection;
-
 use Illuminate\Auth\Events\Login;
 
 class VentaController extends Controller
