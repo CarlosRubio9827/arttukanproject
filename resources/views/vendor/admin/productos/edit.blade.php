@@ -12,7 +12,7 @@
 @endsection()
 
  @section('htmlheader_title')
-    Modificar Producto
+    Modificar Artículo
 @endsection
 
 @section('contentheader_title')
@@ -29,7 +29,7 @@
 									<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">	Editar Producto: {{ $producto->nombreProducto }}
+						<h3 class="box-title">	Editar Artículo: {{ $producto->nombreProducto }}
 							@if (count($errors)>0)
 						<div class="alert alert-danger">
 							<ul>
@@ -62,25 +62,24 @@
 						
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 												<div class="form-group">
-													   <label for="codigoProducto">Código Producto</label>
+													   <label for="codigoProducto">Código Artículo</label>
 													   <input type="text" name="codigoProducto" required value="{{ $producto->codigoProducto }}"class='form-control'>
 												</div>
 											</div>
 						   
 											   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 												   <div class="form-group">
-													   <label for="nombreProducto">Nombre Producto</label>
+													   <label for="nombreProducto">Nombre Artículo</label>
 													   <input type="text" name="nombreProducto" required value="{{ $producto->nombreProducto }}"class='form-control'>
 												   </div>
 											   </div>
 						   
 											   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 												   <div class="form-group">
-													   <label>Tipo Producto</label>
-													   <select name="idTipoProducto" class="form-control">
+													   <label>Producto</label>
+													   <select id="idProducto" name="idTipoProducto" class="form-control selectpicker"  data-live-search='true'>
 														   @foreach ($tipoProductos as $tipoProducto)
 														   @if ($producto->idTipoProducto==$tipoProducto->idTipoProducto)
-															   
 															   <option value="{{ $tipoProducto->idTipoProducto }}" selected>
 																{{ $tipoProducto->nombreTipoProducto }}</option>
 															   @else
@@ -94,7 +93,7 @@
 											   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 												   <div class="form-group">
 													   <label for="stock">Precio</label>
-													   <input type="number" name="precio" required value="{{ $producto->precio }}"class='form-control'>
+													   <input name="precioProducto" class="input-number form-control" type="number" min="1" name="precioProducto" required value="{{ $producto->precio }}"class='form-control'>
 												   </div>
 											   </div>
 						   
@@ -111,7 +110,7 @@
 												 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 													<div class="form-group">
 														<label for="stock">Stock</label>
-														<input type="number" name="stock" required value="{{ $producto->stock }}"class='form-control'>
+														<input class="input-number form-control" type="number" min="1" name="stock" required value="{{ $producto->stock }}"class='form-control'>
 													</div>
 												</div>
 
@@ -144,8 +143,23 @@
 		</div>
 	</div>
 </section><!-- /.content -->     
+    
+@endsection
 
-	
-			
-      
+
+@section('js-view')
+ 
+
+<script>
+
+	$(document).ready(function() {
+		
+		$('.input-number').on('input', function () { 
+			this.value = this.value.replace(/[^0-9]/g,'');
+			});
+
+		});
+
+</script>
+
 @endsection

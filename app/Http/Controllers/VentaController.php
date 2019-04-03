@@ -17,6 +17,9 @@ use Spatie\Permission\Traits\HasRoles;
 use Response;
 use Illuminate\Support\Collection;
 use Illuminate\Auth\Events\Login;
+use Alert;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class VentaController extends Controller
 {
@@ -25,6 +28,7 @@ class VentaController extends Controller
  
         if(Entrust::hasRole('admin')){
             $ventas = DB::table('ventas as v')
+            ->where('v.estado','=','A')
             ->join('detalleventas as dv', 'v.idVenta','=','dv.idVenta')
             ->join('users as u','v.idCliente','=','u.id')
             ->select('v.idVenta','v.fechaHora','v.estado','v.totalVenta','v.idCliente','u.nombres','u.apellidos')
@@ -75,6 +79,7 @@ class VentaController extends Controller
      */
     public function store(VentaRequest $request)
     {
+       
            
            try {
                 DB::beginTransaction();
@@ -85,11 +90,10 @@ class VentaController extends Controller
                 $venta->fechaHora=$mytime->toDateTimeString();
                 $venta->estado = 'A';
                 $venta->save();
-
+               
                 $idProducto=$request->get('idProducto');
                 $cantidad=$request->get('cantidad');
                 $precioVenta=$request->get('precioVenta');
-
                 $cont = 0; 
 
                 while ($cont < count($idProducto)) {
@@ -98,17 +102,21 @@ class VentaController extends Controller
                        $detalle->idProducto=$idProducto[$cont];
                        $detalle->cantidad=$cantidad[$cont];
                        $detalle->precioVenta=$precioVenta[$cont];
+
                        $detalle->save();
+
                        $cont=$cont+1;
                 }
 
                 DB::commit();
                
            } catch (Exception $e) {
-               DB::rollback();
+                DB::rollback();
            }
 
-        return redirect()->route('ventas.index');
+        Alert::success('¡Correcto!', 'La venta ha sido registrada satisfactoriamente')->autoclose(4000);
+
+        return Redirect::to('ventas');
 
         }
 
@@ -157,6 +165,27 @@ class VentaController extends Controller
         $venta=Venta::findOrFail($id);
         $venta->estado = 'C';
         $venta->update();
+        Alert::info('¡Correcto!', 'La venta ha sido eliminada satisfactoriamente')->autoclose(4000);
+
         return Redirect::to('ventas');
     }
+
+    public function exportarPdf()
+    {
+        $ventas = DB::table('ventas as v')
+            ->where('v.estado','=','A')
+            ->join('detalleventas as dv', 'v.idVenta','=','dv.idVenta')
+            ->join('users as u','v.idCliente','=','u.id')
+            ->select('v.idVenta','v.fechaHora','v.estado','v.totalVenta','v.idCliente','u.nombres','u.apellidos')
+            ;
+            
+          $ventas= $ventas->get();  
+            
+ 
+        $pdf = PDF::loadView( "vendor.admin.ventas.ventas-pdf",compact('ventas'));
+        return $pdf->download('Listado Ventas.pdf');
+
+    }
+
+
 }

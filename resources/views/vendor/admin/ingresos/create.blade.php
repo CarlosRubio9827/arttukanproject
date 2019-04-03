@@ -124,13 +124,16 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Include this after the sweet alert js file -->
+        @include('sweet::alert')
 <script> 
 
     $(document).ready(function(){
         $('#bt_add').click(function(){
             agregar();
         });
+        
     });
     var cont=0;
 
@@ -151,7 +154,7 @@
             $('#detalles').append(fila);
 
         }else{
-            alert("Error al ingresar el detalle del ingreso, revise los datos del articulo");
+            swal("Error", "Revise Bien los datos de registro", "error");
         } 
     }
 

@@ -1,8 +1,10 @@
- @extends("vendor.adminlte.layouts.app")
+@extends("vendor.adminlte.layouts.app")
 
- @section('css-view')
+@section('css-view')
 
-@endsection()
+<link rel="stylesheet" type="text/css" href="{{  asset('css/datatables.css')  }}"/>
+<link rel="stylesheet" type="text/css" href="{{  asset('css/dataTables.bootstrap.css')  }}"/>
+ @endsection()
 
 @section('htmlheader_title')
     Ventas
@@ -32,10 +34,13 @@
                           <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a href="{{ route('ventas.pdf') }}">PDF</a></li>
+                          <li><a href="{{ route('ventasPdf') }}">PDF</a></li>
                           <li><a href="#">Excel</a></li>
                       </ul>
                     </div> 
+
+                    @if(count($ventas))
+
                     <div class="box-body">
                         <div class="table-responsive">
                             <table id="ventas-dt" class="table table-striped table-bordered table-condensed table-hover" width="750">
@@ -50,7 +55,7 @@
                                 <tr> 
                                     <td>{{$venta->idVenta}}</td>
                                     <td>{{$venta->fechaHora }}</td>
-                                <td>{{$venta->nombres}} {{$venta->apellidos}}</td>
+                                    <td>{{$venta->nombres}} {{$venta->apellidos}}</td>
                                     <td> $ {{number_format($venta->totalVenta) }}</td>
                                     <td> 
                                         <a href="{{ route('ventas.show', $venta->idVenta)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
@@ -65,30 +70,32 @@
                     </div>
                     <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
+                @else
+                <div class="card card-nav-tabs text-center">
+                    <div class="card-body">
+                  <h1 style="color:#000">Actualmente no tienes ventas registradas</h1>
+                    </div> 
+                </div>
+
+            @endif
             </div>
         </div>
     </div>
 </section><!-- /.content -->        
 
-
-
-
-
- 
-
- @endsection()
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Include this after the sweet alert js file -->
+    @include('sweet::alert')
 
 @section('js-view')
 
  <script type="text/javascript" src="{{  asset('js/datatables.js')  }}"></script>
  <script type="text/javascript" src="{{  asset('js/dataTables.bootstrap.js')  }}"></script>
- 
-<script>
+   
+ <script>
 $(document).ready( function () {
-    $('#ventas-dt').DataTable({   
 
+    $('#ventas-dt').DataTable({    
 oLanguage: {
     "sProcessing":     "Procesando...",
     "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -117,4 +124,5 @@ oLanguage: {
     
 } );
 </script>
+@endsection()
 @endsection()

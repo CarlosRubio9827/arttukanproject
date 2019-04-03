@@ -9,7 +9,17 @@ Servicios
 @endsection
 
 @section('contentheader_title')
-<div class="text-center">Servicios - ArtTukan <a href="{{route('servicios.create')}}"><button class="btn btn-success">Nuevo</button></a></div>
+<div class="text-center"><b>Servicios - ArtTukan</b> <a href="{{route('servicios.create')}}"><button class="btn btn-success">Nuevo <i class="fa fa-plus"></i></button></a>
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Exportar
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <li><a href="{{ route('serviciosPdf') }}">PDF</a></li>
+      <li><a href="#">Excel</a></li>
+    </ul>
+</div>
+
 @endsection
   
  @section("main-content")
@@ -26,9 +36,10 @@ Servicios
                     <p>{{$servicio->descripcion}}</p>
                     <p><span class="label label-success">Precio: ${{ number_format($servicio->precio)}}</span></p>
                     <p>
-                        <a class="btn btn-primary" href="{{route('servicios.show', $servicio->idServicio)}}"><i class="fa fa-eye"> Ver mas</i></a>
-                        <a class="btn btn-primary" href="{{route('servicios.edit', $servicio->idServicio)}}"><i class="fa fa-pencil"> Editar</i></a>
-                    </p>
+                        <a class="btn btn-primary" href="{{route('servicios.show', $servicio->idServicio)}}"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-success" href="{{route('servicios.edit', $servicio->idServicio)}}"><i class="fa fa-pencil"></i></a>
+                        <a href="" data-target="#modal-delete-{{ $servicio->idServicio }}" data-toggle="modal"><button class="btn btn-danger"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                              
+                        @include('vendor.admin.servicios.modal')                    </p>
                 </div>  
             </div>
         </div>
@@ -36,6 +47,7 @@ Servicios
     </div>
 </div>       
 @else
+
     
 <div class="box  box-default">
     <div class="box-body no-padding">
@@ -53,6 +65,10 @@ Servicios
 
 
 @endif
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Include this after the sweet alert js file -->
+    @include('sweet::alert')
 
 @endsection()
 

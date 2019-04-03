@@ -27,7 +27,8 @@ class ServicioRequest extends FormRequest
             'codigo' => 'required|max:30',
             'nombre' => 'required|max:20',
             'precio' => 'required|numeric',
-            'descripcion' => 'required'
+            'descripcion' => 'required',
+            'imagen' => 'image'
         ];
     }
 }

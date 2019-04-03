@@ -56,7 +56,7 @@
                                 </li>
                             </ul>
 
-                        <a href="{{ route('clientes.index') }}" class="btn btn-primary btn-block"><b>Volver</b></a>
+                        <a href="{{ route('clientes.index') }}" class="btn btn-primary btn-block"><b><i class="fa fa-chevron-left"></i> Volver</b></a>
                             </div>
                             <!-- /.box-body -->
                         </div>

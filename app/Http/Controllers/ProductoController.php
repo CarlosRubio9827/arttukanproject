@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use Zizaco\Entrust\EntrustFacade as Entrust;
 use Spatie\Permission\Traits\HasRoles;
+use Alert;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class ProductoController extends Controller
 {
@@ -88,6 +91,7 @@ class ProductoController extends Controller
         }
 
         $producto->save();
+        Alert::success('¡Correcto!', 'El articulo '.$producto->nombreProducto.' ha sido registrado satisfactoriamente')->autoclose(4000);
 
         return redirect()->route('productos.index');
        // $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
@@ -148,7 +152,7 @@ class ProductoController extends Controller
         
         $producto->nombreProducto = $request->get('nombreProducto');
         $producto->stock = $request->get('stock');
-        $producto->precio = $request->get('precio');
+        $producto->precio = $request->get('precioProducto');
         $producto->descripcion = $request->get('descripcion');
         $producto->idTipoProducto = $request->get('idTipoProducto');
 
@@ -162,6 +166,7 @@ class ProductoController extends Controller
          }
        
         $producto->update();
+        Alert::success('¡Correcto!', 'El articulo '.$producto->nombreProducto.' ha sido modificado satisfactoriamente')->autoclose(4000);
 
         //$productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
 
@@ -177,16 +182,28 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idProducto)
+    public function destroy($idProductos)
     {
-        $producto = Producto::findOrFail($idProducto);
-        $producto->estado =2;
+        $id = $idProductos->idProducto;
+        $producto = Producto::findOrFail($id);
+        $producto->estado ='2';
         $producto->update(); 
 
-        $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
-        //return view('vendor.admin.productos.index', ['productos'=>$productos]);
+        Alert::info('¡Correcto!', 'El articulo '.$producto->nombreProducto.' ha sido eliminado satisfactoriamente')->autoclose(4000);
 
-        return Redirect::to('productos')->with('message', 'Eliminado satisfactoriamente');
+        return Redirect::to('productos');
         //redirect()->route('vendor.admin.productos.index')->with("info", "Se ha elimnado correctamente");
+    }
+
+    public function exportarPdf()
+    {
+        $productos = DB::table('productos as p')
+        ->where('estado','=','1')
+        ->join('tipoproductos as tp','p.idTipoProducto','=','tp.idTipoProducto')
+        ->select('p.idProducto','p.codigoProducto','p.descripcion','p.precio','p.nombreProducto','p.stock','tp.nombreTipoProducto as tipoProducto','p.imagen','p.idTipoProducto');
+        $productos = $productos->get();
+        $pdf = PDF::loadView( "vendor.admin.productos.productos-pdf",compact('productos'));
+        return $pdf->download('Listado Artículos.pdf');
+
     }
 }

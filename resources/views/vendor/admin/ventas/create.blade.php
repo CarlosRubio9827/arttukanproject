@@ -49,8 +49,8 @@
                                             <div class="panel-body"> 
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                     <div class="form-group">
-                                                        <label>Clientes</label>
-                                                        <select name="idCliente" class="form-control selectpicker" id="idCliente" data-live-search='true'>
+                                                        <label><b>Cliente</b></label>
+                                                        <select name="idCliente" class="form-control selectpicker" id="pidCliente" data-live-search='true'>
                                                             <option value="1" >Seleccione Cliente</option>    
                                                                 @foreach ($clientes as $cliente)
                                                             <option value="{{ $cliente->id }}">{{$cliente->numDocumento}} - {{ $cliente->nombres}} {{$cliente->apellidos}}</option>
@@ -61,7 +61,7 @@
 
                                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                                     <div class="form-group">
-                                                        <label>Productos</label>
+                                                        <label><b>Producto</b></label>
                                                         <select name="pidProducto" class="form-control selectpicker" id="pidProducto" data-live-search='true'>
                                                             <option value="1" >Seleccione producto</option>    
                                                             @foreach ($productos as $producto)
@@ -73,21 +73,21 @@
                         
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                                                     <div class="form-group">
-                                                        <label for="cantidad">Cantidad</label>
+                                                        <label for="cantidad"><b>Cantidad</b></label>
                                                         <input type="text"  name="pcantidad" id="pcantidad" class="input-number form-control" placeholder="Cantidad">
                                                     </div>
                                                 </div>
                          
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                                                     <div class="form-group">
-                                                        <label for="stock">Stock</label>
+                                                        <label for="stock"><b>Stock</b></label>
                                                         <input type="number" disabled name="pstock" id="pstock" class="form-control" placeholder="Stock">
                                                     </div>
                                                 </div>
                         
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
                                                     <div class="form-group">
-                                                        <label for="precioVenta">Precio Producto</label>
+                                                        <label for="precioVenta"><b>Precio Producto</b></label>
                                                         <input type="number" disabled name="pprecioVenta" id="pprecioVenta" class="form-control" placeholder="Precio Venta">
                                                     </div>
                                                 </div>
@@ -113,7 +113,7 @@
                                                            <th>Total</th>
                                                            <th></th>
                                                             <th></th>
-                                                            <th><h4 id="total">$</h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
+                                                        <th><h4 id="total">$ </h4> <input type="hidden" name="totalVenta" id="totalVenta"></th>
                                                         </tfoot>
                                                         <tbody>
                                                                 
@@ -151,7 +151,9 @@
 @section('js-view')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.js"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Include this after the sweet alert js file -->
+        @include('sweet::alert')
 
 <script> 
  
@@ -185,8 +187,8 @@
         datosProductos=document.getElementById('pidProducto').value.split('_');
         idProducto=datosProductos[0]
         producto=$('#pidProducto option:selected').text();
-
-        cantidad=$('#pcantidad').val();
+        cliente=$('#pidCliente option:selected').text();
+         cantidad=$('#pcantidad').val();
         var cantidadNum = parseInt(cantidad);
         
 
@@ -195,7 +197,7 @@
         stock=$('#pstock').val();
         var stockNum = parseInt(stock);
 
-        if (idProducto != "" && cantidad != "") {
+        if (idProducto != "" && cantidad != "" && cliente != "Seleccione Cliente") {
 
             subtotal[cont]=(cantidadNum*precioVentaNum);
             total =total+subtotal[cont];
@@ -205,7 +207,7 @@
             +cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont
             +');">X</button></td><td><input  type="hidden" name="idProducto[]" value="'+idProducto
             +'">'+producto+'</td><td><input   type="number" name="cantidad[]" value="'+cantidad
-            +'"></td><td><input   type="number" name="precioVenta[]" value="'+precioVenta+'"></td></tr>';
+            +'"></td><td><input   type="number" name="precioVenta[]" value="'+precioVentaNum+'"></td></tr>';
             
             cont++;
             limpiar();
@@ -215,12 +217,12 @@
             $('#detalles').append(fila);
     
             }else{
-                alert("La cantidad a vender supera el limite");
+                swal("Error", "Revise Bien los datos de registro", "error");
                 
             }
             
         }else{
-            alert("Error al ingresar el detalle de la venta, revise los datos del articulo");
+            swal("Error","Error al ingresar el detalle de la venta, revise bien los datos",'error');
         } 
     }
 

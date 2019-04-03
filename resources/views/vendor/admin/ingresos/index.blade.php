@@ -7,14 +7,15 @@
 @endsection()
 
 @section('htmlheader_title')
-    Ingresos 
+    Producción
 @endsection
  
 @section('contentheader_title')
-
+ <div class="text-center">
+    <b>Lista de Producción</b>
+</div>
+ 
 @endsection
-
-
 
  @section("main-content")
  
@@ -24,20 +25,22 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
  
-				<!-- Default box -->
+                <!-- Default box -->
+ 
 				<div class="box box-danger">
 					<div class="box-header with-border">
-                            <b>Ingresos</b> <a href="{{ route('ingresos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
+                            <b>Producción</b> <a href="{{ route('ingresos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
                              
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                               Exportar
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="{{ route('ingresos.pdf') }}">PDF</a></li>
+                                        <li><a href="{{ route('ingresosPdf') }}">PDF</a></li>
                                         <li><a href="#">Excel</a></li>
                                     </ul>
                     </div>
+                    @if(count($ingresos))
 
 					<div class="box-body">
  
@@ -68,13 +71,11 @@
                                     </i>
                                     </button>
                                     </a>     
-
+  
                                     @include('vendor.admin.ingresos.modal')
                                         </td>
                                     
-                                </tr>
-
-                                
+                                </tr>    
                                 @endforeach
 
                         </table>
@@ -86,13 +87,23 @@
 					<!-- /.box-body -->
 				</div>
 				<!-- /.box -->
-
+                @else
+                <div class="card card-nav-tabs text-center">
+                    <div class="card-body">
+                  <h1 style="color:#000">Actualmente no tienes registrados ingresos</h1>
+                    </div> 
+                </div>
+            
+            @endif
 			</div>
 		</div>
 	</div>
-        </section><!-- /.content -->        
+</section><!-- /.content -->
 
-
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Include this after the sweet alert js file -->
+        @include('sweet::alert')
+    
 @endsection()
 
 

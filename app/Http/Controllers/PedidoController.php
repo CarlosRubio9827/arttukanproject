@@ -15,6 +15,10 @@ use Response;
 use Illuminate\Support\Collection;
 use Zizaco\Entrust\EntrustFacade as Entrust;
 use Spatie\Permission\Traits\HasRoles;
+use Barryvdh\DomPDF\Facade as PDF;
+use Alert;
+use App\Venta;
+use App\DetalleVenta;
 
 class PedidoController extends Controller
 {
@@ -25,11 +29,10 @@ class PedidoController extends Controller
      */ 
     public function index(Request $request)
     {
-
+ 
         if(Entrust::hasRole('cliente')){
             $idUser = auth()->id();
-
-            if ($request) {
+             if ($request) {
                 $pedidos = DB::table('pedidos as p')
                 ->join('detallepedidos as dp', 'p.idPedido','=','dp.idPedido')
                 ->select('p.idPedido','p.fechaHora','p.estado','p.totalPedido','p.idCliente')
@@ -39,16 +42,17 @@ class PedidoController extends Controller
                 ->paginate(10);
                 return view('vendor.cliente.pedidos.index',['pedidos' =>$pedidos]);
             }
-
+ 
         }else if(Entrust::hasRole('admin')){
-            if ($request) {
+             if ($request) {
                 $pedidos = DB::table('pedidos as p')
                 ->join('detallepedidos as dp', 'p.idPedido','=','dp.idPedido')
-                ->select('p.idPedido','p.fechaHora','p.estado','p.totalPedido','p.idCliente')
+                ->join('users as u','p.idCliente','=','u.id')
+                ->select('p.idPedido','p.fechaHora','p.estado','p.totalPedido','u.nombres','u.apellidos')
                 ->orderBy('p.idPedido','asc')
-                ->groupBy('p.idPedido','p.fechaHora','p.estado','p.totalPedido','p.idCliente')
+                ->groupBy('p.idPedido','p.fechaHora','p.estado','p.totalPedido','u.nombres','u.apellidos')
                 ->paginate(10);
-                return view('vendor.cliente.pedidos.index',['pedidos' =>$pedidos]);
+                return view('vendor.admin.pedidos.index',['pedidos' =>$pedidos]);
             }
         }
 
@@ -69,7 +73,7 @@ class PedidoController extends Controller
        ->groupBy('producto','p.idProducto','p.stock','p.precio')
        ->get();
 
-       return view('vendor.admin.pedidos.create',['productos'=>$productos]);
+       return view('vendor.cliente.pedidos.create',['productos'=>$productos]);
 
         } 
 
@@ -96,7 +100,7 @@ class PedidoController extends Controller
                 $precioPedido=$request->get('precioPedido');
 
                 $cont = 0;
-
+ 
                 while ($cont < count($idProducto)) {
                        $detalle = new DetallePedido();
                        $detalle->idPedido=$Pedido->idPedido;
@@ -112,6 +116,7 @@ class PedidoController extends Controller
            } catch (Exception $e) {
                DB::rollback();
            }
+           Alert::success('¡Correcto!', 'El pedioo ha sido registrado satisfactoriamente')->autoclose(4000);
 
            return redirect('vendor.admin.pedidos');
 
@@ -123,15 +128,15 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */ 
-    public function show($id)
-    {
+    public function show( $id)
+    {  
         $pedido=DB::table('pedidos as p')
         ->join('detallepedidos as dv','p.idPedido','=','dv.idPedido')
         ->join('users as u', 'u.id','=','p.idCliente')
         ->select('p.idPedido','p.fechaHora','p.totalPedido','p.estado','p.totalPedido','p.idCliente','u.nombres','u.apellidos','u.numDocumento')
         ->where('p.idPedido','=',$id)
         ->first();
-
+ 
         $detalle=DB::table('detallepedidos as d')
         ->join('productos as p','d.idProducto','=','p.idProducto')
         ->select('p.nombreProducto','p.precio','d.cantidad','d.precioPedido')
@@ -155,12 +160,44 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function atender( $id)
+    {
+
+      
+
+        $Pedido=Pedido::findOrFail($id);
+        $Pedido->estado = 'Atendida';
+        $Pedido->update();
+
+        Alert::success('¡Correcto!', 'El pedido ha sido atendido satisfactoriamente')->autoclose(4000);
+
+    return Redirect::to('pedidos');
+
+    }
+
     public function destroy($id)
     {
         $Pedido=Pedido::findOrFail($id);
-        $Pedido->estado = 'C';
+        $Pedido->estado = 'Rechazada';
         $Pedido->update();
-        return redirect()->route('vendor.admin.productos.index');
+        Alert::success('¡Correcto!', 'El pedido ha sido cancelado satisfactoriamente')->autoclose(4000);
+
+return Redirect::to('pedidos');
+
     }
-     
+  
+    public function exportarPdf()
+    {
+        $pedidos = DB::table('pedidos as p')
+                ->join('detallepedidos as dp', 'p.idPedido','=','dp.idPedido')
+                ->join('users as u','p.idCliente','=','u.id')
+                ->select('p.idPedido','p.fechaHora','p.estado','p.totalPedido','u.nombres','u.apellidos')
+                ->groupBy('p.idPedido','p.fechaHora','p.estado','p.totalPedido','u.nombres','u.apellidos')
+                ;
+        $pedidos = $pedidos->get();
+ 
+        $pdf = PDF::loadView( "vendor.admin.pedidos.pedidos-pdf",compact('pedidos'));
+        return $pdf->download('Listado Pedidos.pdf');
+
+    }
 }

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\DetallePedido;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Alert;
 
   
 class PagoController extends Controller
@@ -60,13 +61,33 @@ public function respuestaPago()
           }
          $carrito=new  \stdClass();
          $carrito->total=0;
-         $carrito->productos=[]; 
+         $carrito->productos=[];   
          Session::put("carrito", $carrito);
-         return view("vendor.cliente.pagos.respuestasPagos");
+
+         $id = $pedido->idPedido;
+
+        
+
+         $pedidos=DB::table('pedidos as p')
+         ->join('detallepedidos as dv','p.idPedido','=','dv.idPedido')
+         ->join('users as u', 'u.id','=','p.idCliente')
+         ->select('p.idPedido','p.fechaHora','p.totalPedido','p.estado','p.totalPedido','p.idCliente','u.nombres','u.apellidos','u.numDocumento')
+         ->where('p.idPedido','=',$id)
+         ->first();
+ 
+         $detalles=DB::table('detallepedidos as d')
+         ->join('productos as p','d.idProducto','=','p.idProducto')
+         ->select('p.nombreProducto','p.precio','d.cantidad','d.precioPedido')
+         ->where('d.idPedido','=',$id)
+         ->get(); 
+
+         Alert::success('¡Correcto!', 'El pedido ha sido registrado satisfactoriamente')->autoclose(4000);
+
+         return view("vendor.cliente.pagos.respuestasPagos",['pedido'=>$pedidos,'detallePedidos'=>$detalles]);
      }
      else
      {
-        return view('vendor.cliente.pagos.errorRespuestasPagos') ;
+        return "EROOR" ;
      }
 }
 public function getConfirmacionpagos()

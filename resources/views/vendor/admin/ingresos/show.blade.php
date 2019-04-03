@@ -9,7 +9,10 @@
 @endsection()
  
 @section('contentheader_title')
-    Detalle de Ingreso
+<div class="text-center">
+    <b>Información de Ingreso</b>
+</div>
+    
 @endsection
 
  @section('htmlheader_title')
@@ -36,13 +39,13 @@
                     <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <div class="form-group">
-                            <label>Fecha Ingreso</label>
+                            <label><b>Fecha Ingreso</b></label>
                             <p>{{ $ingresos->fechaHora }}</p>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">    
                         <div class="form-group">
-                            <label for="cantidad">Estado</label>
+                            <label for="cantidad"><b>Estado</b></label>
                             <p>{{ $ingresos->estado }}</p>
                         </div>
                     </div>  
@@ -72,7 +75,7 @@
 
                 <div class="panel-body" align="center">
                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                        <a href="{{ route('ingresos.index') }}"><button class="btn btn-primary">Volver</button></a>
+                        <a href="{{ route('ingresos.index') }}"><button class="btn btn-primary"><i class="fa fa-chevron-circle-left"></i> Volver</button></a>
                     </div>
                 </div> 
 

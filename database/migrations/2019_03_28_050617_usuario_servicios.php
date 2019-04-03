@@ -19,6 +19,7 @@ class UsuarioServicios extends Migration
              $table->integer('idServicio')->unsigned();
              
              $table->float('costoTotal');
+             $table->string('estadoSolicitud');
             
              $table->foreign('idUser')->references('id')->on('users')
                      ->onUpdate('cascade')->onDelete('cascade');

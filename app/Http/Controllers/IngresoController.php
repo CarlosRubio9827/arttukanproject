@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+use Alert;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class IngresoController extends Controller
@@ -39,7 +40,8 @@ class IngresoController extends Controller
     	public function create(){
 
     		 $productos=DB::table('productos as p')
-    		 ->select(DB::raw('CONCAT(p.idProducto," ",p.nombreProducto) as producto'),'p.idProducto')
+				 ->select(DB::raw('CONCAT(p.idProducto," ",p.nombreProducto) as producto'),'p.idProducto')
+				 ->where('p.estado','=','1')
     		 ->get();
 
     		return view ('vendor.admin.ingresos.create',['productos'=>$productos]);
@@ -75,7 +77,9 @@ class IngresoController extends Controller
 				 
 					DB::rollback();
   				}
- 
+				
+				Alert::success('¡Correcto!', 'El ingreso ha sido registrado satisfactoriamente')->autoclose(4000);
+
          return redirect()->route('ingresos.index');
 
     	} 
@@ -101,24 +105,21 @@ class IngresoController extends Controller
     		$ingreso = Ingreso::findOrFail($idIngreso);
     		$ingreso->estado='C';
     		$ingreso->update();
+				Alert::info('¡Correcto!', 'El ingreso ha sido cancelado satisfactoriamente')->autoclose(4000);
 
         return Redirect::to('ingresos');
 
 		}
 		
-		public function pdf()
-		{         
-			/**
-			 * toma en cuenta que para ver los mismos 
-			 * datos debemos hacer la misma consulta
-			**/
-			$ingresos = Ingreso::all(); 
+		public function exportarPdf()
+    {
+        $ingresos = Ingreso::all();
+ 
+        $pdf = PDF::loadView( "vendor.admin.ingresos.ingresos-pdf",compact('ingresos'));
+        return $pdf->download('Listado Ingresos.pdf');
+
+    }
 		
-			$pdf = PDF::loadView( "vendor.admin.ingresos.pdf.ingresos", compact('ingresos'));
-	
-			return $pdf->download('listado.pdf');
-			
-		}
 
     } 
 

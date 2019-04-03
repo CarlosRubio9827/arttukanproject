@@ -8,11 +8,11 @@
   				<button type="button" class="close" data-dismiss=modal arial-label="Close">
 					<span aria-hidden="true">x</span>
   				 </button>
-  				 <h4 class="modal-tittle"> Eliminar Producto</h4>
+  				 <h4 class="modal-tittle"> Eliminar Artículo</h4>
   			</div>
 
   			<div class="modal-body">
-  				<p>Confirme si desea eliminar el producto</p>
+  				<p>Confirme si desea eliminar el artículo</p>
   			</div>
 
   			<div class="modal-footer">

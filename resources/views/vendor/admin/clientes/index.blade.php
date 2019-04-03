@@ -30,7 +30,7 @@
                           <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a href="{{ route('clientes.pdf') }}">PDF</a></li>
+                          <li><a href="{{ route('clientesPdf') }}">PDF</a></li>
                           <li><a href="#">Excel</a></li>
                       </ul>
                     </div> 
@@ -45,7 +45,7 @@
                                     <th>Telefono</th>
                                     <th>Opciones</th>
 
-                                </thead>
+                                </thead>  
                                     @foreach ($clientes as $cliente)
                                 <tr> 
                                     <td>{{$cliente->numDocumento}}</td>
@@ -55,7 +55,8 @@
                                     <td>{{$cliente->telefono}}</td>
 
                                     <td> 
-                                        <a href="{{ route('clientes.show', $cliente->id)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ route('clientes.edit', $cliente->id)  }}"><button class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                            <a href="{{ route('clientes.show', $cliente->id)  }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                         <a href="" data-target="#modal-delete-{{ $cliente->id }}" data-toggle="modal"><button class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
                                             @include('vendor.admin.clientes.modal')
                                     </td>
@@ -72,6 +73,10 @@
         </div>
     </div>
 </section><!-- /.content -->        
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Include this after the sweet alert js file -->
+    @include('sweet::alert')
 
  @endsection()
 

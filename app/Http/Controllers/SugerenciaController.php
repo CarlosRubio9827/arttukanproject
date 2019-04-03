@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Sugerencia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Alert;
 
 class SugerenciaController extends Controller
 {
@@ -21,6 +21,8 @@ class SugerenciaController extends Controller
         $sugerencia->email = $request->get('Mail');
         $sugerencia->sugerencias=$request->get('sugerencias');
         $sugerencia->save();
+        Alert::info('¡Correcto!', 'La sugrencia ha sido enviada correctamente')->autoclose(4000);
+
 
         return view('vendor.adminlte.layouts.landing');
 

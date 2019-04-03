@@ -7,6 +7,8 @@ use App\TipoProducto;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\TipoProductoRequest;
 use DB;
+use Alert;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class TipoProductoController extends Controller 
 {
@@ -55,6 +57,7 @@ class TipoProductoController extends Controller
         $tipoProducto->descripcionTipoProducto = $request->get('descripcionTipoProducto');
         $tipoProducto->condicion = '1';
         $tipoProducto->save();
+        Alert::success('¡Correcto!', 'El producto '.$tipoProducto->nombreTipoProducto.' ha sido registrado satisfactoriamente')->autoclose(4000);
 
         return redirect()->route('tipoProductos.index');
         
@@ -97,6 +100,9 @@ class TipoProductoController extends Controller
         $tipoProducto->descripcionTipoProducto=$request->get('descripcionTipoProducto');
        
         $tipoProducto->update();
+
+        Alert::success('¡Correcto!', 'El producto '.$tipoProducto->nombreTipoProducto.' ha sido modificado satisfactoriamente')->autoclose(4000);
+
         return Redirect::to('tipoProductos');
     
  }
@@ -113,6 +119,18 @@ class TipoProductoController extends Controller
         $tipoProducto = TipoProducto::findOrFail($idTipoProducto);
         $tipoProducto->condicion='0';
         $tipoProducto->update();
+        Alert::info('¡Correcto!', 'El producto '.$tipoProducto->nombreTipoProducto.' ha sido eliminado satisfactoriamente')->autoclose(4000);
+
             return Redirect::to('tipoProductos');
     }
+
+    public function exportarPdf()
+    {
+        $tipoProductos = TipoProducto::all();
+ 
+        $pdf = PDF::loadView( "vendor.admin.tipoProductos.tiposProductos-pdf",compact('tipoProductos'));
+        return $pdf->download('Listado Productos.pdf');
+
+    }
+
 }

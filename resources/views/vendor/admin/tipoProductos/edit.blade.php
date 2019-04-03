@@ -1,9 +1,12 @@
 @extends("vendor.adminlte.layouts.app")
  @section('htmlheader_title')
-     Editar Tipo Producto
+     Editar  Producto
 @endsection
  @section('contentheader_title')
-       Editar Tipo Producto
+ <div class="text-center">
+	 <b>Editar Producto</b>
+ </div>
+       
 @endsection
  
 @section('css-view')
@@ -21,7 +24,7 @@
 										<!-- Default box -->
 								<div class="box">
 									<div class="box-header with-border">
-										<h3 class="box-title">	Editar Tipo Producto: {{ $tipoProducto->nombreTipoProducto }}
+										<h3 class="box-title">	Editar Producto: {{ $tipoProducto->nombreTipoProducto }}
 											@if (count($errors)>0)
 										<div class="alert alert-danger">
 											<ul>

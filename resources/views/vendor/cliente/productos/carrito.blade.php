@@ -90,7 +90,6 @@
 		</div>
 		<p>
 				<a href="{{route('catalogo')}}" class="btn btn-primary btn-sm">Agregar otro producto </a>
-	
 				<a href="{{route('detalle-pedido')}}"><button type="button"  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Continuar</button></a> 
 			</p>
 		</div>

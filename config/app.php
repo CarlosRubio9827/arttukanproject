@@ -181,8 +181,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Alexo\LaravelPayU\LaravelPayUServiceProvider::class,
-    ],
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class
+        ],
 
     /*
     |--------------------------------------------------------------------------
@@ -234,7 +234,9 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'AdminLTE' => Acacha\AdminLTETemplateLaravel\Facades\AdminLTE::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class
+        
     ],
 
 ];

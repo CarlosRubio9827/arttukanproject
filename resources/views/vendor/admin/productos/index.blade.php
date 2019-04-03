@@ -1,14 +1,8 @@
  @extends("vendor.adminlte.layouts.app")
-
  
 
-@section('css-view') 
-
-
-@endsection()
-
 @section('htmlheader_title')
-    Productos
+    Articulos
 @endsection
  
 @section('contentheader_title')
@@ -27,26 +21,27 @@
             <!-- Default box -->
                 <div class="box box-warning" style="width: 950px";>
                     <div class="box-header with-border">
-                        <b>Productos</b> <a href="{{ route('productos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a>         
+                        <b>Articulos</b> <a href="{{ route('productos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a>         
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Exportar
                           <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a href="{{ route('productos.pdf') }}">PDF</a></li>
+                          <li><a href="{{ route('productosPdf') }}">PDF</a></li>
                           <li><a href="#">Excel</a></li>
                       </ul>
                     </div>
                     <div class="box-body">
+                            @if (count($productos))
                         <div class="table-responsive">
                                 <table id="productos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
                                     <thead>
                                           
                                         <th>Id</th>
                                         <th>Código</th>
-                                        <th>Nombre Producto</th> 
+                                        <th>Nombre Articulos</th> 
                                         <th>Precio</th>
-                                        <th>Tipo Producto</th>
+                                        <th>Producto</th>
                                         <th>Stock</th>
                                         <th>Imagen</th>
                                         <th>Opciones</th>
@@ -59,8 +54,8 @@
                                                 <td style="text-align:center;">{{$producto->idProducto}}</td>
                                                 <td style="text-align:center;">{{$producto->codigoProducto}}</td>
                                                 <td style="text-align:center;">{{$producto->nombreProducto }}</td>
-                                                <td style="text-align:center;">{{$producto->precio }}</td> 
-                                                <td style="text-align:center;">{{$producto->idTipoProducto}} </td>
+                                                <td style="text-align:center;">${{number_format($producto->precio) }}</td> 
+                                                <td style="text-align:center;">{{$producto->tipoProducto}} </td>
                                                 <td style="text-align:center;">{{$producto->stock}}</td>
                                                 <td> 
                                                   <img src="{{ asset('images/'.$producto->imagen) }}" alt="{{ $producto->nombreProducto }}" height="75px" width="75px" class="img-thumbnail">
@@ -79,12 +74,20 @@
                     </div>
                 <!-- /.box-body -->
                 </div>
-            <!-- /.box -->
-            </div>
+                @else
+    
+                <div class="card card-nav-tabs text-center">
+                    <div class="card-body">
+                      <h1 style="color:#000">Actualmente no tienes registrados articulos</h1>
+                    </div> 
+                </div>
+                    @endif            </div>
         </div>
     </div>
 </section><!-- /.content -->        
-    
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- Include this after the sweet alert js file -->
+@include('sweet::alert') 
 
 @endsection()
 

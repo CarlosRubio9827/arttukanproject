@@ -10,12 +10,16 @@ use App\Http\Requests\ClienteRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use DB;
+use Alert;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class ClienteController extends Controller
 {
+    protected $redirectTo = '/login';
     
     public function __construct(){
-
+        $this->middleware('auth');
     } 
                  
     public function index(Request $request)
@@ -24,13 +28,13 @@ class ClienteController extends Controller
         if ($request) {
         
         $clientes = DB::table('users as u')
+        ->where('u.estado','=','1')
         ->join('role_user as r','u.id','=','r.user_id')
         ->where('role_id','=','2')
         ->select('u.nombres','u.apellidos','u.email','u.telefono','u.numDocumento','u.id')
         ->orderBy('u.id','desc')
-        ->paginate(8);
-
-
+        ->paginate(10);
+ 
         return view('vendor.admin.clientes.index', ['clientes'=>$clientes]);   
          
         }
@@ -72,8 +76,9 @@ class ClienteController extends Controller
         DB::table('role_user')->insert(
             ['user_id' => $idCliente, 'role_id' => 2]
         ); 
-  
-        return redirect()->route('clientes.index');
+
+        Alert::success('¡Correcto!', 'El cliente'.$cliente->nombres.' ha sido registrado satisfactoriamente')->autoclose(4000);
+        return Redirect::to('clientes');
        // $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
         //return view('vendor.admin.productos.index', ['productos'=>$productos]);
           
@@ -95,13 +100,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($idProducto)
+    public function edit($idCliente)
     {
-        $producto=Producto::findOrFail($idProducto);
-        $tipoproductos = DB::select('select * from tipoproductos where condicion = :id', ['id' => 1]); 
-        
-
-        return view ('vendor.admin.productos.edit',['producto'=>$producto,'tipoProductos'=>$tipoproductos]);
+        $cliente=Cliente::findOrFail($idCliente);
+        return view ('vendor.admin.clientes.edit',['cliente'=>$cliente]);
     }
 
     /**
@@ -111,26 +113,24 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductoRequest $request, $idProducto)
+    public function update(ClienteRequest $request, $id)
     {
-        $producto = Producto::findOrFail($idProducto);
-        $producto->codigoProducto=$request->get('codigoProducto');
-        
-        $producto->nombreProducto = $request->get('nombreProducto');
-        $producto->stock = $request->get('stock');
-        $producto->idTipoProducto = $request->get('idTipoProducto');
-
-        if ($request->hasFile('image')) {
-              $file = $request->file('image');
-              $name = time().$file->getClientOriginalName();
-              $file->move(public_path().'/images',$name); 
-              $producto->imagen = $name;
-         }
+         $cliente = Cliente::findOrFail($id);
+         $cliente->nombres = $request->get('nombres');
+        $cliente->apellidos = $request->get('apellidos');
+        $cliente->email = $request->get('email');
+        $cliente->tipoDocumento = $request->get('tipoDocumento');
+        $cliente->numDocumento = $request->get('numDocumento');
+        $cliente->telefono = $request->get('telefono');
+        $cliente->direccion = $request->get('direccion');
+        $cliente->password = bcrypt($request->get('password'));
+        $cliente->estado = '1';
        
-        $producto->update();
+        $cliente->update();
+    
+        Alert::success('¡Correcto!', 'El cliente'.$cliente->nombres.' ha sido modificado satisfactoriamente')->autoclose(4000);
 
-         $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
-        return view('vendor.admin.productos.index', ['productos'=>$productos]);
+        return Redirect::to('clientes');
         
      
  }
@@ -141,18 +141,33 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idProducto)
+    public function destroy($idCliente)
     {
-        $producto = Producto::findOrFail($idProducto);
-        $producto->estado =2;
-        $producto->update(); 
+        $cliente = Cliente::findOrFail($idCliente);
+        $cliente->estado ="2";
+        $cliente->update(); 
 
-        $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
+        Alert::success('¡Correcto!', 'El cliente '.$cliente->nombres.' ha sido eliminado satisfactoriamente')->autoclose(4000);
         //return view('vendor.admin.productos.index', ['productos'=>$productos]);
-        
 
-        return Redirect::to('productos')->with('message', 'Eliminado satisfactoriamente');
+
+        return Redirect::to('clientes');
         //redirect()->route('vendor.admin.productos.index')->with("info", "Se ha elimnado correctamente");
+    }
+
+    public function exportarPdf()
+    {
+        $clientes = DB::table('users as u')
+        ->where('u.estado','=','1')
+        ->join('role_user as r','u.id','=','r.user_id')
+        ->where('role_id','=','2')
+        ->select('u.nombres','u.apellidos','u.email','u.telefono','u.tipoDocumento','u.numDocumento','u.id');
+        
+          $clientes= $clientes->get();  
+            
+        $pdf = PDF::loadView( "vendor.admin.clientes.clientes-pdf",compact('clientes'));
+        return $pdf->download('Listado Vlientes.pdf');
+
     }
 
 }

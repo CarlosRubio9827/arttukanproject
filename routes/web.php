@@ -1,6 +1,6 @@
 <?php
 use App\Ingreso;
-/*
+ /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ Route::get('/bienvenido', function(){
 return view('vendor.adminlte.welcome');
 });
 
-
+//Ruta Sugerencias
 Route::get('sugerencias', "SugerenciaController@store")->name('sugerencias');
 
 Route::resource('tipoProductos',"TipoProductoController");
@@ -34,49 +34,55 @@ Route::resource("productos","ProductoController");
 Route::resource("ventas","VentaController");
 Route::resource("ingresos","IngresoController");
 Route::resource("servicios","ServicioController");
-
-
 Route::resource('clientes','ClienteController');
- 
-Route::get('ingresosPdf', function(){
-                        
-            $ingresos = App\Ingreso::all(); 
-            $pdf = PDF::loadView( "vendor.admin.ingresos.ingresos-pdf",['ingresos'=>$ingresos]);
-            
-            return $pdf->download('listadoIngresospdf');
-})->name('ingresos.pdf');
+//Rutas Pedidos-----------------//
+Route::resource("pedidos","PedidoController");
 
-Route::get('ventasPdf', function(){
-                        
-            $ventas = App\Venta::all(); 
-            $pdf = PDF::loadView( "vendor.admin.ventas.ventas-pdf",['ventas'=>$ventas]);
-            
-            return $pdf->download('listadoVentas.pdf');
-})->name('ventas.pdf');
+Route:: get('pedidos/atender/{servicio}',[
+    'as'=>'pedidos/atender',
+    'uses'=>'PedidoController@atender'
+    ]); 
 
-Route::get('tiposProductosPdf', function(){
-                        
-    $tiposProductos = App\TipoProducto::all(); 
-    $pdf = PDF::loadView( "vendor.admin.tipoProductos.tiposProductos-pdf",['tiposProductos'=>$tiposProductos]);
-    
-    return $pdf->download('listadoTiposProducto.pdf');
-})->name('tiposProductos.pdf');
 
-Route::get('productosPdf', function(){
-                        
-    $productos = App\Producto::all(); 
-    $pdf = PDF::loadView( "vendor.admin.productos.productos-pdf",['productos'=>$productos]);
-    
-    return $pdf->download('listadoProductos.pdf');
-})->name('productos.pdf');
+Route:: get('usuarioServicio/store/{servicio}',[
+    'as'=>'usuarioServicio/store',
+    'uses'=>'UsuarioServicioController@store'
+    ]); 
 
-Route::get('clientesPdf', function(){
-                        
-    $clientes = App\Cliente::all(); 
-    $pdf = PDF::loadView( "vendor.admin.clientes.clientes-pdf",['clientes'=>$clientes]);
-    
-    return $pdf->download('listadoClientes.pdf');
-})->name('clientes.pdf');
+//Ruta Servicio Usuario
+Route:: get('usuarioServicio/store/{servicio}',[
+    'as'=>'usuarioServicio/store',
+    'uses'=>'UsuarioServicioController@store'
+    ]); 
+
+Route::get('usuarioServicio/index',[
+    'as'=>'usuarioServicio/index',
+    'uses'=>'UsuarioServicioController@index'
+]);
+
+Route::get('usuarioServicio/mostrar/{servicio}',[
+    'as'=>'usuarioServicio/mostrar',
+    'uses'=>'UsuarioServicioController@mostrar'
+]); 
+
+Route::get('usuarioServicio/atender/{servicio}',[
+    'as'=>'usuarioServicio/atender',
+    'uses'=>'UsuarioServicioController@atender'
+]);
+
+Route::get('ingresosPdf','IngresoController@exportarPdf')->name('ingresosPdf');
+
+Route::get('ventasPdf','VentaController@exportarPdf')->name('ventasPdf');
+
+Route::get('tiposProductos','TipoProductoController@exportarPdf')->name('tiposProductosPdf');
+
+Route::get('productosPdf', 'ProductoController@exportarPdf')->name('productosPdf');
+
+Route::get('serviciosPdf', 'ServicioController@exportarPdf')->name('serviciosPdf');
+
+Route::get('clientesPdf','ClienteController@exportarPdf')->name('clientesPdf');
+
+Route::get('pedidosPdf','PedidoController@exportarPdf')->name('pedidosPdf');
 
 // - Inicio Rutas Carritos ---------------------------------------------- //
 
@@ -143,7 +149,5 @@ Route::get('pagos/respuestasPago',[
     'uses'=>'PagoController@respuestaPago'
 ]);
 
-//Rutas Pedidos-----------------//
 
-Route::resource("pedidos","PedidoController");
 

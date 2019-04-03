@@ -5,7 +5,10 @@
 @endsection
 
 @section('contentheader_title')
-      Registrar Tipo De Producto
+<div class="text-center">
+	<b>Registrar Tipo De Producto</b>
+</div>
+    
 @endsection
 
 @section("main-content")

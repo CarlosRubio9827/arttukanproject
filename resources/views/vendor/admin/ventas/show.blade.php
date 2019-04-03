@@ -9,7 +9,10 @@
 @endsection()
 
 @section('contentheader_title')
-    Detalle de Venta
+<div class="text-center">
+    <b>Detalle de Venta</b>
+</div>
+
 @endsection
 
  @section('htmlheader_title')
@@ -65,15 +68,15 @@
                                             <th><h4>Total Venta</h4></th>
                                             <th></th>
                                             <th></th>
-                                            <th><h4 id="total">{{ $ventas->totalVenta }}</h4></th>
+                                            <th><h4 id="total">$ {{number_format($ventas->totalVenta)  }}</h4></th>
                                         </tfoot>
                                         <tbody>
                                                         @foreach ($detalleVentas as $detalle)
                                                             <tr>
                                                                 <td>{{ $detalle->nombreProducto }}</td>
                                                                 <td>{{ $detalle->cantidad }}</td>
-                                                                <td>{{ $detalle->precioVenta }}</td>
-                                                                <td>{{ $detalle->cantidad*$detalle->precioVenta }}</td>
+                                                                <td>$ {{ number_format($detalle->precioVenta) }}</td>
+                                                                <td>$ {{ number_format($detalle->cantidad*$detalle->precioVenta) }}</td>
                                                             </tr>
                                                         @endforeach
                                         </tbody>
@@ -82,7 +85,7 @@
                         </div>
                         <div class="panel-body" align="center">
                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                                <a href="{{ route('ventas.index') }}"><button class="btn btn-primary">Volver</button></a>
+                                                <a href="{{ route('ventas.index') }}"><button class="btn btn-danger">Volver</button></a>
                             </div>
                         </div>
                     </div>

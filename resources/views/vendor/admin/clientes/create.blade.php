@@ -131,6 +131,10 @@
                     
                 </div><!-- /.register-box -->
             </div>
+        </div>
+    </div>
+</div>
+        
                    
     
         @include('vendor.adminlte.layouts.partials.scripts_auth')

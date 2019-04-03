@@ -2,12 +2,15 @@
  
 
 @section('htmlheader_title')
-     Tipo Producto
+     Producto
 @endsection
 
 @section('contentheader_title')
-   <b>Detalle de Tipo Producto</b> 
-@endsection
+<div class="text-center">
+        <b>Detalle Producto</b>
+</div>
+    
+@endsection 
 
  @section("main-content")
  
@@ -21,7 +24,7 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<b><h3 class="box-title">Tipo de Producto: {{ $tipoProducto->nombreTipoProducto }}</h3></b>
+						<b><h3 class="box-title"> Producto: {{ $tipoProducto->nombreTipoProducto }}</h3></b>
 					</div>
 					<div class="box-body">
                         <table class="table table-hover">
@@ -40,7 +43,7 @@
                                 </tr>
                                 <tr>
                                     <td><a href="{{ route('tipoProductos.edit', $tipoProducto->idTipoProducto) }}" class="btn btn-primary pull-right">Editar</a></td>
-                                    <td><a href="{{ route('tipoProductos.index') }}" class="btn btn-primary pull-left">Volver</a></td>
+                                    <td><a href="{{ route('tipoProductos.index') }}" class="btn btn-danger pull-left">Volver</a></td>
                                 </tr>
                             </head> 
                         </table>

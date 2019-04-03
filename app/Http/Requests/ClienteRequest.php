@@ -27,7 +27,7 @@ class ClienteRequest extends FormRequest
             'nombres' => 'required',
             'apellidos' => 'required',
             'numDocumento' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required|min:6',
         ];
     }

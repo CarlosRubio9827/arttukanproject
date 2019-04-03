@@ -1,6 +1,6 @@
-<div class="modal fade modal-slide-in-right" aria-hidden="true" role ="dialog" tabindex="-1" id="modal-delete-{{ $tipoProducto->idTipoProducto }}">
+<div class="modal fade modal-slide-in-right" aria-hidden="true" role ="dialog" tabindex="-1" id="modal-delete-{{ $servicio->idServicio }}">
 	
-     {{  Form::Open(array('action'=>array('TipoProductoController@destroy',$tipoProducto->idTipoProducto),'method'=>'delete'))}}
+     {{  Form::Open(array('action'=>array('ServicioController@destroy',$servicio->idServicio),'method'=>'delete'))}}
   		<div class="modal-dialog">
   		<div class="modal-content">
 
@@ -8,11 +8,11 @@
   				<button type="button" class="close" data-dismiss=modal arial-label="Close">
 					<span aria-hidden="true">x</span>
   				 </button>
-  				 <h4 class="modal-tittle"> Eliminar Producto</h4>
+  				 <h4 class="modal-tittle"> Eliminar Servicio</h4>
   			</div>
 
   			<div class="modal-body">
-  				<p>Confirme si desea eliminar la categoria</p>
+  				<p>Confirme si desea eliminar el servicio</p>
   			</div>
 
   			<div class="modal-footer">

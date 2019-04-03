@@ -13,7 +13,7 @@
 
  @section("contentheader_title")
 <div class="text-center">
-    <p>Lista de mis pedidos</p>
+    <b>Lista de mis pedidos</b>
 </div>
  @endsection()
 
@@ -36,7 +36,7 @@
     @if(count($pedidos))
  <div class="box box-success">
      <div class="box-header with-border">
-        Pedidos
+        <b>Pedidos</b>
      </div>
      <div class="box-body">
           <div class="table-responsive">

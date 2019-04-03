@@ -8,7 +8,7 @@
 @endsection()
 
 @section('htmlheader_title')
-    Registrar Producto
+    Registrar Artículo
 @endsection
 
 @section('contentheader_title')
@@ -27,7 +27,7 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title"> Productos </h3>
+						<h3 class="box-title"> Registrar Artículo </h3>
 					</div>
 					<div class="box-body">
 						<div class="container-fluid">
@@ -48,28 +48,28 @@
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="codigoProducto">Código Producto</label>
-										<input type="text" name="codigoProducto" required value="{{ old('codigoProducto') }}"class='form-control' placeholder="Codigo Producto">
+										<label for="codigoProducto"><b>Código Artículo</b></label>
+										<input type="text" name="codigoProducto" required value="{{ old('codigoProducto') }}"class='form-control' placeholder="Codigo Artículo">
 									</div>
 								</div>
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="nombreProducto">Nombre Producto</label>
-										<input type="text" name="nombreProducto" required value="{{ old('nombreProducto') }}"class='form-control' placeholder="Nombre Producto">
+										<label for="nombreProducto"><b>Nombre Artículo</b></label>
+										<input type="text" name="nombreProducto" required value="{{ old('nombreProducto') }}"class='form-control' placeholder="Nombre Artículo">
 									</div>
 								</div>
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="precioProducto">Precio Producto</label>
-										<input class="input-number form-control" type="number" min="1" name="precioProducto" required value="{{ old('precioProducto') }}"  placeholder="Precio Producto">
+										<label for="precioProducto"><b>Precio Artículo</b></label>
+										<input class="input-number form-control" type="number" min="1" name="precioProducto" required value="{{ old('precioProducto') }}"  placeholder="Precio Artículo">
 									</div>
 								</div>
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label>Tipo Producto</label>
+										<label><b>Producto</b></label>
 										<select name="idTipoProducto" id="idProducto" class="form-control selectpicker" data-live-search='true'>
 											@foreach ($tipoProductos as $tipoProducto)
 												<option value="{{ $tipoProducto->idTipoProducto }}">{{ $tipoProducto->nombreTipoProducto }}</option>
@@ -80,21 +80,21 @@
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="stock">Stock</label>
+										<label for="stock"><b>Stock</b></label>
 										<input class="input-number form-control" type="number" min="1" name="stock" required value="{{ old('stock') }}"  placeholder="Stock">
 									</div>
 								</div>
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="imagen">Imagen </label>
+										<label for="imagen"><b>Imagen</b> </label>
 											{!! Form::file('image',['class'=>'form-control']) !!}
 									</div> 
 								</div>
 
 								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
 									<div class="form-group">
-										<label for="descripcion">Descripcion</label>
+										<label for="descripcion"><b>Descripción</b></label>
 										<textarea name="descripcion" required value="{{ old('descripcion') }}"class='form-control form-group-lg' placeholder="Descripcion" rows="1" cols="50">		
 										</textarea>
 									</div>

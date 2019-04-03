@@ -53,15 +53,12 @@ desired effect
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
-    @include('vendor.adminlte.layouts.partials.controlsidebar')
-
+ 
     @include('vendor.adminlte.layouts.partials.footer')
 
 </div><!-- ./wrapper -->
 </div>
 @section('scripts')
-
-
     @include('vendor.adminlte.layouts.partials.scripts')
        <script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
 @show

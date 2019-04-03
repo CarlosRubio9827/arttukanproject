@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use Zizaco\Entrust\EntrustFacade as Entrust;
 use Spatie\Permission\Traits\HasRoles;
+use Alert;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 class ServicioController extends Controller
@@ -28,6 +30,7 @@ class ServicioController extends Controller
         
         $servicios = DB::table('servicios as s')
         ->select('s.idServicio','s.codigo','s.descripcion','s.precio','s.nombre','s.imagen')
+        ->where('s.estado','=','1')
         ->orderBy('s.idServicio','desc')
         ->paginate(8); 
 
@@ -36,7 +39,7 @@ class ServicioController extends Controller
             return view('vendor.admin.servicios.index', ['servicios'=>$servicios]);   
          
         }else if(Entrust::hasRole('cliente')){
-            return view('vendor.cliente.servicios.index', ['productos'=>$servicios]);
+            return view('vendor.cliente.servicios.index', ['servicios'=>$servicios]);
         }else{
             return view('vendor.adminlte.auth.login');
         }
@@ -66,6 +69,7 @@ class ServicioController extends Controller
         $servicio->nombre = $request->get('nombre');
         $servicio->descripcion = $request->get('descripcion');
         $servicio->precio = $request->get('precio');
+        $servicio->estado = '1';
  
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -78,10 +82,10 @@ class ServicioController extends Controller
         
         $servicio->save();
 
-        return redirect()->route('servicios.index');
-       // $productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
-        //return view('vendor.admin.productos.index', ['productos'=>$productos]);
-        
+        Alert::success('¡Correcto!', 'El servicio ha sido registrado satisfactoriamente')->autoclose(4000);
+
+        return Redirect::to('servicios');
+
             }
 
     /**
@@ -111,6 +115,7 @@ class ServicioController extends Controller
 
         $servicio=Servicio::findOrFail($idServicio);
 
+
         return view ('vendor.admin.servicios.edit',['servicio'=>$servicio]);
     }
  
@@ -136,9 +141,10 @@ class ServicioController extends Controller
             $file->move(public_path().'/images',$name); 
             $servicio->imagen = $name;
        }else{
-           $servicio->imagen = "Producto sin imagen";
+           $servicio->imagen = "Servicio sin imagen";
        }
-        
+       Alert::success('¡Correcto!', 'El servicio ha sido modificado satisfactoriamente')->autoclose(4000);
+
         $servicio->update();
 
         //$productos = DB::table('productos')->orderBy('idProducto','desc')->paginate(8);
@@ -148,12 +154,26 @@ class ServicioController extends Controller
 
  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-   
+ public function destroy($id)
+ {
+     $servicio=Servicio::findOrFail($id);
+     $servicio->estado = '2';
+     $servicio->update();
+  
+     Alert::success('¡Correcto!', 'El servicio ha sido eliminado satisfactoriamente')->autoclose(4000);
+
+     return Redirect::to('servicios');
+ }
+
+ public function exportarPdf()
+ {
+    $servicios = DB::table('servicios as s')
+    ->select('s.idServicio','s.codigo','s.descripcion','s.precio','s.nombre','s.imagen')
+    ->where('s.estado','=','1');
+    $servicios = $servicios->get();
+     $pdf = PDF::loadView( "vendor.admin.servicios.servicios-pdf",compact('servicios'));
+     return $pdf->download('Listado Servicios.pdf');
+
+ }
 
 }

@@ -20,6 +20,7 @@ class Servicios extends Migration
             $table->string('descripcion');            
             $table->double('precio');
             $table->string('imagen');
+            $table->string('estado');
             $table->timestamps();       
         });
     }

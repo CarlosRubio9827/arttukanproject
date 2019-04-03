@@ -5,7 +5,7 @@
 @endsection()
  
 @section('htmlheader_title')
-     Tipos de Producto
+     Productos
 @endsection
 
 @section('contentheader_title')
@@ -20,27 +20,28 @@
     <div class="container-fluid spark-screen">
 		<div class="row">
 			<div class="col-md-12 col-md-offset ">
-
+ 
 				<!-- Default box -->
 				<div class="box box-primary" style="width: 900px";>
 					<div class="box-header with-border">
-                       <b>Tipos de Producto</b> <a href="{{ route('tipoProductos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
+                       <b> Productos</b> <a href="{{ route('tipoProductos.create') }}"><button class="btn btn-success"> Nuevo <i class="fa fa-plus"></i></button></a> 
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Exportar
                       <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="{{ route('tiposProductos.pdf') }}">PDF</a></li>
+                            <li><a href="{{ route('tiposProductosPdf') }}">PDF</a></li>
                             <li><a href="#">Excel</a></li>
                         </ul>
                     </div>
 					<div class="box-body">
-  
+                        @if (count($tipoProductos))
+                            
                         <div class="table-responsive">
                             <table id="tipoProductos-dt" class="table table-striped table-bordered table-condensed table-hover" WIDTH="900">
                                 <thead>
                                     <th>Id</th>
-                                    <th>Nombre Tipo Producto</th>
+                                    <th>Nombre Producto</th>
                                     <th>Descripcion</th>
                                     <th>Opciones</th>
                                     {{-- <th>Imagen</th> --}}
@@ -64,14 +65,25 @@
                             </table>
                         </div>
                     {{ $tipoProductos->render() }}
+
                 </div>
 					<!-- /.box-body -->
 				</div>
-				<!-- /.box -->
-			</div>
+                @else
+    
+                <div class="card card-nav-tabs text-center">
+                    <div class="card-body">
+                      <h1 style="color:#000">Actualmente no tienes registrados Productos</h1>
+                    </div> 
+                </div>
+                    @endif
+            </div>
 		</div>
 	</div>
 </section><!-- /.content -->        
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Include this after the sweet alert js file -->
+    @include('sweet::alert')
 
 @endsection()
 

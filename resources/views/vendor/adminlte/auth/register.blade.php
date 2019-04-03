@@ -23,7 +23,7 @@
                             </div>
                         @endif
             
-                        <div  class="register-box-body ">
+                        <div  class="register-box-body ">   
                             <p class="login-box-msg">Registrar Nuevo Usuario</p>
              
                             <form action="{{ url('/register') }}" method="post">
@@ -67,7 +67,7 @@
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
                                             <label>Número de Documento</label>
-                                            <input type="number" class="form-control" placeholder="Número Documento" name="numDocumento" value="{{ old('numDocumento') }}"/>
+                                            <input type="number" class="input-number form-control" placeholder="Número Documento" name="numDocumento" value="{{ old('numDocumento') }}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
@@ -82,7 +82,7 @@
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
                                             <label>Telefono</label>
-                                            <input type="number" class="form-control" name="telefono" placeholder="Telefono" name="telefono" value="{{ old('telefono') }}">
+                                            <input type="number" class="input-number form-control" name="telefono" placeholder="Telefono" name="telefono" value="{{ old('telefono') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
@@ -144,7 +144,6 @@
                         });
                     });
                 </script>
-            
             
  </div>
 
@@ -227,3 +226,19 @@
 
 
 @endsection
+
+
+<script src="{{ asset('/js/app.js') }}" type="text/javascript"></script>
+
+<script>
+
+$(document).ready(function() {
+alert('DSDSDSD');
+	$('.input-number').on('input', function () { 
+        this.value = this.value.replace(/[^0-9]/g,'');
+        });
+	   
+        });
+ 
+</script>
+	

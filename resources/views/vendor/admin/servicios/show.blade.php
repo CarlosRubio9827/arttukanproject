@@ -6,7 +6,9 @@
 @endsection
 
 @section('contentheader_title')
-   <b>Detalle del Servicio</b> 
+<div class="text-center">
+    <b>informacón del Servicio</b>
+</div>
 @endsection
 
  @section("main-content")
@@ -52,7 +54,7 @@
                                 </tr>
                                 <tr>
                                     <td><a href="{{ route('servicios.edit', $servicio->idServicio) }}" class="btn btn-primary pull-right">Editar</a></td>
-                                    <td><a href="{{ route('servicios.index') }}" class="btn btn-primary pull-left">Volver</a></td>
+                                    <td><a href="{{ route('servicios.index') }}" class="btn btn-danger pull-left">Volver</a></td>
                                 </tr>
                             </head> 
                         </table>

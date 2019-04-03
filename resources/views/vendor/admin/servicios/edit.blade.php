@@ -5,7 +5,10 @@
 @endsection
 
  @section('contentheader_title')
-       Editar Servicio
+ <div class="text-center">
+	 <b>Editar Servicio</b>
+ </div>
+       
 @endsection
  
  @section("main-content")
@@ -50,28 +53,28 @@
 					
 										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 											<div class="form-group">
-												   <label for="codigoServicio">Código Servicio</label>
+												   <label for="codigoServicio"><b>Código Servicio</b></label>
 												   <input type="text" name="codigo" required value="{{ $servicio->codigo }}"class='form-control'>
 											</div>
 										</div>
 					   
 										   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 											   <div class="form-group">
-												   <label for="nombreServicio">Nombre Servicio</label>
+												   <label for="nombreServicio"><b>Nombre Servicio</b></label>
 												   <input type="text" name="nombre" required value="{{ $servicio->nombre }}"class='form-control'>
 											   </div>
 										   </div>
 					   
 										   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 											   <div class="form-group">
-												   <label for="stock">Precio</label>
+												   <label for="stock"><b>Precio</b></label>
 												   <input class="input-number form-control" type="number" min="1" name="precio" required value="{{ $servicio->precio }}" >
 											   </div>
 										   </div>
 					   
 										   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 											   <div class="form-group">
-												   <label for="imagen">Imagen</label>
+												   <label for="imagen"><b>Imagen</b></label>
 												   {!! Form::file('image',['class'=>'form-control']) !!}
 												   @if (($servicio->imagen) != "")
 													   <img src="{{ asset('images/'.$servicio->imagen) }}"  height="75px" width="75px" class="img-thumbnail">
@@ -81,8 +84,9 @@
 
 											 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
 												<div class="form-group">
-													<label for="descripcion">Descripcion</label>
-													<textarea name="descripcion" required value="{{ $servicio->descripcion }}"class='form-control form-group-lg'  rows="1" cols="50">		
+													<label for="descripcion"><b>Descripcion</b></label>
+													<textarea name="descripcion" class='form-control form-group-lg'  rows="1" cols="50">		
+													{{$servicio->descripcion}}
 													</textarea>
 												</div>
 											</div>

@@ -61,7 +61,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                         <li><a href="{{ url('/login') }}"><b>Iniciar Sesión</b></a></li>
                         <li><a href="{{ url('/register') }}"><b>Registrarse</b></a></li>
                     @else
-                        <li><a href="/../home">{{ Auth::user()->name }}</a></li>
+                        <li><a href="{{url('/home')}}"><b>Ver Panel de Administración</b></a></li>
                     @endif
                 </ul>
             </div><!--/.nav-collapse -->
@@ -405,8 +405,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
             <div class="row">
                 <div class="col-lg-10">
                         <p>
-                                Escriba la información de teléfono (s) y correo (s) electrónico (s),  a través de los cuales lo puedan contactar.
-                               <br> Celular: 316-4939724
+                                <br> Celular: 316-4939724
                                 <br> Email: arttukancolombia@gmail.com
                                 <br>
                                 <strong>Horarios de Atencion</strong>
@@ -426,11 +425,11 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
                     <div class="row">
                         <div class="col-sm">
                             <a target="_blank" href="https://www.instagram.com/arttukancolombia/?hl=es-lam">  
-                                <i  class="fab fa-instagram"></i>
+                                <img src="{{asset('img/iconos/icons8-instagram-48.png')}}" alt="">
                             </a>
 
                             <a target="_blank" href="https://es-la.facebook.com/arttukancolombia/">
-                                <i class="fab fa-facebook-f"></i>
+                            <img src="{{asset('img/iconos/icons8-facebook-48.png')}}" alt="">
                             </a>
                         </div>
                     </div>
@@ -446,6 +445,10 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         </div>
     </div>
 </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Include this after the sweet alert js file -->
+    @include('sweet::alert')
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
