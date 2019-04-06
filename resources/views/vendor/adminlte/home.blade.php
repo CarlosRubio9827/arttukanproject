@@ -72,14 +72,14 @@
                     <div class="col-md-6">
                         <div class="box box-danger">
                             <div class="box-header with-border">
-                            <img width="90px" src="{{asset('img/iconos/icons8-carpeta-de-registros-200.png')}}" alt="">
+                            <img width="90px" src="{{asset('img/iconos/ejecucion.png')}}" alt="">
                             </div>
                             <div class="box-body no-padding">
                                     <a href="{{ route('ingresos.index')}}">       
                                     <td>
                                         <div class="card">
                                             <div class="card-body">
-                                                <button type="button" class="btn btn-block btn-danger btn-lg">Ingresos <i class="fa fa-clipboard-check"></i>
+                                                <button type="button" class="btn btn-block btn-danger btn-lg">Producción <i class="fa fa-clipboard-check"></i>
                                                 </button>
                                             </div>
                                         </div>     
@@ -116,7 +116,7 @@
                
                 <div class="row">
                         <div class="col-md-6">
-                                <div class="box  box-dafault">
+                                <div class="box  box-default">
                                     <div class="box-header with-border">
                                         <img width="90px" src="{{ asset('img/iconos/icons8-gestión-de-clientes-100.png') }}" alt="">
                                     </div>
@@ -125,7 +125,7 @@
                                             <td>
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <button type="button" class="btn btn-block btn-primary btn-lg">Clientes <i class="fa fa-clipboard-check"></i>
+                                                        <button type="button" class="btn btn-block btn-default btn-lg">Clientes <i class="fa fa-clipboard-check"></i>
                                                         </button>
                                                     </div>
                                                 </div>     
@@ -135,7 +135,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="box  box-default">
+                                <div class="box  box-info">
                                     <div class="box-header with-border">
                                         <img width="90px" src="{{ asset('img/iconos/icons8-servicios-80.png') }}" alt="">
                                     </div>
@@ -144,7 +144,7 @@
                                             <td>
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <button type="button" class="btn btn-block btn-primary btn-lg">Servicios <i class="fa fa-clipboard-check"></i>
+                                                        <button type="button" class="btn btn-block btn-info btn-lg">Servicios <i class="fa fa-clipboard-check"></i>
                                                         </button>
                                                     </div>
                                                 </div>     
@@ -228,7 +228,7 @@
                                             <td>
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <button type="button" class="btn btn-block btn-primary btn-lg">Servicios Solicitado<i class="fa fa-clipboard-check"></i>
+                                                        <button type="button" class="btn btn-block btn-primary btn-lg">Servicios Solicitados<i class="fa fa-clipboard-check"></i>
                                                         </button>
                                                     </div>
                                                 </div>     
@@ -241,11 +241,13 @@
             </div>
                 
             @endif
-</div>     
+    </div>     
 
 </div>
 
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- Include this after the sweet alert js file -->
+@include('sweet::alert')
 
 @endsection
    

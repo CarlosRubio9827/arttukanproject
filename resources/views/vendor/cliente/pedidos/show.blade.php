@@ -26,7 +26,9 @@
                 <!-- Default box -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Pedido {{ $pedido->idPedido }}</h3>
+                        <div class="text-center">
+                            <h3 class="box-title"><b>Pedido {{ $pedido->idPedido }}</b></h3>
+                        </div>
                     </div>
                     <div class="box-body">
 
@@ -40,7 +42,7 @@
                             <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
                                     <strong> Cliente </strong>
-                                <p>{{ $pedido->nombres }} {{$pedido->apellidos}} - {{$pedido->numDocumento}}</p>
+                                <p>{{ $pedido->nombres }} {{$pedido->apellidos}} - <b>Cc</b> {{$pedido->numDocumento}}</p>
                                 </div>
                             </div>
                             <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4">    
@@ -60,10 +62,10 @@
                                             <th>Sub Total</th>
                                         </thead>
                                         <tfoot>
-                                            <th><h4>Total Venta</h4></th>
+                                            <th><h4><b>Total Venta</b></h4></th>
                                             <th></th>
                                             <th></th>
-                                            <th><h4 id="total">${{number_format($pedido->totalPedido)}}</h4></th>
+                                            <th><h4 id="total"><b>${{number_format($pedido->totalPedido)}}</b></h4></th>
                                         </tfoot>
                                         <tbody>
                                                         @foreach ($detallePedidos as $detalle)
@@ -80,7 +82,7 @@
                         </div>
                         <div class="panel-body" align="center">
                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                                <a href="{{ route('pedidos.index') }}"><button class="btn btn-primary">Volver</button></a>
+                                                <a href="{{ route('pedidos.index') }}"><button class="btn btn-danger"><i class="fa fa-chevron-left"></i> Volver</button></a>
                             </div>
                         </div>
                     </div>

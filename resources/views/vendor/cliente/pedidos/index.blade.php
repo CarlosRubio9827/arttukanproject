@@ -55,7 +55,7 @@
                                 <td>${{number_format($venta->totalPedido) }}</td>
                                 <td>{{$venta->estado}}</td>
                                 <td> 
-                                   <a href="{{ route('pedidos.show', $venta->idPedido)  }}"><button class="btn btn-primary">Detalles</button></a>
+                                   <a href="{{ route('pedidos.show', $venta->idPedido)  }}"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detalles</button></a>
                                 </td>
                             </tr>
                         @endforeach

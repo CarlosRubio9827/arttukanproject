@@ -50,6 +50,7 @@
                                 </div>
                                 <div  style="text-align: center"; class="col-md-12 col-lg-12 col-sm-12">
                                 <a href="{{url('/register')}}" class="text-center new-account">Crear una cuenta </a>
+                                <a href="{{url('password/reset')}}">Olvidé mi contraseña</a>
                                 </div>    
                             </div>
                             
@@ -103,8 +104,7 @@
             <div class="row">
                 <div class="col-lg-10">
                         <p>
-                                Escriba la información de teléfono (s) y correo (s) electrónico (s),  a través de los cuales lo puedan contactar.
-                               <br> Celular: 316-4939724
+                                <br> Celular: 316-4939724
                                 <br> Email: arttukancolombia@gmail.com
                                 <br>
                                 <strong>Horarios de Atencion</strong>
@@ -124,11 +124,11 @@
                     <div class="row">
                         <div class="col-sm">
                             <a href="https://www.instagram.com/arttukancolombia/?hl=es-lam">  
-                                <i  class="fab fa-instagram"></i>
+                            <img src="{{asset('img/iconos/icons8-instagram-48.png')}}" alt="">
                             </a>
 
                             <a href="https://es-la.facebook.com/arttukancolombia/">
-                                <i class="fab fa-facebook-f"></i>
+                                <img src="{{asset('img/iconos/icons8-facebook-48.png')}}" alt="">
                             </a>
                         </div>
                     </div>

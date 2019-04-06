@@ -28,21 +28,29 @@ Servicios
             <div class="table-responsive">
                 <table id="ventas-dt" class="table table-striped table-bordered table-condensed table-hover">
                     <thead>
-                        <th>id Solicitud Servicio</th>
-                        <th>Servicio</th>
-                        <th>Cliente</th>
-                        <th>Estado</th>
-                        <th>Opciones</th> 
+                        <th class="text-center">ID Solicitud</th>
+                        <th class="text-center">Servicio</th>
+                        <th class="text-center">Cliente</th>
+                        <th class="text-center">Fecha - Hora</th>
+                        <th class="text-center">Estado</th>
+                        <th class="text-center">Opciones</th> 
                     </thead>
                         @foreach ($usuarioServicio as $pedido)
                     <tr> 
                         <td>{{$pedido->idUsuarioServicios }}</td>
                         <td>{{$pedido->nombre}}</td>
                         <td>{{$pedido->nombres }} {{$pedido->apellidos}}</td>
+                        <td>{{$pedido->created_at}}</td>
                         <td>{{$pedido->estadoSolicitud}}</td>
                         <td>
                             <a href="{{ route('usuarioServicio/mostrar', $pedido->idUsuarioServicios) }}"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                            <a href="{{ route('usuarioServicio/atender', $pedido->idUsuarioServicios) }}"><button class="btn btn-warning"><i class="fa fa-plus" aria-hidden="true"></i> Atender</button></a>
+                            <a href="{{ route('usuarioServicio/atender', $pedido->idUsuarioServicios) }}"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> </button></a>
+                            <a href="" data-target="#modal-delete-{{ $pedido->idUsuarioServicios }}" data-toggle="modal">
+                                <button class="btn btn-danger">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </button>
+                            </a>     
+                                @include('vendor.admin.usuarioServicios.modal')
                         </td>
                     </tr>
                            @endforeach

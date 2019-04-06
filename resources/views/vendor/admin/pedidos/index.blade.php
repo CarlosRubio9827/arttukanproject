@@ -38,11 +38,11 @@
      <div class="box-header with-border">
         <b>Pedidos</b>
         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Exportar
+                Exportar 
           <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a href="{{ route('pedidosPdf') }}">PDF</a></li>
+          <li><a href="{{ route('pedidosPdf') }}">PDF <i class="fa fa-file-pdf-o"></i></a></li>
       </ul>
      </div>
      <div class="box-body">
@@ -61,11 +61,11 @@
                                 <td class="text-center">{{$venta->idPedido}}</td>
                                 <td class="text-center">{{$venta->fechaHora }}</td>
                                 <td class="text-center">{{$venta->nombres}} {{$venta->apellidos}}</td>
-                                <td class="text-center">${{number_format($venta->totalPedido) }}</td>
+                                <td class="text-center">$ {{number_format($venta->totalPedido) }}</td>
                                 <td class="text-center">{{$venta->estado}}</td>
                                 <td class="text-center"> 
                                    <a href="{{ route('pedidos.show', $venta->idPedido)  }}"><button class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
-                                   <a href="{{ route('pedidos/atender', $venta->idPedido)  }}"><button class="btn btn-warning"><i class="fa fa-plus"></i> Atender</button></a>
+                                   <a href="{{ route('pedidos/atender', $venta->idPedido)  }}"><button class="btn btn-success"><i class="fa fa-plus"></i> </button></a>
                                    <a href="" data-target="#modal-delete-{{ $venta->idPedido }}" data-toggle="modal">
                                         <button class="btn btn-danger">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>

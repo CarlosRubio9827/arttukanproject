@@ -26,9 +26,9 @@
     <div class="row" id="productos">
         @foreach ($productos as $producto)
         <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="producto white-panel">
+            <div style="min-height: 414px" class="producto white-panel">
                 <h3>{{$producto->nombreProducto}}</h3><hr>
-                <img src="{{asset('images/'.$producto->imagen)}}" alt="Imagen del Producto" width="130px" height="170px">
+                <img  src="{{asset('images/'.$producto->imagen)}}" alt="Imagen del Producto" width="130px" height="170px">
                 <div class="producto-info panel">
                     <p>{{$producto->descripcion}}</p>
                     <p><span class="label label-success">Precio: ${{ number_format($producto->precio)}}</span></p>

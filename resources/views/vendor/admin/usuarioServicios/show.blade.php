@@ -2,12 +2,12 @@
  
 
 @section('htmlheader_title')
-     Información de Solicitud
+     Información de la Solicitud
 @endsection
 
 @section('contentheader_title')
 <div class="text-center">
-    <b>información de tu Solicitud</b>
+    <b>Información de la Solicitud</b>
 </div>
 @endsection
 
@@ -22,7 +22,9 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<b><h3 class="box-title">Solicitud: {{ $servicio->idUsuarioServicios }}</h3></b>
+                        <div class="text-center">
+                            <h3 class="box-title"><b>Solicitud: {{ $servicio->idUsuarioServicios }}</b></h3>
+                        </div>
                     </div>
                    
 					<div class="box-body">
@@ -30,7 +32,11 @@
                             <head>
                                 <tr>
                                     <td><b>Nombre Servicio</b></td>
-                                        <td>{{ $servicios->nombre }}</td>
+                                    <td>{{ $servicios->nombre }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Fecha - Hora Solicitud</b></td>
+                                    <td>{{ $servicio->created_at}}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Nombre Cliente</b></td>
@@ -41,7 +47,7 @@
                                     <td>{{ $cliente->numDocumento}}</td>
                                 </tr>
                                 <tr>
-                                    <td><b>Telefono</b></td>
+                                    <td><b>Teléfono</b></td>
                                     <td>{{ $cliente->telefono}}</td>
                                 </tr>
                                 <tr>

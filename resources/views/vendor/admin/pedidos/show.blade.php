@@ -26,14 +26,16 @@
                 <!-- Default box -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Venta {{ $pedido->idPedido }}</h3>
+                        <div class="text-center">
+                            <h3 class="box-title"><b>Pedido {{ $pedido->idPedido }}</b></h3>
+                        </div>
                     </div>
                     <div class="box-body">
 
                         <div class="row">
                             <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-group">
-                                    <strong> Fecha Venta </strong>
+                                    <strong> Fecha Pedido </strong>
                                     <p>{{ $pedido->fechaHora }}</p>
                                 </div>
                             </div>

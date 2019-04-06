@@ -1,12 +1,12 @@
 @extends("vendor.adminlte.layouts.app")
 
 @section('htmlheader_title')
-     Registrar Tipo Producto
+     Registrar Producto
 @endsection
-
+  
 @section('contentheader_title')
 <div class="text-center">
-	<b>Registrar Tipo De Producto</b>
+	<b>Registrar Producto</b>
 </div>
     
 @endsection
@@ -21,7 +21,7 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title"> Tipo de Productos </h3>
+						<h3 class="box-title"> <b>Productos </b> </h3>
 					</div>
 					<div class="box-body">
 						
@@ -41,13 +41,13 @@
 							{{Form::token()}}
 								
 							<div class="form-group">
-								{!! Form::label('nombreTipoProducto', 'Nombre Tipo Producto') !!}
-								{!! Form::text('nombreTipoProducto', null, ['class' => 'form-control']) !!}
+								{!! Form::label('nombreTipoProducto', 'Nombre Producto *') !!}
+								{!! Form::text('nombreTipoProducto', null, ['class' => 'form-control', 'required']) !!}
 							</div>
 
 							<div class="form-group">
-								{!! Form::label('descripcionTipoProducto', 'Descripcion') !!}
-								{!! Form::text('descripcionTipoProducto', null, ['class' => 'form-control']) !!}
+								{!! Form::label('descripcionTipoProducto', 'Descripcion *') !!}
+								{!! Form::text('descripcionTipoProducto', null, ['class' => 'form-control','required']) !!}
 							</div>
 						
 							<div class="form-group">

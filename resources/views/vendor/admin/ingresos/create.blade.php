@@ -9,7 +9,7 @@
 @endsection()
 
 @section('htmlheader_title')
-    Registrar Ingreso
+    Registrar Producción
 @endsection 
 
 @section('contentheader_title')
@@ -27,7 +27,7 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title"> Ingresos </h3>
+						<h3 class="box-title"> Producción </h3>
 					</div>
 				<div class="box-body">
 
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="cantidad">Cantidad</label>
-                                    <input type="number" name="pcantidad" id="pcantidad" class="form-control" placeholder="cantidad">
+                                    <input type="number" min="1" name="pcantidad" id="pcantidad" class="input-number form-control" placeholder="cantidad">
 
                                 </div>
                             </div>
@@ -132,6 +132,10 @@
     $(document).ready(function(){
         $('#bt_add').click(function(){
             agregar();
+        });
+        
+        $('.input-number').on('input', function () { 
+        this.value = this.value.replace(/[^0-9]/g,'');
         });
         
     });

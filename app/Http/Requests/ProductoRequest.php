@@ -27,6 +27,7 @@ class ProductoRequest extends FormRequest
             'nombreProducto' => 'required|max:191',
             'stock' => 'required|numeric',
             'idTipoProducto' => 'required',
+            'imagen' => 'image',
            
         ];
     }

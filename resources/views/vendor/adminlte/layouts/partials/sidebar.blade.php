@@ -48,7 +48,9 @@
         </li>
             
         <li class=""><a href="{{route('clientes.index')}}"><img width="20px" src="{{asset('img/iconos/icons8-gestión-de-clientes-100.png')}}"> <span>{{ trans('Clientes') }}</span></a></li>
-            @endif()
+        
+        <li><a href="{{route('sugerencias/index')}}"><img width="20px" src="{{asset('img/iconos/icons8-historial-de-pedidos-100.png')}}" alt=""> <span>{{ trans('Sugerencias') }}</span></a></li>     
+        @endif()
             @if (Entrust::hasRole('cliente'))
             
         <li><a href="{{route('catalogo')}}"><img width="20px" src="{{asset('img/iconos/icons8-caja-128.png')}}" alt=""> <span>{{ trans('Catálogo') }}</span></a></li>
@@ -62,7 +64,7 @@
         </li>
 
         <li><a href="{{route('pedidos.index')}}"><img width="20px" src="{{asset('img/iconos/icons8-historial-de-pedidos-100.png')}}" alt=""> <span>{{ trans('Mis Pedidos') }}</span></a></li>    
-            
+
             @endif()
             
         </ul><!-- /.sidebar-menu -->

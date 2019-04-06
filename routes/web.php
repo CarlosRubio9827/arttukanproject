@@ -22,12 +22,15 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/', function () {
     return view('vendor.adminlte.layouts.landing');
 });
+
 Route::get('/bienvenido', function(){
 return view('vendor.adminlte.welcome');
 });
 
 //Ruta Sugerencias
 Route::get('sugerencias', "SugerenciaController@store")->name('sugerencias');
+Route::get('sugerencias/index',"SugerenciaController@index")->name('sugerencias/index');
+Route::get('sugerencias/mostrar/{servicio}','SugerenciaController@mostrar')->name('sugerencias/mostrar');
 
 Route::resource('tipoProductos',"TipoProductoController");
 Route::resource("productos","ProductoController");
@@ -49,6 +52,8 @@ Route:: get('usuarioServicio/store/{servicio}',[
     'uses'=>'UsuarioServicioController@store'
     ]); 
 
+ 
+
 //Ruta Servicio Usuario
 Route:: get('usuarioServicio/store/{servicio}',[
     'as'=>'usuarioServicio/store',
@@ -68,6 +73,11 @@ Route::get('usuarioServicio/mostrar/{servicio}',[
 Route::get('usuarioServicio/atender/{servicio}',[
     'as'=>'usuarioServicio/atender',
     'uses'=>'UsuarioServicioController@atender'
+]);
+
+Route::get('usuarioServicio/cancelar/{servicio}',[
+    'as'=>'usuarioServicio/cancelar',
+    'uses'=>'UsuarioServicioController@cancelar'
 ]);
 
 Route::get('ingresosPdf','IngresoController@exportarPdf')->name('ingresosPdf');

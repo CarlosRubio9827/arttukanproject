@@ -13,19 +13,18 @@
 @endsection
 
 @section('contentheader_title')
- 
+    <div class="text-center">
+        <h1><i class="fa fa-shopping-cart"></i> Detalle del pedido</h1>
+    </div> 
 @endsection
 
 @section("main-content")
                 
 <div class="container text-center">
-    <div class="page-header">
-        <h1><i class="fa fa-shopping-cart"></i> Detalle del pedido</h1>
-    </div>
-
+    
     <div class="box box-default">
         <div class="table-responsive">
-            <h3>Datos del usuario</h3>
+            <h3><b>Datos del usuario</b></h3>
             <table class="table table-striped table-hover table-bordered">
                 <tr><td><strong>Nombre:</strong></td><td>{{ Auth::user()->nombres . " " . Auth::user()->apellidos }}</td></tr>
                 <tr><td><strong>Nuip:</strong></td><td>{{ Auth::user()->numDocumento }}</td></tr>
@@ -34,13 +33,13 @@
             </table>
         </div>
         <div class="table-responsive">
-            <h3>Datos del pedido</h3>
+            <h3><b>Datos del pedido</b></h3>
             <table class="table table-striped table-hover table-bordered">
                 <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
+                    <th class="text-center">Artículo</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Subtotal</th>
                 </tr>
                 @foreach($cart as $item)
                     <tr>
@@ -57,31 +56,45 @@
                 </span>
             </h3><hr>
             <p>
-                <a href="{{ route('mostrar-carrito') }}" class="btn btn-primary">
-                    <i class="fa fa-chevron-circle-left"></i> Regresar
-                </a>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                        <a href="{{ route('mostrar-carrito') }}" class="btn btn-primary">
+                            <i class="fa fa-chevron-circle-left"></i> Regresar
+                        </a>
+                    </div>
+                    
+                    {{-- <div class="col-md-4 col-lg-4 col-sm-4">
+                        <a href="#" class="btn btn-danger">
+                             Pagar Efectivo
+                        </a>
+                    </div> --}}
 
+                    <div class="col-md-4 col-lg-4 col-sm-4">
+                            <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
+                                <input name="merchantId"    type="hidden"  value="{{$info_pago->merchantId}}"   >
+                                <input name="accountId"     type="hidden"  value="{{$info_pago->accountId}}" >
+                                <input name="description"   type="hidden"  value="{{$info_pago->description}}"  >
+                                <input name="referenceCode" type="hidden"  value="{{$info_pago->referenceCode}}" >
+                                <input name="amount"        type="hidden"  value="{{$info_pago->amount}}"   >
+                                <input name="tax"           type="hidden"  value="{{$info_pago->tax}}"  >
+                                <input name="taxReturnBase" type="hidden"  value="{{$info_pago->taxReturnBase}}" >
+                                <input name="currency"      type="hidden"  value="{{$info_pago->currency}}" >
+                                <input name="signature"     type="hidden"  value="{{$info_pago->signature}}"  >
+                                <input name="test"          type="hidden"  value="{{$info_pago->test}}" >
+                                <input name="buyerEmail"    type="hidden"  value="{{$info_pago->buyerEmail}}" >
+                                <input name="responseUrl"    type="hidden"  value="{{$info_pago->responseUrl}}" >
+                                <input name="confirmationUrl"    type="hidden"  value="{{$info_pago->confirmationUrl}}" >
+                                <button class="btn btn-success" type="submit">
+                                    Pagar con Payu
+                                </button>
+                            </form>
+                    </div>
+                    
+                </div>
                 
-<button class="btn btn-success">
-                <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
-                    <input name="merchantId"    type="hidden"  value="{{$info_pago->merchantId}}"   >
-                    <input name="accountId"     type="hidden"  value="{{$info_pago->accountId}}" >
-                    <input name="description"   type="hidden"  value="{{$info_pago->description}}"  >
-                    <input name="referenceCode" type="hidden"  value="{{$info_pago->referenceCode}}" >
-                    <input name="amount"        type="hidden"  value="{{$info_pago->amount}}"   >
-                    <input name="tax"           type="hidden"  value="{{$info_pago->tax}}"  >
-                    <input name="taxReturnBase" type="hidden"  value="{{$info_pago->taxReturnBase}}" >
-                    <input name="currency"      type="hidden"  value="{{$info_pago->currency}}" >
-                    <input name="signature"     type="hidden"  value="{{$info_pago->signature}}"  >
-                    <input name="test"          type="hidden"  value="{{$info_pago->test}}" >
-                    <input name="buyerEmail"    type="hidden"  value="{{$info_pago->buyerEmail}}" >
-                    <input name="responseUrl"    type="hidden"  value="{{$info_pago->responseUrl}}" >
-                    <input name="confirmationUrl"    type="hidden"  value="{{$info_pago->confirmationUrl}}" >
-                    <input name="Submit"        type="submit"  value="Pagar con PayU" >
-                  </form>
-                </button>
+               
 
-                </p>
+            </p>
         </div>
     </div>
 </div>

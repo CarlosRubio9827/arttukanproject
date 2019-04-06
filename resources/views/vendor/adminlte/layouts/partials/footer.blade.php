@@ -2,7 +2,7 @@
 <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-        <p>2019 Creado por Carlos Rubio</p>
+        <p><b>Desarrollado por:</b> Carlos Rubio & Fernando Montoya</p>
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019 <a href="http://arttukancolombia.com">arttukancolombia.com</a>.</strong> 

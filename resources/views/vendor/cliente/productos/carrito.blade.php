@@ -4,13 +4,9 @@
 @endsection
  
 @section('contentheader_title')
-
-
-	<div class="text-center">
-			<strong><img width="35px" src="{{asset('img/iconos/icons8-carrito-de-compras-50.png')}}" > Carrito de Cotización</strong> 
-	</div>
-
-
+		<div class="text-center">
+			<strong><i class="fa fa-shopping-cart"></i> Carrito de Cotización</strong> 
+		</div>
 @endsection
 
 @section('main-content') 
@@ -18,10 +14,8 @@
 		
 			<br>
 			<br>
-
 		
 	@if(count($cart))
-
 
 			<div class="card  text-center">
 				  <div class="card-header card-header-primary"> 
@@ -126,10 +120,7 @@ $(document).ready(function(){
 		var href = $(this).data('href');
 		
 		var cantidad = $('#producto_' + idProducto).val();
-		alert(idProducto);
-		alert(cantidad);
-		alert(href);
-	
+	 
 		window.location.href = href + "/" + cantidad;
 	
 	})

@@ -28,8 +28,8 @@ class UsuarioServicioController extends Controller
         $usuarioServicio = DB::table('usuarioservicios as us')
         ->join('users as u','u.id','=','us.idUser')
         ->join('servicios as s','s.idServicio','=','us.idServicio')
-        ->select('us.idUsuarioServicios','us.idUser','us.estadoSolicitud','s.idServicio','us.costoTotal','u.nombres','u.apellidos','s.nombre')
-        ->groupBy('us.idUsuarioServicios','us.idUser','us.estadoSolicitud','s.idServicio','us.costoTotal','u.nombres','u.apellidos','s.nombre')
+        ->select('us.idUsuarioServicios','us.idUser','us.created_at','us.estadoSolicitud','s.idServicio','us.costoTotal','u.nombres','u.apellidos','s.nombre')
+        ->groupBy('us.idUsuarioServicios','us.idUser','us.created_at','us.estadoSolicitud','s.idServicio','us.costoTotal','u.nombres','u.apellidos','s.nombre')
         ->orderBy('us.idUsuarioServicios','desc')
         ->paginate(8); 
         
@@ -39,7 +39,7 @@ class UsuarioServicioController extends Controller
 
             $usuarioServicio = DB::table('usuarioservicios as us')
             ->join('servicios as s','us.idServicio','=','s.idServicio')
-            ->select('us.idUsuarioServicios','us.idUser','us.estadoSolicitud','s.nombre','s.idServicio','us.costoTotal')
+            ->select('us.idUsuarioServicios','us.created_at','us.idUser','us.estadoSolicitud','s.nombre','s.idServicio','us.costoTotal')
             ->where('us.idUser','=', Auth::user()->id)
             ->orderBy('us.idUsuarioServicios','desc')
             ->paginate(8); 
@@ -112,25 +112,46 @@ return view('vendor.admin.usuarioServicios.show',compact('servicio','servicios',
  
     }
 
-    public function atender(UsuarioServicio $servicio){
+    public function atender($id){
+
+        $servicio=UsuarioServicio::findOrFail($id);
 
         if($servicio->estadoSolicitud == "Pendiente"){
             $servicio->estadoSolicitud = "Atendido";
    
             $servicio->update();
 
-            Alert::success('¡Correcto!', 'El estado de la solicitud ha sido cambiado correctamente')->autoclose(4000);
+            Alert::success('¡Correcto!', 'La solicitud ha sido atendida correctamente')->autoclose(4000);
     
             return Redirect::to('usuarioServicio/index');
-       
+        }else if($servicio->estadoSolicitud == 'Rechazado'){
+            Alert::warning('¡Información!', 'Las solicitud rechazadas no se pueden atender')->autoclose(4000);
+            return Redirect::to('usuarioServicio/index');
         }else{
             Alert::info('¡Información!', 'Ya atendiste esta solicitud')->autoclose(4000);
     
-            return Redirect::to('usuarioServicio/index');
-            
+            return Redirect::to('usuarioServicio/index');   
         }
-       
     }
+
+    public function cancelar($id)
+    {
+        $servicio=UsuarioServicio::findOrFail($id);
+
+        if($servicio->estadoSolicitud == 'Rechazado'){
+            Alert::info('¡Información!', 'La solicitud del servicio ya fue rechazada')->autoclose(4000);
+            return Redirect::to('usuarioServicio/index');
+        }else if($servicio->estadoSolicitud == 'Atendido'){
+            Alert::warning('Información!', 'Las solicitud atendidas no se pueden rechazar')->autoclose(4000);
+            return Redirect::to('usuarioServicio/index');
+        }else{
+
+            $servicio->estadoSolicitud = "Rechazado";   
+            $servicio->update();
+            Alert::success('¡Correcto!', 'La solicitud del servicio ha sido rechazado satisfactoriamente')->autoclose(4000);
+            return Redirect::to('usuarioServicio/index');
+        }
+     }
 
     /**
      * Show the form for editing the specified resource.
@@ -174,16 +195,7 @@ return view('vendor.admin.usuarioServicios.show',compact('servicio','servicios',
 
  }
 
- public function destroy($id)
- {
-     $servicio=Servicio::findOrFail($id);
-     $servicio->estado = '2';
-     $servicio->update();
-  
-     Alert::success('¡Correcto!', 'El servicio ha sido eliminado satisfactoriamente')->autoclose(4000);
 
-     return Redirect::to('servicios');
- }
 
  public function exportarPdf()
  {

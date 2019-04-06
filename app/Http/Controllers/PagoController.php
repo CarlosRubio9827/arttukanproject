@@ -21,9 +21,11 @@ class PagoController extends Controller
 public function respuestaPago()
 {
     $transactionState = $_REQUEST['transactionState'];
-    $processingDate	=$_REQUEST['processingDate'];
-    $buyerEmail=$_REQUEST['buyerEmail'];
+    //$processingDate	=$_REQUEST['processingDate'];
+    //$buyerEmail=$_REQUEST['buyerEmail'];
     $transactionId = $_REQUEST['transactionId'];
+    //return $transactionState;
+
     if($transactionState==4)
     {
 
@@ -62,11 +64,10 @@ public function respuestaPago()
          $carrito=new  \stdClass();
          $carrito->total=0;
          $carrito->productos=[];   
-         Session::put("carrito", $carrito);
-
+         Session::put("cart", $carrito);
+         \Session::forget('cart');
+ 
          $id = $pedido->idPedido;
-
-        
 
          $pedidos=DB::table('pedidos as p')
          ->join('detallepedidos as dv','p.idPedido','=','dv.idPedido')
@@ -84,12 +85,33 @@ public function respuestaPago()
          Alert::success('¡Correcto!', 'El pedido ha sido registrado satisfactoriamente')->autoclose(4000);
 
          return view("vendor.cliente.pagos.respuestasPagos",['pedido'=>$pedidos,'detallePedidos'=>$detalles]);
-     }
-     else
-     {
-        return "EROOR" ;
-     }
-}
+        }
+
+        else if ($_REQUEST['transactionState'] == 6 ) {
+
+            Alert::warning('Error!', 'El pedido ha sido rechazado')->autoclose(4000);
+            \Session::forget('cart');
+            return view("vendor.adminlte.home");
+            $estadoTx = "Transacción rechazada";
+        }
+        
+        else if ($_REQUEST['transactionState'] == 104 ) {
+
+            Alert::warning('Error!', 'El pedido ha sido rechazado')->autoclose(4000);
+            \Session::forget('cart');
+            return view("vendor.adminlte.home");
+            $estadoTx = "Error";
+        }
+        
+        else if ($_REQUEST['transactionState'] == 7 ) {
+
+            Alert::warning('Error!', 'El pedido ha sido rechazado')->autoclose(4000);
+            \Session::forget('cart');
+            return view("vendor.adminlte.home");
+            $estadoTx = "Transacción pendiente";
+        }     
+    }
+
 public function getConfirmacionpagos()
 {
 

@@ -30,12 +30,23 @@ Servicios Solicitados
                 <table id="ventas-dt" class="table table-striped table-bordered table-condensed table-hover">
                     <thead>
                         <th>Servicio</th>
+                        <th>Fecha - Hora</th>
                         <th>Estado</th>
+                        <th>Opciones</th>
                     </thead>
                         @foreach ($usuarioServicio as $pedido)
                             <tr> 
                                 <td>{{$pedido->nombre }}</td>
+                                <td>{{$pedido->created_at}}</td>
                                 <td>{{$pedido->estadoSolicitud }}</td>
+                                <td>
+                                    <a href="" data-target="#modal-delete-{{ $pedido->idUsuarioServicios }}" data-toggle="modal">
+                                        <button class="btn btn-danger">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i> Cancelar
+                                        </button>
+                                    </a>     
+                                    @include('vendor.admin.usuarioServicios.modal')
+                                </td>
                             </tr>
                         @endforeach
                 </table>

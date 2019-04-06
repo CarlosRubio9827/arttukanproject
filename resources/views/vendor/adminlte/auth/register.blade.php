@@ -24,7 +24,7 @@
                         @endif
             
                         <div  class="register-box-body ">   
-                            <p class="login-box-msg">Registrar Nuevo Usuario</p>
+                            <p class="login-box-msg"><b>Registrar Nuevo Usuario</b></p>
              
                             <form action="{{ url('/register') }}" method="post">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -32,13 +32,13 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12 ">
                                         <div class="form-group has-feedback">
-                                            <label>Nombres</label>
+                                            <label><b>Nombres</b></label>
                                             <input type="text" class="form-control" placeholder="Nombres" name="nombres" value="{{ old('name') }}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
-                                            <label>Apellidos</label>
+                                            <label><b>Apellidos</b></label>
                                             <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" value="{{ old('apellidos') }}"/>
                                         </div>
                                     </div>
@@ -47,13 +47,13 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                             <div class="form-group has-feedback">
-                                            <label>Email</label>
+                                            <label><b>Email</b></label>
                                             <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
-                                            <label>Tipo Documento</label>
+                                            <label><b>Tipo Documento</b></label>
                                             <select name="tipoDocumento" id="tipoDocumento" class="form-control selectpicker" data-live-search='true'>
                                                 <option value="CÉDULA DE CIUDADANÍA">CÉDULA DE CIUDADANÍA</option>
                                                 <option value="TARJETA DE IDENTIDAD">TARJETA DE IDENTIDAD</option>
@@ -66,13 +66,13 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
-                                            <label>Número de Documento</label>
+                                            <label><b>Número de Documento</b></label>
                                             <input type="number" class="input-number form-control" placeholder="Número Documento" name="numDocumento" value="{{ old('numDocumento') }}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
-                                            <label>Dirección</label>
+                                            <label><b>Dirección</b></label>
                                             <input type="text" class="form-control" placeholder="Dirección" name="direccion" value="{{ old('direccion') }}"/>
                                         </div>
                                     </div>
@@ -81,13 +81,13 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
-                                            <label>Telefono</label>
+                                            <label><b>Teléfono</b></label>
                                             <input type="number" class="input-number form-control" name="telefono" placeholder="Telefono" name="telefono" value="{{ old('telefono') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
-                                            <label>Contraseña</label>
+                                            <label><b>Contraseña</b></label>
                                             <input type="password" class="form-control" placeholder="Password" name="password"/>
                                         </div>
                                     </div>
@@ -113,20 +113,24 @@
                                     </div>
                                     <div class="col-md-6 col-lg-6 olc-xs-12 col-sm-12">
                                         <div class="form-group has-feedback">
-                                            <label>Confirme Contraseña</label>
+                                            <label><b>Confirme Contraseña</b></label>
                                             <input type="password" class="form-control" placeholder="Confirme password" name="password_confirmation"/>
                                         </div>
                                     </div>
                                 </div>
                           
                                 <div class="row">
-                                    <!-- /.col -->
-                                    <div class="col-xs-10" >
-                                        <button type="submit" class="btn btn-primary btn-block btn-flat"> Registrarse </button>
+                                    <!-- /.col --><div class="text-center">
+                                    <div class="col-xs-12 col-md-12 col-sm-12" >
+                                        
+                                            <button type="submit" class="btn btn-primary btn-block btn-flat"> Registrarse </button>
+                                        </div>
                                     </div><!-- /.col -->
                                 </div>
                             </form>
-                            <a href="{{ url('/login') }}" class="text-center">¿Ya tienes una cuenta?</a>
+                            <div class="text-center">
+                                <a href="{{ url('/login') }}" class="text-center">¿Ya tienes una cuenta?</a>
+                            </div>
                         </div><!-- /.form-box -->
                     </div><!-- /.register-box -->
                

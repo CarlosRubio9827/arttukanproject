@@ -5,16 +5,15 @@
 @endsection
 
 @section('contentheader_title')
- 
+    <div class="text-center">
+        <h1> <i class="fa fa-shopping-cart"></i> <b>Detalle del Producto</b></h1>
+    </div>
+
 @endsection
 
 @section("main-content")
 
-<div class="container text-center">
-    <div class="page-header">
-        <h1> <i class="fa fa-shopping-cart"></i> Detalle del Producto</h1>
-    </div>
-</div>
+
 <hr>
 
 <div class="row text-center">

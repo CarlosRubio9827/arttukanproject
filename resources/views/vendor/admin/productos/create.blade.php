@@ -48,28 +48,28 @@
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="codigoProducto"><b>Código Artículo</b></label>
+										<label for="codigoProducto"><b>Código Artículo *</b></label>
 										<input type="text" name="codigoProducto" required value="{{ old('codigoProducto') }}"class='form-control' placeholder="Codigo Artículo">
 									</div>
 								</div>
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="nombreProducto"><b>Nombre Artículo</b></label>
+										<label for="nombreProducto"><b>Nombre Artículo *</b></label>
 										<input type="text" name="nombreProducto" required value="{{ old('nombreProducto') }}"class='form-control' placeholder="Nombre Artículo">
 									</div>
 								</div>
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="precioProducto"><b>Precio Artículo</b></label>
+										<label for="precioProducto"><b>Precio Artículo *</b></label>
 										<input class="input-number form-control" type="number" min="1" name="precioProducto" required value="{{ old('precioProducto') }}"  placeholder="Precio Artículo">
 									</div>
 								</div>
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label><b>Producto</b></label>
+										<label><b>Producto *</b></label>
 										<select name="idTipoProducto" id="idProducto" class="form-control selectpicker" data-live-search='true'>
 											@foreach ($tipoProductos as $tipoProducto)
 												<option value="{{ $tipoProducto->idTipoProducto }}">{{ $tipoProducto->nombreTipoProducto }}</option>
@@ -80,7 +80,7 @@
 							
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
 									<div class="form-group">
-										<label for="stock"><b>Stock</b></label>
+										<label for="stock"><b>Stock *</b></label>
 										<input class="input-number form-control" type="number" min="1" name="stock" required value="{{ old('stock') }}"  placeholder="Stock">
 									</div>
 								</div>

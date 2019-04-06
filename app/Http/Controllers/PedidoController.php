@@ -142,7 +142,14 @@ class PedidoController extends Controller
         ->select('p.nombreProducto','p.precio','d.cantidad','d.precioPedido')
         ->where('d.idPedido','=',$id)
         ->get();
-        return view ('vendor.cliente.pedidos.show',['pedido'=>$pedido,'detallePedidos'=>$detalle]);
+        if(Entrust::hasRole('admin')){
+            return view ('vendor.admin.pedidos.show',['pedido'=>$pedido,'detallePedidos'=>$detalle]);
+            
+        }else if(Entrust::hasRole('cliente')){
+            return view ('vendor.cliente.pedidos.show',['pedido'=>$pedido,'detallePedidos'=>$detalle]);
+        }else{
+            return view ('vendor.adminlte.welcome');
+        }
            
             }
 
@@ -162,27 +169,44 @@ class PedidoController extends Controller
      */
     public function atender( $id)
     {
-
-      
-
-        $Pedido=Pedido::findOrFail($id);
-        $Pedido->estado = 'Atendida';
-        $Pedido->update();
+        $pedido=Pedido::findOrFail($id);
+     
+        if($pedido->estado=='Atendido'){
+            Alert::info('¡Información!', 'Ya atendiste este pedido')->autoclose(4000);
+            return Redirect::to('pedidos');
+        }else if($pedido->estado=="Rechazado"){
+            Alert::warning('¡Información!', 'Los pedidos rechazados no se pueden atender')->autoclose(4000);
+            return Redirect::to('pedidos');
+        }else{
+        $pedido->estado = 'Atendido';
+        $pedido->update();
 
         Alert::success('¡Correcto!', 'El pedido ha sido atendido satisfactoriamente')->autoclose(4000);
 
-    return Redirect::to('pedidos');
+        return Redirect::to('pedidos');
 
+} 
+    
     }
 
     public function destroy($id)
     {
-        $Pedido=Pedido::findOrFail($id);
-        $Pedido->estado = 'Rechazada';
-        $Pedido->update();
+        $pedido=Pedido::findOrFail($id);
+
+        if($pedido->estado=='Rechazado'){
+            Alert::info('¡Información!', 'El pedido ya ha sido rechazado')->autoclose(4000);
+            return Redirect::to('pedidos');
+        }else if($pedido->estado=='Atendido'){
+            Alert::warning('¡Información!', 'Los pedidos atendidos no se pueden rechazar')->autoclose(4000);
+            return Redirect::to('pedidos');
+        }
+
+        $pedido->estado = 'Rechazado';
+        $pedido->update();
+
         Alert::success('¡Correcto!', 'El pedido ha sido cancelado satisfactoriamente')->autoclose(4000);
 
-return Redirect::to('pedidos');
+        return Redirect::to('pedidos');
 
     }
   
