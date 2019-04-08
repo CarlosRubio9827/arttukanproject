@@ -27,20 +27,20 @@ class IngresoController extends Controller
     	if ($request) {
 				$ingresos=DB::table('ingresos as i')
 				->where('estado','=','A')
-    		->join('detalleIngresos as di','i.idIngreso','=','di.idIngreso')
+    		->join('detalleingresos as di','i.idIngreso','=','di.idIngreso')
     		->select('i.idIngreso','i.fechaHora','i.estado')
     		->orderBy('i.idIngreso','desc')
     		->groupBy('i.idIngreso','i.fechaHora','i.estado')
 				->paginate(8);
-				
+		
     		return view('vendor.admin.ingresos.index',['ingresos'=>$ingresos]);
 
     	}}
 
     	public function create(){
 
-    		 $productos=DB::table('productos as p')
-				 ->select(DB::raw('CONCAT(p.idProducto," ",p.nombreProducto) as producto'),'p.idProducto')
+				 $productos=DB::table('productos as p')
+				 ->select(DB::raw('CONCAT("idProducto", "nombreProducto") as producto'),'p.idProducto')
 				 ->where('p.estado','=','1')
     		 ->get();
 
@@ -49,9 +49,9 @@ class IngresoController extends Controller
 
     	public function store(IngresoRequest $request){
 
-  				try {
-                      
-					  DB::beginTransaction();
+  				try {          
+						
+						DB::beginTransaction();
 					  $ingreso=new Ingreso();
 					  $mytime=Carbon::now('America/Bogota');
 						$ingreso->fechaHora=$mytime->toDateTimeString();
@@ -60,7 +60,6 @@ class IngresoController extends Controller
 
   					$idProducto = $request->get('idProducto');
   					$cantidad = $request->get('cantidad');
-
   					$cont = 0;
 
   					while ($cont < count($idProducto)) {
@@ -68,15 +67,20 @@ class IngresoController extends Controller
  						$detalleIngreso->idIngreso=$ingreso->idIngreso;
  						$detalleIngreso->idProducto=$idProducto[$cont];
  						$detalleIngreso->cantidad=$cantidad[$cont];
- 						$detalleIngreso->save();
-  						$cont=$cont+1;
-  					}
-					  DB::commit();
+
+						$detalleIngreso->save();
+						
+						$cont=$cont+1;
+						
+						}
+	
+						DB::commit();
+	
+					} catch (\Exception $e) {
+						
+						DB::rollback();
  
-  				} catch (\Exception $e) {
-				 
-					DB::rollback();
-  				}
+				}
 				
 				Alert::success('¡Correcto!', 'El ingreso ha sido registrado satisfactoriamente')->autoclose(4000);
 
@@ -87,11 +91,11 @@ class IngresoController extends Controller
     	public function show($id){ 
  
     		$ingreso = DB::table('ingresos as i')
-    		->join('detalleIngresos as di','i.idIngreso','=','di.idIngreso')
+    		->join('detalleingresos as di','i.idIngreso','=','di.idIngreso')
     		->select('i.idIngreso','i.fechaHora','i.estado','di.cantidad')
     		->where('i.idIngreso','=',$id)
     		->first();
-    		$detalleIngreso = DB::table('detalleIngresos as di')
+    		$detalleIngreso = DB::table('detalleingresos as di')
     		->join('productos as p','p.idProducto','di.idProducto')
     		->select('p.codigoProducto','p.nombreProducto','di.cantidad')
     		->where('di.idIngreso','=',$id)->get();

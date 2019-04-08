@@ -54,7 +54,7 @@ class VentaController extends Controller
     {
   
        $productos = DB::table('productos as p')
-       ->select(DB::raw('CONCAT(p.idProducto," ",p.nombreProducto) as producto'),'p.idProducto','p.stock','p.precio')
+       ->select(DB::raw('CONCAT("idProducto", "nombreProducto") as producto'),'p.idProducto','p.stock','p.precio')
        ->where('p.stock','>','0')
        ->where('p.estado','=','1')
        ->groupBy('producto','p.idProducto','p.stock','p.precio')
@@ -97,12 +97,12 @@ class VentaController extends Controller
                 $cont = 0; 
 
                 while ($cont < count($idProducto)) {
-                       $detalle = new DetalleVenta();
-                       $detalle->idVenta=$venta->idVenta;
-                       $detalle->idProducto=$idProducto[$cont];
+                       
+                    $detalle = new DetalleVenta();
+                    $detalle->idVenta=$venta->idVenta;
+                    $detalle->idProducto=$idProducto[$cont];
                        $detalle->cantidad=$cantidad[$cont];
                        $detalle->precioVenta=$precioVenta[$cont];
-
                        $detalle->save();
 
                        $cont=$cont+1;

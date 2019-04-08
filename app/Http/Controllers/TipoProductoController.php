@@ -26,7 +26,7 @@ class TipoProductoController extends Controller
 
         if ($request) { 
 
-        $tipoProductos = DB::table('tipoProductos')->where('condicion','=','1')->orderBy('idTipoProducto','desc')->paginate(8);
+        $tipoProductos = DB::table('tipoproductos')->where('condicion','=','1')->orderBy('idTipoProducto','desc')->paginate(8);
 
         return view('vendor.admin.tipoProductos.index', ['tipoProductos'=>$tipoProductos]);
 
