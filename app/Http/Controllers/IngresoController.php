@@ -22,6 +22,7 @@ class IngresoController extends Controller
 
     } 
 
+	
     public function index(Request $request){
 
     	if ($request) {
@@ -40,7 +41,7 @@ class IngresoController extends Controller
     	public function create(){
 
 				 $productos=DB::table('productos as p')
-				 ->select(DB::raw('CONCAT("idProducto", "nombreProducto") as producto'),'p.idProducto')
+				 ->select(DB::raw('CONCAT(idProducto," ",nombreProducto) as producto'),'p.idProducto')
 				 ->where('p.estado','=','1')
     		 ->get();
 

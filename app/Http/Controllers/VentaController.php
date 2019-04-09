@@ -24,7 +24,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 class VentaController extends Controller
 {
     public function index(Request $request)
-{  
+{    
  
         if(Entrust::hasRole('admin')){
             $ventas = DB::table('ventas as v')
@@ -54,7 +54,7 @@ class VentaController extends Controller
     {
   
        $productos = DB::table('productos as p')
-       ->select(DB::raw('CONCAT("idProducto", "nombreProducto") as producto'),'p.idProducto','p.stock','p.precio')
+       ->select(DB::raw('CONCAT(idProducto," ",nombreProducto) as producto'),'p.idProducto','p.stock','p.precio')
        ->where('p.stock','>','0')
        ->where('p.estado','=','1')
        ->groupBy('producto','p.idProducto','p.stock','p.precio')
